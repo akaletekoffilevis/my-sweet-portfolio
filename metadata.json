@@ -1,0 +1,6 @@
+{
+  "name": "Portfolio de John Doe",
+  "description": "Portfolio interactif de John Doe, Développeur Backend et Architecte Cloud, présentant ses compétences, projets et une console interactive de démo API.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
