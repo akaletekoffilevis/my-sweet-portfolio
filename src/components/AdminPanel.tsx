@@ -55,6 +55,7 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
     linkedin: profile.socials.linkedin,
     email: profile.socials.email,
     gpgKey: profile.socials.gpgKey,
+    whatsapp: profile.socials.whatsapp || "",
     metric0: profile.metrics[0] || { label: "", value: "", desc: "" },
     metric1: profile.metrics[1] || { label: "", value: "", desc: "" },
     metric2: profile.metrics[2] || { label: "", value: "", desc: "" },
@@ -127,7 +128,8 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
         github: profileForm.github,
         linkedin: profileForm.linkedin,
         email: profileForm.email,
-        gpgKey: profileForm.gpgKey
+        gpgKey: profileForm.gpgKey,
+        whatsapp: profileForm.whatsapp
       },
       metrics: [
         profileForm.metric0,
@@ -510,6 +512,16 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
                       value={profileForm.linkedin}
                       onChange={(e) => setProfileForm(v => ({ ...v, linkedin: e.target.value }))}
                       className="w-full bg-app-card-sec border border-app-border-strong text-app-text-white px-3.5 py-2 text-xs font-mono rounded-none focus:outline-none focus:border-app-text-white"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">Numéro WhatsApp</label>
+                    <input
+                      type="text"
+                      value={profileForm.whatsapp}
+                      onChange={(e) => setProfileForm(v => ({ ...v, whatsapp: e.target.value }))}
+                      className="w-full bg-app-card-sec border border-app-border-strong text-app-text-white px-3.5 py-2 text-xs font-mono rounded-none focus:outline-none focus:border-app-text-white"
+                      placeholder="ex. +227 91 53 52 20"
                     />
                   </div>
                   <div className="space-y-1.5">

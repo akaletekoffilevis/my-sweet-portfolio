@@ -99,7 +99,7 @@ export default function PrintableCv() {
             </div>
             <div className="flex items-center sm:justify-end gap-1.5 font-bold text-slate-900">
               <Phone className="w-3 h-3 text-teal-600" />
-              <span>+227 91 53 52 20</span>
+              <span>{profile.socials.whatsapp || "+227 91 53 52 20"}</span>
             </div>
             <div className="flex items-center sm:justify-end gap-1.5">
               <MapPin className="w-3 h-3 text-slate-400" />

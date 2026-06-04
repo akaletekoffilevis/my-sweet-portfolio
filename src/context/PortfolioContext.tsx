@@ -18,6 +18,7 @@ export interface ProfileData {
     linkedin: string;
     email: string;
     gpgKey: string;
+    whatsapp?: string;
   };
   metrics: {
     label: string;

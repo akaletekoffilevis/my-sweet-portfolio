@@ -14,8 +14,9 @@ export const JOHN_DOE_PROFILE = {
   socials: {
     github: "https://github.com/akaletekoffilevis",
     linkedin: "https://linkedin.com/in/akalete-koffi-levis",
-    email: "koffilevis21@gmail.com",
-    gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D"
+    email: "kiffilevis21@gmail.com",
+    gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D",
+    whatsapp: "+227 91 53 52 20"
   },
   metrics: [
     { label: "Projets Pratiques", value: "5+", desc: "Applications réelles C#/.NET, Web et Console" },
