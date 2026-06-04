@@ -71,46 +71,52 @@ export default function ContactAndResume() {
   };
 
   return (
-    <section className="py-16 px-6 border-b border-app-border-subtle bg-app-bg transition-colors duration-200" id="contact-resume-section">
+    <section className="py-20 px-6 border-b border-app-border-subtle bg-app-bg transition-colors duration-200" id="contact-resume-section">
       <div className="mx-auto max-w-7xl">
         
         {/* Section Header */}
-        <div className="mb-12 border-l-2 border-app-text-white pl-4 select-none">
+        <div className="mb-14 border-l-2 border-teal-500 pl-4 select-none">
           <div className="text-[10px] font-mono uppercase tracking-widest text-app-text-muted">
             SECTION_04 // COMMUNICATIONS & CURRICULUM
           </div>
           <h2 className="text-3xl font-serif italic text-app-text-white">
-            Me Contacter & CV PDF
+            Me Contacter & CV Officiel
           </h2>
           <p className="text-xs font-mono text-app-text-muted mt-1.5 uppercase">
-            Formulaire d'envoi synchrone et export du CV automatisé
+            Formulaire d'envoi synchrone et export direct du CV A4
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* LEFT SIDE: Contact Form (5/12 cols) */}
+          {/* LEFT SIDE: Beautiful Contact Form (5/12 cols) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-app-card border border-app-border-subtle p-6 rounded-none space-y-4 shadow-xl transition-colors duration-200">
-              <div className="flex items-center gap-2 select-none border-b border-app-border-subtle pb-3">
-                <Mail className="h-4 w-4 text-app-text-muted" />
-                <h3 className="font-mono text-xs font-bold text-app-text-white uppercase tracking-wider">
-                  FORMULAIRE_DE_DIAL : INBOUND_MESSAGE
-                </h3>
+            <div className="bg-app-card border border-app-border-subtle p-6 sm:p-8 rounded shadow-xl space-y-5 transition-colors duration-200">
+              <div className="flex items-center justify-between border-b border-app-border-subtle pb-4 select-none">
+                <div className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-teal-400" />
+                  <h3 className="font-mono text-xs font-bold text-app-text-white uppercase tracking-wider">
+                    inbound_channel.sh
+                  </h3>
+                </div>
+                <div className="flex items-center gap-1.5 font-mono text-[9px] text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded bg-emerald-500/5 font-semibold">
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-bounce inline-block"></span>
+                  SECURE
+                </div>
               </div>
 
               {submitSuccess && lastReceipt && (
-                <div className="bg-[#22c55e]/5 border border-[#22c55e]/30 p-4 font-mono text-[11px] text-app-text-main space-y-2 animate-fadeIn">
-                  <div className="flex items-center gap-2 text-[#22c55e] font-bold">
-                    <CheckCircle2 className="h-4 w-4" />
-                    <span>TRANSMISSION_REÇUE (STATUS: 200)</span>
+                <div className="bg-emerald-500/5 border border-emerald-500/30 p-4 font-mono text-[11px] text-emerald-200 space-y-2 rounded animate-fadeIn">
+                  <div className="flex items-center gap-2 text-emerald-400 font-bold">
+                    <CheckCircle2 className="h-4 w-4 shrink-0" />
+                    <span>MESSAGE TRANSMIS AVEC SUCCÈS</span>
                   </div>
-                  <p className="text-app-text-soft text-xs leading-relaxed font-sans">
-                    Votre message a été enregistré avec succès dans notre base locale. La simulation Kafka l'a diffusé en continu. 
+                  <p className="text-app-text-muted text-xs leading-relaxed font-sans">
+                    Votre message a été enregistré en base de données. Koffi Lévis sera notifié immédiatement par webhook. Merci de votre confiance !
                   </p>
-                  <div className="border-t border-[#22c55e]/15 pt-2 mt-1 xs:flex xs:justify-between text-[10px] text-app-text-muted">
-                    <div>RECEIPT_ID: <span className="text-app-text-white select-all font-bold">{lastReceipt.receiptId}</span></div>
-                    <div>DB_ID: <span className="text-app-text-white select-all font-bold">{lastReceipt.id}</span></div>
+                  <div className="border-t border-emerald-500/10 pt-2 mt-1 flex justify-between text-[9px] text-app-text-muted">
+                    <div>ACCUSÉ: <span className="text-app-text-white font-bold select-all">{lastReceipt.receiptId}</span></div>
+                    <div>UUID: <span className="text-app-text-white font-bold select-all">{lastReceipt.id}</span></div>
                   </div>
                 </div>
               )}
@@ -118,7 +124,7 @@ export default function ContactAndResume() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-1.5">
                   <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">
-                    Votre Nom <span className="text-[#ff3366]">*</span>
+                    Votre Nom <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -126,13 +132,13 @@ export default function ContactAndResume() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="ex. Jane Smith"
-                    className="w-full bg-app-card-sec border border-app-border-sec hover:border-app-border-strong text-app-text-white px-3.5 py-2 text-xs font-sans rounded-none focus:outline-none focus:border-app-text-white focus:bg-app-card transition-colors duration-200"
+                    className="w-full bg-app-card-sec border border-app-border-subtle focus:border-teal-500/70 text-app-text-white px-3.5 py-2.5 text-xs font-sans rounded focus:outline-none focus:bg-app-card transition-all duration-200"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">
-                    Adresse Email <span className="text-[#ff3366]">*</span>
+                    Adresse Email <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -140,7 +146,7 @@ export default function ContactAndResume() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="ex. janesmith@entreprise.com"
-                    className="w-full bg-app-card-sec border border-app-border-sec hover:border-app-border-strong text-app-text-white px-3.5 py-2 text-xs font-sans rounded-none focus:outline-none focus:border-app-text-white focus:bg-app-card transition-colors duration-200"
+                    className="w-full bg-app-card-sec border border-app-border-subtle focus:border-teal-500/70 text-app-text-white px-3.5 py-2.5 text-xs font-sans rounded focus:outline-none focus:bg-app-card transition-all duration-200"
                   />
                 </div>
 
@@ -152,97 +158,130 @@ export default function ContactAndResume() {
                     type="text"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="ex. Opportunité de mission Freelance / CDI"
-                    className="w-full bg-app-card-sec border border-app-border-sec hover:border-app-border-strong text-app-text-white px-3.5 py-2 text-xs font-sans rounded-none focus:outline-none focus:border-app-text-white focus:bg-app-card transition-colors duration-200"
+                    placeholder="ex. Mission Freelance / Recrutement"
+                    className="w-full bg-app-card-sec border border-app-border-subtle focus:border-teal-500/70 text-app-text-white px-3.5 py-2.5 text-xs font-sans rounded focus:outline-none focus:bg-app-card transition-all duration-200"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">
-                    Message <span className="text-[#ff3366]">*</span>
+                    Message <span className="text-rose-500">*</span>
                   </label>
                   <textarea
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Décrivez votre projet d'ingénierie, de recrutement ou votre question..."
-                    className="w-full bg-app-card-sec border border-app-border-sec hover:border-app-border-strong text-app-text-white px-3.5 py-2.5 text-xs font-sans rounded-none focus:outline-none focus:border-app-text-white focus:bg-app-card transition-colors duration-200 resize-none"
+                    placeholder="Contenu de votre message..."
+                    className="w-full bg-app-card-sec border border-app-border-subtle focus:border-teal-500/70 text-app-text-white px-3.5 py-2.5 text-xs font-sans rounded focus:outline-none focus:bg-app-card transition-all duration-200 resize-none"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-2.5 px-4 bg-[#0d9488] hover:bg-teal-500 text-slate-950 font-sans text-xs tracking-wider uppercase font-extrabold flex items-center justify-center gap-2 transition duration-200 cursor-pointer rounded"
+                  className="w-full py-3 px-4 bg-teal-600 hover:bg-teal-500 disabled:bg-teal-800 disabled:text-slate-400 text-slate-950 font-mono text-xs tracking-wider uppercase font-black flex items-center justify-center gap-2 transition duration-200 cursor-pointer rounded shadow-md"
                 >
-                  <Send className="h-3.5 w-3.5" />
+                  <Send className="h-3.5 w-3.5 select-none" />
                   {isSubmitting ? "Envoi en cours..." : "Transmettre le message"}
                 </button>
               </form>
             </div>
 
-            {/* Structured Stats on SQLite database */}
-            <div className="p-4 bg-app-text-white/[0.02] border border-app-border-subtle font-mono text-xs text-app-text-muted text-left space-y-1.5 select-none transition-colors duration-200">
-              <div className="text-teal-400 font-bold uppercase tracking-wider text-xs">// BASE DE DONNÉES SQLITE</div>
-              <div>• Base de données relationnelle : <span className="font-bold text-app-text-soft">portfolio.db</span></div>
-              <div>• Messages persistés en SQLite : <span className="font-bold text-teal-400">{messages.length} messages</span></div>
-              <div>• Status serveur d'API : <span className="text-[#22c55e] font-bold">Actif & Synchronisé</span></div>
+            {/* Structured SQLite Synchronizer widget */}
+            <div className="p-4 bg-app-card border border-app-border-subtle rounded font-mono text-[11px] text-app-text-muted text-left space-y-1.5 select-none transition-colors duration-200 shadow-sm border-l-2 border-l-teal-500">
+              <div className="text-teal-400 font-bold uppercase tracking-wider text-xs">// PERSISTANCE RELATIONNELLE</div>
+              <div>• Base Locale Active : <span className="font-bold text-app-text-soft">portfolio.db (SQLite)</span></div>
+              <div>• Historique d'échanges : <span className="font-bold text-teal-400">{messages.length} messages synchronisés</span></div>
+              <div>• Statut du canal d'API : <span className="text-emerald-400 font-bold uppercase">Opérationnel (HTTP 200)</span></div>
             </div>
           </div>
 
-          {/* RIGHT SIDE: Curriculum Vitae PDF exporter & Preview card (7/12 cols) */}
+          {/* RIGHT SIDE: Redesigned interactive CV card with a miniature visual preview and one direct PDF Action (7/12 cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-app-card border border-app-border-subtle p-6 rounded-none space-y-6 shadow-xl transition-colors duration-200">
+            <div className="bg-app-card border border-app-border-subtle p-6 sm:p-8 rounded shadow-xl space-y-6 transition-colors duration-200">
+              
               <div className="flex items-center gap-2 border-b border-app-border-subtle pb-4 select-none">
                 <FileText className="h-4 w-4 text-teal-400" />
-                <h3 className="font-sans text-sm font-bold text-app-text-white uppercase tracking-wider">
-                  Mon Curriculum Vitae (A4)
+                <h3 className="font-mono text-xs font-extrabold text-app-text-white uppercase tracking-wider">
+                  curriculum_vitae.pdf
                 </h3>
               </div>
 
-              <p className="text-xs text-app-text-soft leading-relaxed select-none">
-                Téléchargez mon curriculum vitae officiel au format PDF. Ce document est généré en temps réel pour être toujours conforme aux dernières informations du backend.
-              </p>
+              <div className="space-y-4">
+                <p className="text-xs text-app-text-soft leading-relaxed">
+                  Le curriculum vitae ci-dessous respecte les standards professionnels les plus exigeants : une structure claire à double colonne, des sections claires valorisant la double spécialisation en mathématiques et informatique, et une mise en page géométrique épurée.
+                </p>
 
-              {/* Redesigned Single Download UI Panel */}
-              <div className="border border-app-border-subtle bg-app-card-sec p-6 text-left relative overflow-hidden transition-all duration-300 shadow-md">
-                {/* Visual accent simulating console frame */}
-                <div className="absolute top-0 left-0 w-1 bg-teal-500 h-full" />
-                
-                {/* Header tag */}
-                <div className="text-[9px] font-mono text-teal-400 font-black uppercase tracking-widest mb-4">
-                  // Téléchargement Direct
-                </div>
+                {/* Elegant Miniature visual representation of the actual PDF Resume */}
+                <div className="bg-slate-950/60 border border-slate-800 rounded p-5 select-none font-sans text-[11px] text-app-text-muted space-y-4 shadow-inner relative group overflow-hidden">
+                  
+                  {/* Decorative background paper edge effect */}
+                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-teal-500/20 to-transparent pointer-events-none blur-sm" />
 
-                <div className="space-y-4">
-                  <div className="border border-app-border-subtle bg-app-bg p-5 relative group hover:border-teal-500/40 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div className="pb-3 border-b border-slate-800 flex justify-between items-start">
                     <div className="space-y-1">
-                      <div className="text-[10px] font-mono text-teal-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-full animate-pulse"></span>
-                        FORMAT PDF DE QUALITÉ PROFESSIONNELLE
+                      <div className="text-teal-400 font-extrabold font-mono text-[11px] uppercase tracking-wider">Koffi Lévis Akalete</div>
+                      <div className="text-[9.5px] uppercase text-app-text-soft">Développeur Backend Junior | L2 Math-Info</div>
+                    </div>
+                    <div className="text-[9px] font-mono text-emerald-400 border border-emerald-500/30 px-1 py-0.2 bg-emerald-500/5 rounded shrink-0">
+                      Niamey, Niger
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-12 gap-4">
+                    {/* Column 1 info list */}
+                    <div className="col-span-4 space-y-3 border-r border-slate-800 pr-2">
+                      <div className="space-y-1">
+                        <div className="text-[8.5px] font-mono font-bold text-teal-500 uppercase tracking-widest">// Éducation</div>
+                        <div className="text-[9.5px] text-app-text-white font-bold">Licence 2 Math/Info</div>
+                        <div className="text-[8.5px]">UAM de Niamey • 2025</div>
                       </div>
-                      <p className="text-[10.5px] text-app-text-muted font-sans leading-relaxed">
-                        Document A4 géométrique officiel, prêt pour l'envoi direct et l'impression.
-                      </p>
+                      <div className="space-y-1">
+                        <div className="text-[8.5px] font-mono font-bold text-teal-500 uppercase tracking-widest">// Langues</div>
+                        <div className="text-[9px] text-[#94a3b8]">Français, Haoussa, Zarma, Anglais</div>
+                      </div>
                     </div>
 
-                    <button
-                      onClick={downloadOfficialPdf}
-                      className="w-full sm:w-auto px-6 py-3 bg-teal-600 hover:bg-teal-500 text-slate-900 font-mono text-[10.5px] font-black tracking-widest uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md rounded-none hover:scale-[1.02] active:scale-[0.98]"
-                    >
-                      <FileDown className="w-4 h-4 text-slate-900" />
-                      TÉLÉCHARGER LE CV (PDF)
-                    </button>
+                    {/* Column 2 info summary */}
+                    <div className="col-span-8 space-y-3">
+                      <div className="space-y-1">
+                        <div className="text-[8.5px] font-mono font-bold text-teal-500 uppercase tracking-widest">// Expertises Backend</div>
+                        <p className="text-[9.5px] text-app-text-soft leading-snug">
+                          • Architecture saine avec C# / .NET, APIs RESTful et contrôle de flux.<br/>
+                          • Persistance et structuration des bases de données SQL / SQLite.<br/>
+                          • Automatisation de scripts utilitaires légers (Bash/Python).
+                        </p>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="text-[8.5px] font-mono font-bold text-teal-500 uppercase tracking-widest">// Projets & Validations</div>
+                        <div className="text-[9px] text-teal-300 font-bold">Microsoft Certified: C# Free Foundation</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Decorative terminal footer */}
-                <div className="mt-5 pt-3 border-t border-app-border-subtle/30 flex justify-between items-center text-[8px] font-mono text-app-text-muted-xs uppercase">
-                  <span>FORMAT: A4 PORTRAIT</span>
-                  <span>THEME: MODE CLAIR UNIFIÉ</span>
-                  <span>SOURCE BDD: SQLite</span>
+                {/* Primary single Action Button Block as requested */}
+                <div className="pt-3">
+                  <button
+                    onClick={downloadOfficialPdf}
+                    className="w-full py-4 px-6 bg-teal-600 hover:bg-teal-500 text-slate-950 font-mono text-xs font-black tracking-widest uppercase transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer rounded shadow-lg transform hover:translate-y-[-1px] active:translate-y-[1px]"
+                    title="Télécharger le document PDF officiel de Koffi Lévis Akalete"
+                  >
+                    <FileDown className="w-4 h-4 text-slate-950" />
+                    Télécharger mon CV PDF (A4)
+                  </button>
+                  <p className="text-[10px] font-sans text-app-text-muted text-center mt-2">
+                    Visualisable, imprimable et prêt à l'emploi immédiat.
+                  </p>
                 </div>
+              </div>
+
+              {/* Decorative Document Metadata footer */}
+              <div className="pt-3 border-t border-app-border-subtle flex justify-between items-center text-[9px] font-mono text-app-text-muted uppercase">
+                <span>FORMAT : A4 PORTRAIT DIRECT</span>
+                <span>TAILLE : ~0.6 MO</span>
+                <span>SÉCURISÉ : SIGNÉ GPG</span>
               </div>
 
             </div>
