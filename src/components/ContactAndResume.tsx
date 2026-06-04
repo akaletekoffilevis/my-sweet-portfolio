@@ -240,67 +240,14 @@ export default function ContactAndResume() {
     document.body.removeChild(downloadLink);
   };
 
-  // Direct PDF generation and download utilizing client-side canvas-to-pdf compile
-  const downloadAsPdf = async () => {
-    if (isPdfGenerating) return;
-    setIsPdfGenerating(true);
-    try {
-      if (!(window as any).html2pdf) {
-        // Dynamically load html2pdf from a secure, high-speed CDN to avoid package bloat and react version conflicts
-        await new Promise<void>((resolve, reject) => {
-          const script = document.createElement("script");
-          script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
-          script.onload = () => resolve();
-          script.onerror = () => reject(new Error("Unable to load html2pdf.js script."));
-          document.head.appendChild(script);
-        });
-      }
-
-      const sourceElement = document.getElementById("print-cv-target");
-      if (!sourceElement) {
-        throw new Error("CV element not found.");
-      }
-
-      // Create a temporary off-screen container to render PrintableCv cleanly without "hidden" styles
-      const tempContainer = document.createElement("div");
-      tempContainer.style.position = "absolute";
-      tempContainer.style.left = "-9999px";
-      tempContainer.style.top = "-9999px";
-      tempContainer.style.width = "210mm"; // A4 Width
-      tempContainer.className = "bg-white text-slate-800 font-sans";
-
-      const cloned = sourceElement.cloneNode(true) as HTMLDivElement;
-      cloned.id = "print-cv-temp-capture";
-      cloned.className = "block bg-white text-slate-800 font-sans p-0 m-0 w-full"; // Clear all CSS rules that hide/collapse it during normal layout
-
-      tempContainer.appendChild(cloned);
-      document.body.appendChild(tempContainer);
-
-      const options = {
-        margin: [10, 10, 10, 10], // standard mm layout margins
-        filename: `CV_${profile.name.replace(/\s+/g, "_")}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { 
-          scale: 2, 
-          useCORS: true, 
-          logging: false, 
-          letterRendering: true,
-          backgroundColor: "#ffffff"
-        },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
-      };
-
-      // @ts-ignore
-      await window.html2pdf().set(options).from(cloned).save();
-
-      document.body.removeChild(tempContainer);
-    } catch (err) {
-      console.error("PDF generation failed:", err);
-      // Fallback: If direct export fails, gracefully open the preview tab
-      window.open(window.location.origin + "?cv=preview", "_blank");
-    } finally {
-      setIsPdfGenerating(false);
-    }
+  // Direct instant download function of the pre-compiled high-fidelity static A4 PDF CV
+  const downloadOfficialPdf = () => {
+    const link = document.createElement("a");
+    link.href = "/cv-koffi-levis.pdf";
+    link.download = `CV_Koffi_Levis_Akalete.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   // Print function
@@ -472,84 +419,47 @@ export default function ContactAndResume() {
               </div>
 
               <p className="text-xs text-app-text-soft leading-relaxed select-none">
-                Téléchargez mon curriculum vitae mis à jour en temps réel à partir du portfolio. Choisissez le format officiel pré-configuré ou prévisualisez l'édition claire et optimisée A4 directement dans un autre onglet pour impression.
+                Téléchargez directement mon curriculum vitae officiel au format PDF. Ce document est généré pour être toujours conforme aux dernières informations clés de mon profil et de mon parcours d'ingénieur.
               </p>
 
-              {/* Redesigned Download UI Panel - High-contrast console theme but adapted as a beautiful download dashboard */}
+              {/* Redesigned Single Download UI Panel */}
               <div className="border border-app-border-subtle bg-app-card-sec p-6 text-left relative overflow-hidden transition-all duration-300 shadow-md">
                 {/* Visual accent simulating console frame */}
-                <div className="absolute top-0 left-0 w-1 bg-teal-600 h-full" />
+                <div className="absolute top-0 left-0 w-1 bg-teal-500 h-full" />
                 
                 {/* Header tag */}
-                <div className="text-[9px] font-mono text-teal-500 font-black uppercase tracking-widest mb-4">
-                  // EXPORT_CONSOLE_READY (ONLINE_SYNCED)
+                <div className="text-[9px] font-mono text-teal-400 font-black uppercase tracking-widest mb-4">
+                  // EXPORT_CONSOLE_READY (FAST_STATIC_DOWNLOAD)
                 </div>
 
-                {/* Sub-bento Layout for formats */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  
-                  {/* PDF Direct Box */}
-                  <div className="border border-app-border-subtle bg-app-bg p-4 relative group hover:border-[#ef4444]/30 transition-all">
-                    <div className="text-[10px] font-mono text-[#ef4444] font-bold mb-1 uppercase tracking-wider flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-full animate-pulse"></span>
-                      Format PDF (.pdf)
+                <div className="space-y-4">
+                  <div className="border border-app-border-subtle bg-app-bg p-5 relative group hover:border-teal-500/40 transition-all flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-mono text-teal-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-full animate-pulse"></span>
+                        FORMAT PDF DE QUALITÉ PROFESSIONNELLE
+                      </div>
+                      <p className="text-[10.5px] text-app-text-muted font-sans leading-relaxed">
+                        Document A4 géométrique officiel, prêt pour l'envoi direct et l'impression.
+                      </p>
                     </div>
-                    <p className="text-[10px] text-app-text-muted mb-4 font-sans leading-relaxed">
-                      Idéal pour impression ou envois d'embauche. Calibré sur grille A4 géométrique.
-                    </p>
+
                     <button
-                      onClick={downloadAsPdf}
-                      disabled={isPdfGenerating}
-                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 disabled:bg-slate-800/80 disabled:cursor-not-allowed transition flex items-center justify-center gap-1.5 cursor-pointer"
+                      onClick={downloadOfficialPdf}
+                      className="w-full sm:w-auto px-6 py-3 bg-teal-600 hover:bg-teal-500 text-slate-900 font-mono text-[10.5px] font-black tracking-widest uppercase transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md rounded-none hover:scale-[1.02] active:scale-[0.98]"
                     >
-                      <FileDown className={`w-3.5 h-3.5 text-teal-400 ${isPdfGenerating ? 'animate-bounce' : ''}`} />
-                      {isPdfGenerating ? "COMPILATION PDF..." : "TÉLÉCHARGER PDF"}
+                      <FileDown className="w-4 h-4 text-slate-900" />
+                      TÉLÉCHARGER LE CV (PDF)
                     </button>
                   </div>
-
-                  {/* Word Direct Box */}
-                  <div className="border border-app-border-subtle bg-app-bg p-4 relative group hover:border-[#3b82f6]/30 transition-all">
-                    <div className="text-[10px] font-mono text-[#3b82f6] font-bold mb-1 uppercase tracking-wider flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
-                      Format Word (.doc)
-                    </div>
-                    <p className="text-[10px] text-app-text-muted mb-4 font-sans leading-relaxed">
-                      Format éditable Microsoft Word, structuré avec les styles et rubriques clés.
-                    </p>
-                    <button
-                      onClick={downloadAsWord}
-                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 transition flex items-center justify-center gap-1.5 cursor-pointer"
-                    >
-                      <Download className="w-3.5 h-3.5 text-teal-400" />
-                      TÉLÉCHARGER WORD
-                    </button>
-                  </div>
-
-                </div>
-
-                {/* Additional Preview Section */}
-                <div className="border-t border-app-border-subtle/50 mt-5 pt-4 text-center">
-                  <p className="text-[10.5px] text-app-text-soft font-mono mb-3">
-                    &gt;_ Vous préférez relire ou configurer l'aperçu avant d'enregistrer ?
-                  </p>
-                  
-                  <button
-                    onClick={() => window.open(window.location.origin + "?cv=preview", "_blank")}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600/10 border border-teal-500/20 hover:border-teal-500/80 text-teal-400 font-mono text-[10px] font-extrabold tracking-widest uppercase transition-all duration-200 cursor-pointer rounded-none hover:bg-teal-500/5"
-                  >
-                    <Eye className="w-4 h-4" />
-                    PRÉVISUALISER DANS UN NOUVEL ONGLET
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
                 </div>
 
                 {/* Decorative terminal footer */}
-                <div className="mt-4 pt-2.5 border-t border-app-border-subtle/30 flex justify-between items-center text-[8px] font-mono text-app-text-muted-xs uppercase">
-                  <span>SCALE: A4_PORTRAIT</span>
-                  <span>THEME_LOCKED: LIGHT ONLY</span>
-                  <span>SYNC: EN DIRECT DU PROFIL</span>
+                <div className="mt-5 pt-3 border-t border-app-border-subtle/30 flex justify-between items-center text-[8px] font-mono text-app-text-muted-xs uppercase">
+                  <span>SCALE: A4_PORTRAIT_OFFICIAL</span>
+                  <span>THEME_LOCKED: LIGHT_MODE</span>
+                  <span>SYNC: ARCHIVE_PORTABLE</span>
                 </div>
-
               </div>
 
             </div>
