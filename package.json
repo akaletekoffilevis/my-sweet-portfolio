@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "node scripts/generate_pdf.cjs && vite build",
+    "dev": "tsx server.ts",
+    "build": "node scripts/generate_pdf.cjs && vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"
@@ -21,6 +22,8 @@
     "pdfkit": "^0.18.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1",
     "vite": "^6.2.3"
   },
   "devDependencies": {

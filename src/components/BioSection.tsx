@@ -79,12 +79,12 @@ export default function BioSection() {
               </a>
               <a
                 href={`mailto:${profile.socials.email}`}
-                className="py-2 px-4 bg-app-text-white/5 border border-app-border-sec text-app-text-main hover:bg-app-text-white hover:text-app-bg hover:border-transparent transition-all font-mono text-[10px] tracking-widest uppercase font-bold flex items-center gap-2 cursor-pointer"
+                className="py-2.5 px-4 bg-[#0d9488] border border-transparent text-slate-950 font-sans hover:bg-teal-500 transition-all text-xs tracking-wider uppercase font-extrabold flex items-center gap-2 cursor-pointer rounded"
                 title="Email"
                 id="social-email"
               >
                 <Mail className="h-4 w-4" />
-                <span>ME_CONTACTER</span>
+                <span>Me Contacter</span>
               </a>
             </div>
           </div>
@@ -92,9 +92,9 @@ export default function BioSection() {
           {/* Description & Technical Standout Bio */}
           <div className="lg:col-span-8 space-y-8">
             <div className="space-y-4">
-              <h2 className="text-app-text-muted font-mono text-[10px] uppercase tracking-[0.2em] flex items-center gap-2 font-bold">
-                <Terminal className="h-3.5 w-3.5 text-app-text-muted" />
-                $ cat MANIFESTO.md
+              <h2 className="text-[#0d9488] font-mono text-xs uppercase tracking-widest flex items-center gap-2 font-bold select-none">
+                <Terminal className="h-4 w-4" />
+                // 01_Présentation Générale
               </h2>
               
               <p className="text-lg lg:text-xl text-app-text-body leading-relaxed font-sans max-w-3xl font-light">

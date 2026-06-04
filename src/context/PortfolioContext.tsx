@@ -127,7 +127,42 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     ];
   });
 
-  // Keep localStorage synced
+  // Load all records from actual SQLite DB on mount
+  useEffect(() => {
+    async function loadPortfolioFromSQLite() {
+      try {
+        const response = await fetch("/api/portfolio");
+        const json = await response.json();
+        if (json.success) {
+          if (json.profile) setProfile(json.profile);
+          if (json.skills) setSkills(json.skills);
+          if (json.projects) setProjects(json.projects);
+        }
+      } catch (err) {
+        console.warn("Could not load from SQLite API. Running with local fallback.", err);
+      }
+    }
+    loadPortfolioFromSQLite();
+  }, []);
+
+  // Sync messages list dynamically when admin connects
+  useEffect(() => {
+    async function loadMessagesFromSQLite() {
+      if (!isAdminMode) return;
+      try {
+        const response = await fetch("/api/messages");
+        const json = await response.json();
+        if (json.success && json.messages) {
+          setMessages(json.messages);
+        }
+      } catch (err) {
+        console.warn("Could not load messages from SQLite", err);
+      }
+    }
+    loadMessagesFromSQLite();
+  }, [isAdminMode]);
+
+  // Keep LocalStorage synced as robust offline/resilient storage
   useEffect(() => {
     localStorage.setItem("portfolio_profile", JSON.stringify(profile));
   }, [profile]);
@@ -146,7 +181,6 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     localStorage.setItem("portfolio_theme", theme);
-    // Apply styling class to body / HTML element
     const root = window.document.documentElement;
     if (theme === "light") {
       root.classList.add("light");
@@ -167,7 +201,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setThemeState((prev) => (prev === "dark" ? "light" : "dark"));
   };
 
-  const resetToDefault = () => {
+  const resetToDefault = async () => {
     if (window.confirm("Êtes-vous sûr de vouloir réinitialiser toutes les données du portfolio aux valeurs par défaut ?")) {
       setProfile(JOHN_DOE_PROFILE);
       setSkills(SKILLS_DATA);
@@ -175,55 +209,151 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem("portfolio_profile");
       localStorage.removeItem("portfolio_skills");
       localStorage.removeItem("portfolio_projects");
+      
+      // Update SQLite DB
+      try {
+        await fetch("/api/profile", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(JOHN_DOE_PROFILE)
+        });
+      } catch (e) {
+        console.error("Failed to reset DB profile to default", e);
+      }
     }
   };
 
-  const updateProfile = (updated: Partial<ProfileData>) => {
-    setProfile((prev) => {
-      const copy = { ...prev, ...updated };
-      if (updated.socials) {
-        copy.socials = { ...prev.socials, ...updated.socials };
-      }
-      return copy;
-    });
+  const updateProfile = async (updated: Partial<ProfileData>) => {
+    const nextProfile = { ...profile, ...updated };
+    if (updated.socials) {
+      nextProfile.socials = { ...profile.socials, ...updated.socials };
+    }
+    setProfile(nextProfile);
+
+    try {
+      await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nextProfile)
+      });
+    } catch (err) {
+      console.error("SQLite profile update request failed:", err);
+    }
   };
 
-  const addSkill = (newSkill: Skill) => {
+  const addSkill = async (newSkill: Skill) => {
     setSkills((prev) => [...prev, newSkill]);
+    try {
+      await fetch("/api/skills", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newSkill)
+      });
+    } catch (err) {
+      console.error("SQLite skill insert failed:", err);
+    }
   };
 
-  const updateSkill = (oldName: string, updatedSkill: Skill) => {
+  const updateSkill = async (oldName: string, updatedSkill: Skill) => {
     setSkills((prev) => prev.map((s) => (s.name === oldName ? updatedSkill : s)));
+    try {
+      await fetch(`/api/skills/${encodeURIComponent(oldName)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedSkill)
+      });
+    } catch (err) {
+      console.error("SQLite skill update failed:", err);
+    }
   };
 
-  const deleteSkill = (name: string) => {
+  const deleteSkill = async (name: string) => {
     setSkills((prev) => prev.filter((s) => s.name !== name));
+    try {
+      await fetch(`/api/skills/${encodeURIComponent(name)}`, {
+        method: "DELETE"
+      });
+    } catch (err) {
+      console.error("SQLite skill delete failed:", err);
+    }
   };
 
-  const addProject = (newProject: Project) => {
+  const addProject = async (newProject: Project) => {
     setProjects((prev) => [...prev, newProject]);
+    try {
+      await fetch("/api/projects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...newProject,
+          techStack: newProject.techStack.join(", ")
+        })
+      });
+    } catch (err) {
+      console.error("SQLite project insert failed:", err);
+    }
   };
 
-  const updateProject = (id: string, updatedProject: Project) => {
+  const updateProject = async (id: string, updatedProject: Project) => {
     setProjects((prev) => prev.map((p) => (p.id === id ? updatedProject : p)));
+    try {
+      await fetch(`/api/projects/${encodeURIComponent(id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...updatedProject,
+          techStack: updatedProject.techStack.join(", ")
+        })
+      });
+    } catch (err) {
+      console.error("SQLite project update failed:", err);
+    }
   };
 
-  const deleteProject = (id: string) => {
+  const deleteProject = async (id: string) => {
     setProjects((prev) => prev.filter((p) => p.id !== id));
+    try {
+      await fetch(`/api/projects/${encodeURIComponent(id)}`, {
+        method: "DELETE"
+      });
+    } catch (err) {
+      console.error("SQLite project delete failed:", err);
+    }
   };
 
-  const addMessage = (msg: { name: string; email: string; subject: string; message: string }) => {
-    const newMessage = {
-      ...msg,
-      id: "msg-" + Math.floor(Math.random() * 899999 + 100000),
-      timestamp: new Date().toISOString()
-    };
-    setMessages((prev) => [newMessage, ...prev]);
-    return newMessage;
+  const addMessage = async (msg: { name: string; email: string; subject: string; message: string }) => {
+    const tempId = "msg-" + Math.floor(Math.random() * 899999 + 100000);
+    const mockMsg = { ...msg, id: tempId, timestamp: new Date().toISOString() };
+    
+    // Add optimism local state
+    setMessages((prev) => [mockMsg, ...prev]);
+
+    try {
+      const response = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(msg)
+      });
+      const data = await response.json();
+      if (data.success && data.data) {
+        setMessages((prev) => prev.map(m => m.id === tempId ? data.data : m));
+        return data.data;
+      }
+    } catch (err) {
+      console.error("SQLite direct save failed, staying fallback:", err);
+    }
+    return mockMsg;
   };
 
-  const clearMessages = () => {
+  const clearMessages = async () => {
     setMessages([]);
+    try {
+      await fetch("/api/messages", {
+        method: "DELETE"
+      });
+    } catch (err) {
+      console.error("SQLite message clearing failed:", err);
+    }
   };
 
   return (
