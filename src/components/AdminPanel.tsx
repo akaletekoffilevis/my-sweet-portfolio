@@ -84,7 +84,9 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
     metrics: [],
     architectureSummary: "",
     architectureDiagram: [],
-    challenges: []
+    challenges: [],
+    githubUrl: "",
+    demoUrl: ""
   });
 
   // Temp string inputs for array tags in project
@@ -311,7 +313,9 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
       metrics: [],
       architectureSummary: "",
       architectureDiagram: [],
-      challenges: []
+      challenges: [],
+      githubUrl: "",
+      demoUrl: ""
     });
   };
 
@@ -817,6 +821,31 @@ export default function AdminPanel({ onClose }: { onClose: () => void }) {
                     onChange={(e) => setProjectForm(p => ({ ...p, fullDescription: e.target.value }))}
                     className="w-full bg-app-card border border-app-border-strong text-app-text-white px-3 py-1.5 text-xs font-sans rounded-none leading-relaxed"
                   />
+                </div>
+
+                {/* Optional Links for Project (GitHub & Live Demo) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-app-border-subtle pt-3.5">
+                  <div className="space-y-1.5">
+                    <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">Lien GitHub (Optionnel)</label>
+                    <input
+                      type="url"
+                      placeholder="https://github.com/username/project"
+                      value={projectForm.githubUrl || ""}
+                      onChange={(e) => setProjectForm(p => ({ ...p, githubUrl: e.target.value }))}
+                      className="w-full bg-app-card border border-app-border-strong text-app-text-white px-3 py-1.5 text-xs font-mono rounded-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block font-mono text-[10px] text-app-text-muted uppercase tracking-wider font-bold">Lien Démo en Ligne (Optionnel - site front)</label>
+                    <input
+                      type="url"
+                      placeholder="https://demo.example.com"
+                      value={projectForm.demoUrl || ""}
+                      onChange={(e) => setProjectForm(p => ({ ...p, demoUrl: e.target.value }))}
+                      className="w-full bg-app-card border border-app-border-strong text-app-text-white px-3 py-1.5 text-xs font-mono rounded-none"
+                    />
+                  </div>
                 </div>
 
                 {/* Tech Tags */}

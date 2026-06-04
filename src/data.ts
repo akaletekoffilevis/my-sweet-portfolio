@@ -154,6 +154,8 @@ export const PROJECTS_DATA: Project[] = [
       "Optimisation mémoire au niveau byte-level en Go pour éviter l'intervention fréquente du Garbage Collector sous des charges de pointe de 25k req/sec.",
       "Mise en place de mécanismes de backpressure intelligents pour protéger l'infrastructure en cas de latence réseau temporaire des brokers Kafka."
     ],
+    githubUrl: "https://github.com/john-doe-backend/aerotransit",
+    demoUrl: "https://aerotransit.live-demo.example.com",
     architectureDiagram: [
       { id: "client_iot", title: "Balises IoT Avioniques", subtitle: "UDP Sockets", type: "client", description: "Envoûtent des trames compressées chiffrées en continu.", connections: ["ingestor"] },
       { id: "ingestor", title: "Cluster Ingestion Go", subtitle: "Fast Ingest Engine", type: "service", description: "Reçoit les paquets UDP, décrypte et parse le binaire à la volée.", metric: "9.2MB/s", connections: ["kafka", "redis_status"] },
@@ -180,6 +182,7 @@ export const PROJECTS_DATA: Project[] = [
       "Prise en main d'une invalidation de cache granulaire pour s'assurer que les données financières ne soient jamais périmées de plus de 5 secondes.",
       "Garantie de sûreté mémoire stricte sans 'NullPointerExceptions' ou 'Data Races' grâce aux garanties du compilateur Rust."
     ],
+    githubUrl: "https://github.com/john-doe-backend/hypercache",
     architectureDiagram: [
       { id: "auth_proxy", title: "User Gateway App", subtitle: "Frontends/SDKs", type: "client", description: "Exécutent des rapports ou accèdent aux données d'inventaires.", connections: ["hypercache_engine"] },
       { id: "hypercache_engine", title: "HyperCache Single Binary", subtitle: "Rust Service", type: "service", description: "Intercepte, authentifie gRPC, résout localement.", metric: "CPU < 5%", connections: ["redis_internal", "legacy_db"] },
@@ -204,6 +207,8 @@ export const PROJECTS_DATA: Project[] = [
       "Sécurisation contre les attaques de force brute et le scraping via un limiteur de débit Token Bucket distribué basé sur Redis (REDIS LUA Scripting).",
       "Assurer une haute résilience en concevant des clés rotatives sans déconnecter les sessions actives lors d'une transition."
     ],
+    githubUrl: "https://github.com/john-doe-backend/coresphere",
+    demoUrl: "https://coresphere-demo.example.com",
     architectureDiagram: [
       { id: "client_web", title: "Web & Apps Mobiles", subtitle: "Utilisateurs", type: "client", description: "Effectuent des requêtes avec en-tête d'Authorization Bearer Token.", connections: ["ingress_routing"] },
       { id: "ingress_routing", title: "Kong API Gateway", subtitle: "Microservices Router", type: "gateway", description: "Transfère directement vers les sous-services sans valider centralement car il utilise l'antémémoire.", connections: ["payment_service", "billing_service", "coresphere_auth"] },

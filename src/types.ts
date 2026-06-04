@@ -34,6 +34,7 @@ export interface Project {
   architectureDiagram: ArchitectureComponent[];
   challenges: string[];
   githubUrl?: string;
+  demoUrl?: string;
 }
 
 export interface ContactMessage {

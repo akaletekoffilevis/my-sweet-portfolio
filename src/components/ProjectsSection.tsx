@@ -5,23 +5,11 @@
 
 import { usePortfolio } from "../context/PortfolioContext";
 import { Project } from "../types";
-import { Terminal, ArrowUpRight, ShieldAlert } from "lucide-react";
+import { Terminal, ShieldAlert, Github, ExternalLink } from "lucide-react";
 
 export default function ProjectsSection() {
   const { projects } = usePortfolio();
   
-  const handleScrollToArch = (projectId: string) => {
-    // Scroll to architecture section
-    const element = document.getElementById("architecture-section");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      
-      // Simulate click trigger or window custom event to notify parent if needed
-      const event = new CustomEvent("select-architecture-project", { detail: { projectId } });
-      window.dispatchEvent(event);
-    }
-  };
-
   return (
     <section className="py-16 px-6 border-b border-app-border-subtle bg-app-bg transition-colors duration-200" id="projects-section">
       <div className="mx-auto max-w-7xl">
@@ -121,22 +109,39 @@ export default function ProjectsSection() {
                     </div>
                   </div>
 
-                  {/* Architecture quick entry trigger */}
+                  {/* Project Interactions Actions */}
                   <div className="bg-app-bg border border-app-border-subtle p-6 rounded-none space-y-4">
                     <div className="flex items-center gap-2 text-app-text-muted">
                       <Terminal className="h-4 w-4 text-app-text-muted" />
-                      <span className="text-[10px] uppercase tracking-wider font-mono font-semibold text-app-text-soft">Schéma topologique réseau</span>
+                      <span className="text-[10px] uppercase tracking-wider font-mono font-semibold text-app-text-soft">Ressources & Déploiement</span>
                     </div>
                     <p className="text-[11px] text-app-text-soft leading-relaxed font-sans font-light">
-                      Explorez visuellement la circulation asynchrone des données et les technologies de file d'attente utilisées pour ce projet.
+                      Accédez au code source audité sur GitHub ou consultez le service web actif pour tester les intégrations de démonstration.
                     </p>
-                    <button
-                      onClick={() => handleScrollToArch(project.id)}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-none font-mono text-[10px] uppercase font-bold tracking-widest text-app-bg bg-app-text-white hover:opacity-90 transition-all cursor-pointer shadow-lg border border-transparent"
-                    >
-                      VOIR_L_ARCHITECTURE
-                      <ArrowUpRight className="h-4 w-4" />
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-none font-mono text-[10px] uppercase font-bold tracking-widest text-app-bg bg-app-text-white hover:opacity-90 transition-all cursor-pointer shadow-md border border-transparent text-center"
+                        >
+                          <Github className="h-3.5 w-3.5" />
+                          VOIR SUR GITHUB
+                        </a>
+                      )}
+                      {project.demoUrl && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-none font-mono text-[10px] uppercase font-bold tracking-widest text-app-text-white bg-app-bg hover:bg-app-card transition-all cursor-pointer shadow-md border border-app-border-strong text-center"
+                        >
+                          <ExternalLink className="h-3.5 w-3.5" />
+                          DÉMO EN LIGNE
+                        </a>
+                      )}
+                    </div>
                   </div>
 
                 </div>

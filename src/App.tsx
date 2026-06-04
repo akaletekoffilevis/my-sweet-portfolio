@@ -135,7 +135,7 @@ function AppContent() {
 
       {/* Dynamic CV Modal in highest Stacking Context to prevent header slideunder */}
       {isCvModalOpen && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto flex items-center justify-center p-2 sm:p-6 md:p-10 select-none">
+        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto flex items-center justify-center p-2 sm:p-6 md:p-10 select-none print:hidden">
           <div className="bg-app-bg border border-app-border-strong w-full max-w-4xl rounded-none shadow-2xl relative flex flex-col my-auto max-h-[95vh] focus:outline-none">
             
             {/* Modal Toolbar Header */}
