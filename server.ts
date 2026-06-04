@@ -1,8 +1,6 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { open } from "sqlite";
-import sqlite3 from "sqlite3";
 import { createServer as createViteServer } from "vite";
 
 // Fallbacks inline to avoid loading raw client TS files directly inside node process
@@ -85,192 +83,115 @@ const DEFAULT_MESSAGES = [
   }
 ];
 
+const DB_FILE = path.join(process.cwd(), "portfolio_db.json");
+
+interface DbSchema {
+  profile: typeof DEFAULT_PROFILE;
+  skills: typeof DEFAULT_SKILLS;
+  projects: typeof DEFAULT_PROJECTS;
+  messages: typeof DEFAULT_MESSAGES;
+}
+
+// Assure static folder creation for database if needed
+async function readDb(): Promise<DbSchema> {
+  try {
+    if (fs.existsSync(DB_FILE)) {
+      const content = await fs.promises.readFile(DB_FILE, "utf-8");
+      return JSON.parse(content);
+    }
+  } catch (err) {
+    console.warn("Unable to read local database portfolio_db.json", err);
+  }
+  const initialDb: DbSchema = {
+    profile: DEFAULT_PROFILE,
+    skills: DEFAULT_SKILLS,
+    projects: DEFAULT_PROJECTS,
+    messages: DEFAULT_MESSAGES
+  };
+  await writeDb(initialDb);
+  return initialDb;
+}
+
+async function writeDb(data: DbSchema): Promise<void> {
+  try {
+    await fs.promises.writeFile(DB_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Unable to write file to storage", err);
+  }
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
 
   app.use(express.json());
 
-  // Setup SQLite database
-  const dbPath = path.join(process.cwd(), "portfolio.db");
-  console.log("Connecting SQLite database.db at:", dbPath);
-  
-  const db = await open({
-    filename: dbPath,
-    driver: sqlite3.Database
-  });
+  console.log("Configured Portable JSON Storage engine at:", DB_FILE);
 
-  // Enable foreign keys
-  await db.get("PRAGMA foreign_keys = ON");
-
-  // Create tables
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS profile (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      title TEXT NOT NULL,
-      location TEXT NOT NULL,
-      bio TEXT NOT NULL,
-      avatarUrl TEXT,
-      github TEXT,
-      linkedin TEXT,
-      email TEXT,
-      gpgKey TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS skills (
-      name TEXT PRIMARY KEY,
-      category TEXT NOT NULL,
-      level INTEGER NOT NULL,
-      experienceYears REAL NOT NULL,
-      icon TEXT NOT NULL,
-      description TEXT NOT NULL
-    );
-
-    CREATE TABLE IF NOT EXISTS projects (
-      id TEXT PRIMARY KEY,
-      title TEXT NOT NULL,
-      period TEXT NOT NULL,
-      shortDescription TEXT NOT NULL,
-      fullDescription TEXT NOT NULL,
-      techStack TEXT NOT NULL,
-      githubUrl TEXT,
-      demoUrl TEXT
-    );
-
-    CREATE TABLE IF NOT EXISTS messages (
-      id TEXT PRIMARY KEY,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      subject TEXT NOT NULL,
-      message TEXT NOT NULL,
-      timestamp TEXT NOT NULL
-    );
-  `);
-
-  // Seed data if empty
-  const profileCount = await db.get("SELECT COUNT(*) as count FROM profile");
-  if (profileCount.count === 0) {
-    console.log("Seeding SQLite profile table with default data");
-    await db.run(
-      `INSERT INTO profile (name, title, location, bio, avatarUrl, github, linkedin, email, gpgKey) 
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        DEFAULT_PROFILE.name,
-        DEFAULT_PROFILE.title,
-        DEFAULT_PROFILE.location,
-        DEFAULT_PROFILE.bio,
-        DEFAULT_PROFILE.avatarUrl,
-        DEFAULT_PROFILE.github,
-        DEFAULT_PROFILE.linkedin,
-        DEFAULT_PROFILE.email,
-        DEFAULT_PROFILE.gpgKey
-      ]
-    );
-  }
-
-  const skillsCount = await db.get("SELECT COUNT(*) as count FROM skills");
-  if (skillsCount.count === 0) {
-    console.log("Seeding SQLite skills table with default data");
-    for (const skill of DEFAULT_SKILLS) {
-      await db.run(
-        `INSERT INTO skills (name, category, level, experienceYears, icon, description) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [skill.name, skill.category, skill.level, skill.experienceYears, skill.icon, skill.description]
-      );
-    }
-  }
-
-  const projectsCount = await db.get("SELECT COUNT(*) as count FROM projects");
-  if (projectsCount.count === 0) {
-    console.log("Seeding SQLite projects table with default data");
-    for (const project of DEFAULT_PROJECTS) {
-      await db.run(
-        `INSERT INTO projects (id, title, period, shortDescription, fullDescription, techStack, githubUrl, demoUrl) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-          project.id,
-          project.title,
-          project.period,
-          project.shortDescription,
-          project.fullDescription,
-          project.techStack,
-          project.githubUrl,
-          project.demoUrl
-        ]
-      );
-    }
-  }
-
-  const msgCount = await db.get("SELECT COUNT(*) as count FROM messages");
-  if (msgCount.count === 0) {
-    console.log("Seeding SQLite messages table with default data");
-    for (const msg of DEFAULT_MESSAGES) {
-      await db.run(
-        `INSERT INTO messages (id, name, email, subject, message, timestamp) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [msg.id, msg.name, msg.email, msg.subject, msg.message, msg.timestamp]
-      );
-    }
-  }
+  // Synchronise Initial Db
+  await readDb();
 
   // --- API ROUTING KEY ---
 
   // GET /api/portfolio - Load full synced package
   app.get("/api/portfolio", async (req, res) => {
     try {
-      const profileRow = await db.get("SELECT * FROM profile ORDER BY id DESC LIMIT 1");
-      const skillsRows = await db.all("SELECT * FROM skills");
-      const projectsRows = await db.all("SELECT * FROM projects");
+      const db = await readDb();
+      const dbProfile = db.profile || DEFAULT_PROFILE;
 
-      // Format for react expectation
-      const profile = profileRow ? {
-        name: profileRow.name,
-        title: profileRow.title,
-        location: profileRow.location,
-        bio: profileRow.bio,
-        avatarUrl: profileRow.avatarUrl,
+      const profile = {
+        name: dbProfile.name,
+        title: dbProfile.title,
+        location: dbProfile.location,
+        bio: dbProfile.bio,
+        avatarUrl: dbProfile.avatarUrl,
         socials: {
-          github: profileRow.github,
-          linkedin: profileRow.linkedin,
-          email: profileRow.email,
-          gpgKey: profileRow.gpgKey
+          github: dbProfile.github,
+          linkedin: dbProfile.linkedin,
+          email: dbProfile.email,
+          gpgKey: dbProfile.gpgKey
         },
         metrics: [
-          { label: "Projets Pratiques", value: `${projectsRows.length}+`, desc: "Applications réelles C#/.NET, Web et Console" },
+          { label: "Projets Pratiques", value: `${db.projects.length}+`, desc: "Applications réelles C#/.NET, Web et Console" },
           { label: "Formation", value: "Licence", desc: "Informatique & Spécialisation Mathématiques" },
           { label: "Certification", value: "Microsoft", desc: "C# Free Foundation par FreeCodeCamp" },
           { label: "Langues", value: "4", desc: "Français, Haoussa, Zarma, Anglais" }
         ]
-      } : DEFAULT_PROFILE;
+      };
 
-      const skills = skillsRows.map(row => ({
-        name: row.name,
-        category: row.category,
-        level: row.level,
-        experienceYears: row.experienceYears,
-        icon: row.icon,
-        description: row.description
+      const skills = db.skills.map(skill => ({
+        name: skill.name,
+        category: skill.category,
+        level: skill.level,
+        experienceYears: skill.experienceYears,
+        icon: skill.icon,
+        description: skill.description
       }));
 
-      const projects = projectsRows.map(row => ({
-        id: row.id,
-        title: row.title,
-        period: row.period,
-        shortDescription: row.shortDescription,
-        fullDescription: row.fullDescription,
-        techStack: row.techStack.split(",").map((s: string) => s.trim()).filter(Boolean),
-        githubUrl: row.githubUrl || "",
-        demoUrl: row.demoUrl || "",
-        metrics: [
-          { label: "Compilateur", value: "C# .NET" },
-          { label: "État", value: "Production" }
-        ],
-        challenges: [
-          "Optimisation continue de l'intégration dans des pipelines distants.",
-          "Sécurisation des transactions de requêtes vis-à-vis du serveur SQL."
-        ]
-      }));
+      const projects = db.projects.map(project => {
+        const stackArray = typeof project.techStack === "string"
+          ? project.techStack.split(",").map((s: string) => s.trim()).filter(Boolean)
+          : project.techStack;
+
+        return {
+          id: project.id,
+          title: project.title,
+          period: project.period,
+          shortDescription: project.shortDescription,
+          fullDescription: project.fullDescription,
+          techStack: stackArray,
+          githubUrl: project.githubUrl || "",
+          demoUrl: project.demoUrl || "",
+          metrics: [
+            { label: "Compilateur", value: "C# .NET" },
+            { label: "État", value: "Production" }
+          ],
+          challenges: [
+            "Optimisation continue de l'intégration dans des pipelines distants.",
+            "Sécurisation des transactions de requêtes vis-à-vis du serveur SQL."
+          ]
+        };
+      });
 
       res.json({ success: true, profile, skills, projects });
     } catch (err: any) {
@@ -282,44 +203,22 @@ async function startServer() {
   app.put("/api/profile", async (req, res) => {
     try {
       const { name, title, location, bio, socials } = req.body;
-      const existing = await db.get("SELECT id FROM profile ORDER BY id DESC LIMIT 1");
-      const id = existing ? existing.id : 1;
+      const db = await readDb();
 
-      if (existing) {
-        await db.run(
-          `UPDATE profile 
-           SET name = ?, title = ?, location = ?, bio = ?, github = ?, linkedin = ?, email = ?, gpgKey = ?
-           WHERE id = ?`,
-          [
-            name || DEFAULT_PROFILE.name,
-            title || DEFAULT_PROFILE.title,
-            location || DEFAULT_PROFILE.location,
-            bio || DEFAULT_PROFILE.bio,
-            socials?.github || DEFAULT_PROFILE.github,
-            socials?.linkedin || DEFAULT_PROFILE.linkedin,
-            socials?.email || DEFAULT_PROFILE.email,
-            socials?.gpgKey || DEFAULT_PROFILE.gpgKey,
-            id
-          ]
-        );
-      } else {
-        await db.run(
-          `INSERT INTO profile (name, title, location, bio, avatarUrl, github, linkedin, email, gpgKey) 
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [
-            name || DEFAULT_PROFILE.name,
-            title || DEFAULT_PROFILE.title,
-            location || DEFAULT_PROFILE.location,
-            bio || DEFAULT_PROFILE.bio,
-            DEFAULT_PROFILE.avatarUrl,
-            socials?.github || DEFAULT_PROFILE.github,
-            socials?.linkedin || DEFAULT_PROFILE.linkedin,
-            socials?.email || DEFAULT_PROFILE.email,
-            socials?.gpgKey || DEFAULT_PROFILE.gpgKey
-          ]
-        );
-      }
-      res.json({ success: true, message: "Profile mis à jour dans SQLite." });
+      db.profile = {
+        name: name || db.profile.name,
+        title: title || db.profile.title,
+        location: location || db.profile.location,
+        bio: bio || db.profile.bio,
+        avatarUrl: db.profile.avatarUrl || DEFAULT_PROFILE.avatarUrl,
+        github: socials?.github || db.profile.github,
+        linkedin: socials?.linkedin || db.profile.linkedin,
+        email: socials?.email || db.profile.email,
+        gpgKey: socials?.gpgKey || db.profile.gpgKey
+      };
+
+      await writeDb(db);
+      res.json({ success: true, message: "Profile mis à jour dans le stockage JSON." });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
     }
@@ -329,11 +228,20 @@ async function startServer() {
   app.post("/api/skills", async (req, res) => {
     try {
       const { name, category, level, experienceYears, icon, description } = req.body;
-      await db.run(
-        `INSERT INTO skills (name, category, level, experienceYears, icon, description) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [name, category, level || 80, experienceYears || 1.0, icon || "Code2", description || ""]
-      );
+      const db = await readDb();
+
+      // Avoid duplication
+      db.skills = db.skills.filter(s => s.name !== name);
+      db.skills.push({
+        name,
+        category,
+        level: Number(level) || 80,
+        experienceYears: Number(experienceYears) || 1.0,
+        icon: icon || "Code2",
+        description: description || ""
+      });
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -344,12 +252,36 @@ async function startServer() {
     try {
       const { name } = req.params;
       const { category, level, experienceYears, icon, description } = req.body;
-      await db.run(
-        `UPDATE skills 
-         SET category = ?, level = ?, experienceYears = ?, icon = ?, description = ?
-         WHERE name = ?`,
-        [category, level, experienceYears, icon, description, name]
-      );
+      const db = await readDb();
+
+      let found = false;
+      db.skills = db.skills.map(s => {
+        if (s.name === name) {
+          found = true;
+          return {
+            name,
+            category: category || s.category,
+            level: level !== undefined ? Number(level) : s.level,
+            experienceYears: experienceYears !== undefined ? Number(experienceYears) : s.experienceYears,
+            icon: icon || s.icon,
+            description: description || s.description
+          };
+        }
+        return s;
+      });
+
+      if (!found) {
+        db.skills.push({
+          name,
+          category: category || "languages",
+          level: Number(level) || 80,
+          experienceYears: Number(experienceYears) || 1.0,
+          icon: icon || "Code2",
+          description: description || ""
+        });
+      }
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -359,7 +291,11 @@ async function startServer() {
   app.delete("/api/skills/:name", async (req, res) => {
     try {
       const { name } = req.params;
-      await db.run("DELETE FROM skills WHERE name = ?", [name]);
+      const db = await readDb();
+
+      db.skills = db.skills.filter(s => s.name !== name);
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -370,12 +306,21 @@ async function startServer() {
   app.post("/api/projects", async (req, res) => {
     try {
       const { id, title, period, shortDescription, fullDescription, techStack, githubUrl, demoUrl } = req.body;
-      const stackStr = Array.isArray(techStack) ? techStack.join(", ") : techStack;
-      await db.run(
-        `INSERT INTO projects (id, title, period, shortDescription, fullDescription, techStack, githubUrl, demoUrl) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-        [id, title, period, shortDescription, fullDescription, stackStr || "", githubUrl || "", demoUrl || ""]
-      );
+      const db = await readDb();
+
+      db.projects = db.projects.filter(p => p.id !== id);
+      db.projects.push({
+        id,
+        title,
+        period,
+        shortDescription,
+        fullDescription,
+        techStack: Array.isArray(techStack) ? techStack.join(", ") : (techStack || ""),
+        githubUrl: githubUrl || "",
+        demoUrl: demoUrl || ""
+      });
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -386,13 +331,42 @@ async function startServer() {
     try {
       const { id } = req.params;
       const { title, period, shortDescription, fullDescription, techStack, githubUrl, demoUrl } = req.body;
-      const stackStr = Array.isArray(techStack) ? techStack.join(", ") : techStack;
-      await db.run(
-        `UPDATE projects 
-         SET title = ?, period = ?, shortDescription = ?, fullDescription = ?, techStack = ?, githubUrl = ?, demoUrl = ?
-         WHERE id = ?`,
-        [title, period, shortDescription, fullDescription, stackStr, githubUrl, demoUrl, id]
-      );
+      const db = await readDb();
+
+      let found = false;
+      db.projects = db.projects.map(p => {
+        if (p.id === id) {
+          found = true;
+          return {
+            id,
+            title: title || p.title,
+            period: period || p.period,
+            shortDescription: shortDescription || p.shortDescription,
+            fullDescription: fullDescription || p.fullDescription,
+            techStack: techStack !== undefined
+              ? (Array.isArray(techStack) ? techStack.join(", ") : techStack)
+              : p.techStack,
+            githubUrl: githubUrl !== undefined ? githubUrl : p.githubUrl,
+            demoUrl: demoUrl !== undefined ? demoUrl : p.demoUrl
+          };
+        }
+        return p;
+      });
+
+      if (!found) {
+        db.projects.push({
+          id,
+          title: title || "",
+          period: period || "",
+          shortDescription: shortDescription || "",
+          fullDescription: fullDescription || "",
+          techStack: Array.isArray(techStack) ? techStack.join(", ") : (techStack || ""),
+          githubUrl: githubUrl || "",
+          demoUrl: demoUrl || ""
+        });
+      }
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -402,7 +376,11 @@ async function startServer() {
   app.delete("/api/projects/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      await db.run("DELETE FROM projects WHERE id = ?", [id]);
+      const db = await readDb();
+
+      db.projects = db.projects.filter(p => p.id !== id);
+
+      await writeDb(db);
       res.json({ success: true });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -412,8 +390,8 @@ async function startServer() {
   // GET /api/messages - Admin read
   app.get("/api/messages", async (req, res) => {
     try {
-      const rows = await db.all("SELECT * FROM messages ORDER BY timestamp DESC");
-      res.json({ success: true, messages: rows });
+      const db = await readDb();
+      res.json({ success: true, messages: db.messages });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
     }
@@ -426,17 +404,26 @@ async function startServer() {
       if (!name || !email || !message) {
         return res.status(400).json({ success: false, error: "Champs requis manquants." });
       }
+      const db = await readDb();
+
       const newId = "msg-" + Math.floor(Math.random() * 899999 + 100000);
       const timestamp = new Date().toISOString();
-      await db.run(
-        `INSERT INTO messages (id, name, email, subject, message, timestamp) 
-         VALUES (?, ?, ?, ?, ?, ?)`,
-        [newId, name, email, subject || "Sans sujet", message, timestamp]
-      );
+
+      const newMessage = {
+        id: newId,
+        name,
+        email,
+        subject: subject || "Sans sujet",
+        message,
+        timestamp
+      };
+
+      db.messages.unshift(newMessage);
+      await writeDb(db);
 
       res.status(201).json({
         success: true,
-        message: "Message enregistré avec succès dans SQLite.",
+        message: "Message enregistré avec succès.",
         data: {
           id: newId,
           name,
@@ -445,7 +432,7 @@ async function startServer() {
           message,
           timestamp,
           receiptId: "job-ack-" + Math.floor(Math.random() * 89999 + 10000),
-          dispatchedTo: "SQLite Engine: messages_relation",
+          dispatchedTo: "JSON Engine: messages_relation",
           sqliteSyncStatus: "synced"
         }
       });
@@ -457,7 +444,9 @@ async function startServer() {
   // DELETE /api/messages - Clear database
   app.delete("/api/messages", async (req, res) => {
     try {
-      await db.run("DELETE FROM messages");
+      const db = await readDb();
+      db.messages = [];
+      await writeDb(db);
       res.json({ success: true, message: "Tous les messages ont été supprimés." });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
