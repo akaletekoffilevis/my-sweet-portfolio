@@ -58,15 +58,44 @@ const PortfolioContext = createContext<PortfolioContextType | undefined>(undefin
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<ProfileData>(() => {
     const saved = localStorage.getItem("portfolio_profile");
-    return saved ? JSON.parse(saved) : JOHN_DOE_PROFILE;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.name === "John Doe" || !parsed.name) {
+          return JOHN_DOE_PROFILE;
+        }
+        return parsed;
+      } catch (e) {
+        return JOHN_DOE_PROFILE;
+      }
+    }
+    return JOHN_DOE_PROFILE;
   });
 
   const [skills, setSkills] = useState<Skill[]>(() => {
+    const savedProfile = localStorage.getItem("portfolio_profile");
+    if (savedProfile) {
+      try {
+        const parsedProfile = JSON.parse(savedProfile);
+        if (parsedProfile.name === "John Doe" || !parsedProfile.name) {
+          return SKILLS_DATA;
+        }
+      } catch (e) {}
+    }
     const saved = localStorage.getItem("portfolio_skills");
     return saved ? JSON.parse(saved) : SKILLS_DATA;
   });
 
   const [projects, setProjects] = useState<Project[]>(() => {
+    const savedProfile = localStorage.getItem("portfolio_profile");
+    if (savedProfile) {
+      try {
+        const parsedProfile = JSON.parse(savedProfile);
+        if (parsedProfile.name === "John Doe" || !parsedProfile.name) {
+          return PROJECTS_DATA;
+        }
+      } catch (e) {}
+    }
     const saved = localStorage.getItem("portfolio_projects");
     return saved ? JSON.parse(saved) : PROJECTS_DATA;
   });
@@ -89,10 +118,10 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     return [
       {
         id: "sys-seed-1",
-        name: "Alexandre Martin",
-        email: "alex@techcorp.io",
-        subject: "Mission Freelance Go/gRPC",
-        message: "Salut John, besoin d'un renfort architecture microservices sur 3 mois denses.",
+        name: "Marc Dubreuil",
+        email: "marc.d@techstartups.com",
+        subject: "Poste de Développeur Fullstack Junior",
+        message: "Bonjour Koffi, j'ai vu votre portfolio en ligne. Votre profil de développeur junior nous intéresse beaucoup pour notre équipe produit.",
         timestamp: new Date(Date.now() - 3600000 * 4).toISOString()
       }
     ];

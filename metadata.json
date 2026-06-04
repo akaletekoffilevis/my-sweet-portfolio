@@ -1,6 +1,6 @@
 {
-  "name": "Portfolio de John Doe",
-  "description": "Portfolio interactif de John Doe, Développeur Backend et Architecte Cloud, présentant ses compétences, projets et une console interactive de démo API.",
+  "name": "Portfolio de Koffi Levis",
+  "description": "Portfolio interactif de Koffi Levis, Développeur Fullstack Junior, présentant ses compétences, projets réels et d'études, son CV A4 imprimable et sa console d'administration.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

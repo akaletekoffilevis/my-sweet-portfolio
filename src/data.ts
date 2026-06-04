@@ -6,217 +6,193 @@
 import { Skill, Project, ApiEndpoint } from "./types";
 
 export const JOHN_DOE_PROFILE = {
-  name: "John Doe",
-  title: "Développeur Backend & Architecte Cloud Êlite",
-  location: "Paris, France / Télétravail complet",
-  bio: "Passionné par l'ingénierie système robuste, la scalabilité et les architectures distribuées à haute disponibilité. Je conçois des APIs ultrarapides, mets en place des pipelines de données asynchrones hautement performants et orchestre des infrastructures cloud scalables et sécurisées.",
-  avatarUrl: "/src/assets/images/john_doe_avatar_1780522980244.png", // Exact generated image path
+  name: "Koffi Levis",
+  title: "Développeur Fullstack Junior",
+  location: "Abidjan, Côte d'Ivoire / Télétravail complet",
+  bio: "Développeur Fullstack Junior passionné par l'écosystème web moderne, en particulier TypeScript (React, Node.js), Tailwind CSS et PostgreSQL. Rigoureux et curieux, j'aime concevoir des applications web interactives propres, bien documentées, et optimiser le code pour offrir des expériences fluides et accessibles.",
+  avatarUrl: "/src/assets/images/koffi_avatar_1780568229358.png", // Newly generated professional portrait avatar
   socials: {
-    github: "https://github.com/john-doe-backend",
-    linkedin: "https://linkedin.com/in/john-doe-backend",
-    email: "john.doe.dev@example.com",
-    gpgKey: "8FBF BCD2 9E80 1AD3 45EB 98E0 FC0B DE8F"
+    github: "https://github.com/koffilevis",
+    linkedin: "https://linkedin.com/in/koffi-levis",
+    email: "koffilevis21@gmail.com",
+    gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D"
   },
   metrics: [
-    { label: "SLA Moyenne", value: "99.99%", desc: "Sur les microservices gérés" },
-    { label: "Volumétrie Max", value: "15M+", desc: "Requêtes quotidiennes traitées" },
-    { label: "Temps de Réponse", value: "<15ms", desc: "Médiane p95 sur endpoints clés" },
-    { label: "Expérience SecOps", value: "6+ Ans", desc: "Pratiques SecOps, OAuth2, OWASP" }
+    { label: "Projets Réalisés", value: "8+", desc: "Fiches académiques & projets personnels complets" },
+    { label: "Technologies", value: "10+", desc: "Outils web maîtrisés au quotidien" },
+    { label: "Activité GitHub", value: "150+", desc: "Commits réguliers cette année pour perfectionnement" },
+    { label: "Veille Active", value: "2h/jour", desc: "Lecture technique et entraînements algorithmiques" }
   ]
 };
 
 export const SKILLS_DATA: Skill[] = [
   // Langages
   {
-    name: "Go (Golang)",
+    name: "TypeScript / JavaScript",
     category: "languages",
-    level: 92,
-    experienceYears: 4,
-    icon: "SquareTerminal",
-    description: "Langage de prédilection pour les microservices hautement concurrents et de faible latence. Concurrence native (goroutines & channels)."
+    level: 85,
+    experienceYears: 2,
+    icon: "Code2",
+    description: "Développement d'applications Web typées et d'APIs structurées. Maîtrise d'ES6, du typage avancé et des hooks asynchrones."
   },
   {
-    name: "TypeScript / Node.js",
+    name: "HTML5 / CSS3 / Tailwind CSS",
     category: "languages",
-    level: 95,
-    experienceYears: 6,
-    icon: "Code2",
-    description: "Développement d'APIs typées et services Backend à forte I/O au sein de l'écosystème JS moderne (NestJS, Fastify)."
+    level: 88,
+    experienceYears: 2,
+    icon: "Terminal",
+    description: "Intégration d'interfaces élégantes, réactives et accessibles avec le framework Tailwind CSS. Souci du détail et du responsive."
   },
   {
     name: "Python",
     category: "languages",
-    level: 80,
-    experienceYears: 5,
-    icon: "Terminal",
-    description: "Scripting avancé, pipelines de traitement de données asynchrones avec FastAPI et Celery."
+    level: 72,
+    experienceYears: 1,
+    icon: "SquareTerminal",
+    description: "Scripting de scripts automatisés, manipulation de données locales et création d'APIs légères avec FastAPI."
   },
   {
-    name: "Rust",
+    name: "Go (Golang)",
     category: "languages",
-    level: 65,
-    experienceYears: 2,
+    level: 60,
+    experienceYears: 1,
     icon: "Cpu",
-    description: "Développement de modules natifs de haute performance et utilitaires CLI légers nécessitant sécurité mémoire absolue et zéro GC."
+    description: "Bases solides de programmation backend avec Go. Compréhension de la concurrence de base et développement d'APIs REST simples."
   },
   // Frameworks
   {
-    name: "NestJS",
+    name: "React (Vite)",
     category: "frameworks",
-    level: 94,
-    experienceYears: 5,
+    level: 82,
+    experienceYears: 2,
     icon: "Layers",
-    description: "Architecture modulaire solide inspirée d'Angular facilitant la maintainabilité des grands projets d'entreprise."
+    description: "Développement de SPA scalables avec une gestion d'état propre, hooks personnalisés et animations interactives fluides."
   },
   {
-    name: "Gin Gonic",
+    name: "NestJS / Express",
     category: "frameworks",
-    level: 88,
-    experienceYears: 3,
+    level: 78,
+    experienceYears: 1.5,
     icon: "Zap",
-    description: "Framework HTTP ultra-rapide en Go utilisé pour la construction de passerelles d'APIs et de routeurs de flux de données."
-  },
-  {
-    name: "gRPC & Protocol Buffers",
-    category: "frameworks",
-    level: 90,
-    experienceYears: 4,
-    icon: "Network",
-    description: "Communication inter-services de haute performance via HTTP/2 avec schémas de typage stricts et générés."
+    description: "Conception de serveurs HTTP d'APIs RESTful avec NestJS (architecture modulaire) ou Express (approche minimalist)."
   },
   // Databases
   {
-    name: "PostgreSQL (Réplication)",
+    name: "PostgreSQL",
     category: "databases",
-    level: 90,
-    experienceYears: 6,
+    level: 75,
+    experienceYears: 1.5,
     icon: "Database",
-    description: "Modélisation relationnelle complexe, optimisation de requêtes (EXPLAIN ANALYZE), sharding et réplication Streaming Primary-Replica."
+    description: "Modélisation relationnelle de bases de données, clés étrangères, jointures complexes et requêtes optimisées."
   },
   {
-    name: "Redis (Cache & Pub-Sub)",
+    name: "Redis (Cache de base)",
     category: "databases",
-    level: 92,
-    experienceYears: 5,
+    level: 65,
+    experienceYears: 1,
     icon: "Activity",
-    description: "Mise en cache intelligente de sessions, structures de données complexes en mémoire, et queues de messages temps-réel légères."
+    description: "Utilisation pratique pour la gestion de cache ou la configuration de session express."
   },
   {
-    name: "Apache Kafka",
+    name: "MongoDB",
     category: "databases",
-    level: 85,
-    experienceYears: 3,
+    level: 78,
+    experienceYears: 1.5,
     icon: "Shuffle",
-    description: "Log de commit distribué pour les architectures événementielles (Event Sourcing) et messagerie asynchrone haut débit."
+    description: "Conception et manipulation de bases de données NoSQL de documents avec Mongoose."
   },
   // DevOps
   {
-    name: "Docker & Kubernetes",
-    category: "devops",
-    level: 88,
-    experienceYears: 5,
-    icon: "Boxes",
-    description: "Orchestration, déploiements déclaratifs de clusters microservices avec Helm et auto-healing."
-  },
-  {
-    name: "Terraform (IaC)",
+    name: "Git / GitHub Desktop",
     category: "devops",
     level: 85,
-    experienceYears: 3,
-    icon: "FileCode",
-    description: "Automatisation complète d'environnements cloud multi-régions (AWS/GCP), versioning de l'infrastructure."
+    experienceYears: 2,
+    icon: "GitBranch",
+    description: "Suivi de version de code rigoureux, travail collaboratif avec pull requests et gestion de conflits."
   },
   {
-    name: "CI/CD & GitHub Actions",
+    name: "Docker (Containers)",
     category: "devops",
-    level: 90,
-    experienceYears: 5,
-    icon: "GitBranch",
-    description: "Création de pipelines de build automatisés, validations, tests d'intégration, linting et déploiement continu sans interruption."
+    level: 70,
+    experienceYears: 1,
+    icon: "Boxes",
+    description: "Création d'images de microservices unifiées et orchestration locale simple avec docker-compose."
   }
 ];
 
 export const PROJECTS_DATA: Project[] = [
   {
-    id: "aerotransit",
-    title: "AeroTransit - Distributeur de flux IoT temps réel",
-    period: "2024 - 2025",
-    shortDescription: "Système d'ingestion et de routage de données IoT aéronautiques transmettant plus de 15 000 payloads de télémétrie par seconde.",
-    fullDescription: "AeroTransit est un pipeline d'ingestion de données et d'analyse en continu conçu pour un fournisseur de logistique aéronautique. Le projet résout le problème de décodage des trames binaires provenant d'avions en plein vol et la redistribution à latence sub-milliseconde vers de multiples clients abonnés.",
-    techStack: ["Go", "Apache Kafka", "Redis Cluster", "PostgreSQL", "InfluxDB", "Docker K8s"],
+    id: "devconnect",
+    title: "DevConnect - Réseau d'échange pour Développeurs",
+    period: "2024 (Projet Personnel)",
+    shortDescription: "Réseau social d'entraide permettant aux développeurs de partager des tutoriels, des projets et d'interagir par pôle technique.",
+    fullDescription: "DevConnect est une plateforme web moderne conçue pour résorber l'isolement des juniors. Les utilisateurs peuvent trier les publications par tags, soumettre leurs portfolios individuels pour audit, et recevoir des commentaires constructifs. L'architecture sépare proprement la gestion des requêtes.",
+    techStack: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
     metrics: [
-      { label: "Latence d'ingestion", value: "< 8ms" },
-      { label: "Simultanéité", value: "15,000 req/sec" },
-      { label: "Disponibilité garantie", value: "99.995%" }
+      { label: "Couverture de tests", value: "82%" },
+      { label: "Composants UI réutilisables", value: "35+" },
+      { label: "Uptime démo", value: "99.9%" }
     ],
-    architectureSummary: "Les sockets UDP poussent le flux crypté vers un cluster d'ingestion Go. Les trames décodées sont poussées sur un bus Apache Kafka à partitions multiples. Un worker Go s'occupe de l'écriture en batch dans InfluxDB pour l'historique et Redis pour le state client temps-réel servi via WebSockets.",
+    architectureSummary: "Frontend interactif codé en React tirant profit des hooks asynchrones pour le rafraîchissement d'état. Le backend Express gère l'authentification sécurisée par JWT, consigne les logs système de requêtes régulières et stocke l'historique dans PostgreSQL.",
     challenges: [
-      "Optimisation mémoire au niveau byte-level en Go pour éviter l'intervention fréquente du Garbage Collector sous des charges de pointe de 25k req/sec.",
-      "Mise en place de mécanismes de backpressure intelligents pour protéger l'infrastructure en cas de latence réseau temporaire des brokers Kafka."
+      "Gestion d'une interface responsive hautement personnalisée pour assurer un affichage impeccable sur petits écrans mobiles.",
+      "Prise en main d'un système de jetons JWT sécurisé avec des cookies HttpOnly pour écarter les attaques XSS."
     ],
-    githubUrl: "https://github.com/john-doe-backend/aerotransit",
-    demoUrl: "https://aerotransit.live-demo.example.com",
+    githubUrl: "https://github.com/koffilevis/devconnect",
+    demoUrl: "https://devconnect-demo.example.com",
     architectureDiagram: [
-      { id: "client_iot", title: "Balises IoT Avioniques", subtitle: "UDP Sockets", type: "client", description: "Envoûtent des trames compressées chiffrées en continu.", connections: ["ingestor"] },
-      { id: "ingestor", title: "Cluster Ingestion Go", subtitle: "Fast Ingest Engine", type: "service", description: "Reçoit les paquets UDP, décrypte et parse le binaire à la volée.", metric: "9.2MB/s", connections: ["kafka", "redis_status"] },
-      { id: "kafka", title: "Apache Kafka Cluster", subtitle: "Message Bus", type: "queue", description: "Trafic distribué sur 12 partitions thématiques.", connections: ["workers"] },
-      { id: "redis_status", title: "Redis Cache State", subtitle: "Activité Instantanée", type: "cache", description: "Enregistre la dernière position connue de chaque avion pour lectures instantanées.", metric: "0.2ms latency", connections: [] },
-      { id: "workers", title: "Analytics Workers Go", subtitle: "Processors", type: "service", description: "Consomment Kafka, appliquent des calculs géographiques et des alertes.", connections: ["postgres"] },
-      { id: "postgres", title: "PostgreSQL Master DB", subtitle: "Storage Relationnel", type: "database", description: "Persistance froide des données consolidées de vol et contrats.", metric: "40GB/Mois", connections: [] }
+      { id: "client_web", title: "Interface Client SPA", subtitle: "React / Vite App", type: "client", description: "Expérience utilisateur interactive avec gestion d'état locale.", connections: ["express_api"] },
+      { id: "express_api", title: "API Backend Express", subtitle: "REST Server Node.js", type: "service", description: "Intercepte, authentifie les JWT et traite les fonctions CRUD.", metric: "Express Router", connections: ["postgres_db", "redis_cache"] },
+      { id: "redis_cache", title: "Cache local d'API", subtitle: "Redis Store", type: "cache", description: "Conserve temporairement le catalogue pour soulager la base principale.", connections: [] },
+      { id: "postgres_db", title: "Bases de Données", subtitle: "PostgreSQL Store", type: "database", description: "Stocke les utilisateurs et leurs posts techniques.", metric: "Relational DB", connections: [] }
     ]
   },
   {
-    id: "hypercache",
-    title: "HyperCache - Proxy d'optimisation en Rust",
-    period: "2023 - 2024",
-    shortDescription: "Proxy réseau de mise en cache ultra-léger évitant la surcharge des bases de données de production legacy.",
-    fullDescription: "Développé pour répondre à l'engorgement récurrent d'un vieil ERP d'entreprise dont la base de données relationnelle Oracle ne supportait pas les accès concurrents. HyperCache s'interpose comme une couche d'abstraction réseau intelligente effectuant des interceptions en amont.",
-    techStack: ["Rust", "Tokio", "gRPC", "Redis", "Prometheus", "Grafana"],
+    id: "taskflow",
+    title: "TaskFlow - Tableau Kanban Collaboratif Temps Réel",
+    period: "2024 (Projet Académique)",
+    shortDescription: "Gestionnaire de tâches de style Kanban avec synchronisation instantanée entre collaborateurs.",
+    fullDescription: "TaskFlow est une application ergonomique de gestion de sprints d'équipe. Dès qu'un collaborateur glisse-dépose une tâche, les écrans de tous les autres membres de l'équipe changent de statut immédiatement et sans latence, évitant les surcharges d'appels répétitifs de rafraîchissement.",
+    techStack: ["React", "NestJS", "Socket.io", "MongoDB", "Tailwind CSS"],
     metrics: [
-      { label: "Charge DB Oracle", value: "-65%" },
-      { label: "p99 Temps Réponse", value: "1.2ms" },
-      { label: "Cache Hit Ratio", value: "88.4%" }
+      { label: "Délai de Sync", value: "< 75ms" },
+      { label: "Temps d'Uptime", value: "99.9%" }
     ],
-    architectureSummary: "Développé sur le runtime Tokio asynchrone sécurisé, HyperCache gère les requêtes clientes via TLS. Il consulte d'abord un dictionnaire Redis distribué en lecture seule de ultra-haute vitesse. En cas de cache miss, la requête est parallélisée, exécutée, indexée dans le cache, et retournée.",
+    architectureSummary: "Un frontend en React avec un glisser-déposer intuitif s'appuie sur une connexion WebSocket persistante avec le package Socket.io-client. Le serveur NestJS valide les événements de mouvement de cartes et écrit la structure BSON dans une base MongoDB.",
     challenges: [
-      "Prise en main d'une invalidation de cache granulaire pour s'assurer que les données financières ne soient jamais périmées de plus de 5 secondes.",
-      "Garantie de sûreté mémoire stricte sans 'NullPointerExceptions' ou 'Data Races' grâce aux garanties du compilateur Rust."
+      "Maintien des connexions WebSocket unifiées en cas de déconnexions internet impromptues avec gestion de reconnexion automatique.",
+      "Calcul efficace des priorités de tâches pour de gros volumes de cartes modifiées simultanément."
     ],
-    githubUrl: "https://github.com/john-doe-backend/hypercache",
+    githubUrl: "https://github.com/koffilevis/taskflow",
     architectureDiagram: [
-      { id: "auth_proxy", title: "User Gateway App", subtitle: "Frontends/SDKs", type: "client", description: "Exécutent des rapports ou accèdent aux données d'inventaires.", connections: ["hypercache_engine"] },
-      { id: "hypercache_engine", title: "HyperCache Single Binary", subtitle: "Rust Service", type: "service", description: "Intercepte, authentifie gRPC, résout localement.", metric: "CPU < 5%", connections: ["redis_internal", "legacy_db"] },
-      { id: "redis_internal", title: "Redis Cluster", subtitle: "Dictionnaire en cache", type: "cache", description: "Stocke les résultats sérialisés en Protobuf.", metric: "110k IOPS", connections: [] },
-      { id: "legacy_db", title: "Base de données Enterprise", subtitle: "Legacy Database", type: "database", description: "Base relationnelle lourde saturée d'anciennes procédures stockées.", connections: [] }
+      { id: "front_web", title: "Application Client React", subtitle: "React Router & Hooks", type: "client", description: "Composants graphiques réactifs de glisser-déposer.", connections: ["nestjs_back"] },
+      { id: "nestjs_back", title: "Serveur NestJS App", subtitle: "NestJS / Socket.io GATEWAY", type: "service", description: "Gère les namespaces WebSocket de room d'équipes et valide les requêtes.", connections: ["mongo_store"] },
+      { id: "mongo_store", title: "Base de Documents", subtitle: "MongoDB Engine", type: "database", description: "Persiste l'ordonnancement séquentiel des tickets d'équipes.", metric: "NoSQL DB", connections: [] }
     ]
   },
   {
-    id: "coresphere",
-    title: "CoreSphere - Framework distributed IAM asymétrique",
-    period: "2023",
-    shortDescription: "Système de contrôle d'accès sécurisé distribuant des tokens JWT auto-validables sans appel centralisé.",
-    fullDescription: "Service d'authentification centralisé d'identité pour une architecture microservices d'envergure. Il s'appuie sur le standard OAuth2 standard et OpenID Connect en distribuant des clés publiques tournantes asymétriques pour décharger le routage centralisé.",
-    techStack: ["TypeScript", "NestJS", "PostgreSQL", "Redis Rate-Limiting", "Kubernetes", "JWKS"],
+    id: "notesphere",
+    title: "NoteSphere - Bloc-notes Markdown Intelligent",
+    period: "2023 (Projet Personnel)",
+    shortDescription: "Application web d'édition de notes Markdown avec dossiers hiérarchiques et persistance locale de secours.",
+    fullDescription: "NoteSphere résout le défi de l'indisponibilité réseau lors de déplacements. L'utilisateur édite en syntaxe Markdown classique et bénéficie d'une prévisualisation HTML instantanée. Tout document reste accessible en local grâce à IndexedDB et se synchronise dès le retour du réseau.",
+    techStack: ["TypeScript", "Next.js", "Tailwind CSS", "IndexedDB", "PostgreSQL"],
     metrics: [
-      { label: "Vérification Token", value: "0ms réseau" },
-      { label: "Rate-Limit Blocage", value: "99.8%" },
-      { label: "Utilisateurs Actifs", value: "150,000+" }
+      { label: "Accès Local", value: "< 5ms" },
+      { label: "Export PDF/HTML", value: "100%" }
     ],
-    architectureSummary: "Le service d'identité distribue des JWT signés avec des clés secrètes régénérées toutes les 24h. Chaque microservice récupère et garde en cache via l'URI /.well-known/jwks.json la clé publique pour valider cryptographiquement les requêtes de manière décentralisée, assurant une latence nulle.",
+    architectureSummary: "Conçu en Next.js pour de superbes chargements initiaux. Utilise un wrapper IndexedDB personnalisé sur le navigateur pour lire et écrire instantanément de manière décentralisée. Une table PostgreSQL centralisée assure la sauvegarde finale lors de la réactivation réseau.",
     challenges: [
-      "Sécurisation contre les attaques de force brute et le scraping via un limiteur de débit Token Bucket distribué basé sur Redis (REDIS LUA Scripting).",
-      "Assurer une haute résilience en concevant des clés rotatives sans déconnecter les sessions actives lors d'une transition."
+      "Résolution de conflits de versions de notes lors d'une synchronisation simultanée après une longue période de travail hors-ligne.",
+      "Parsing propre et sécurisé du Markdown brut en HTML pour endiguer les attaques d'injection de script (XSS)."
     ],
-    githubUrl: "https://github.com/john-doe-backend/coresphere",
-    demoUrl: "https://coresphere-demo.example.com",
+    githubUrl: "https://github.com/koffilevis/notesphere",
+    demoUrl: "https://notesphere.koffilevis.dev",
     architectureDiagram: [
-      { id: "client_web", title: "Web & Apps Mobiles", subtitle: "Utilisateurs", type: "client", description: "Effectuent des requêtes avec en-tête d'Authorization Bearer Token.", connections: ["ingress_routing"] },
-      { id: "ingress_routing", title: "Kong API Gateway", subtitle: "Microservices Router", type: "gateway", description: "Transfère directement vers les sous-services sans valider centralement car il utilise l'antémémoire.", connections: ["payment_service", "billing_service", "coresphere_auth"] },
-      { id: "coresphere_auth", title: "CoreSphere Auth Server", subtitle: "IAM Service", type: "service", description: "Serveur centralisé requis uniquement pour le login, la distribution JWKS et le refresh.", metric: "Active instances: 3", connections: ["postgres_users", "redis_tokens"] },
-      { id: "redis_tokens", title: "Redis Blocklist", subtitle: "Revocation Store", type: "cache", description: "Stocke l'empreinte JTI des jetons bannis avant expiration pour blocage instantané.", connections: [] },
-      { id: "postgres_users", title: "PostgreSQL DB Chiffrée", subtitle: "Crédentiels", type: "database", description: "Mappe les mots de passe hachés avec de l'Argon2id avec sel cryptographique.", connections: [] },
-      { id: "payment_service", title: "Payment microservice", subtitle: "gRPC Receiver", type: "service", description: "Valide le token lui-même à l'aide de la clé publique de l'antémémoire.", connections: [] },
-      { id: "billing_service", title: "Billing microservice", subtitle: "gRPC Receiver", type: "service", description: "Valide le token lui-même à l'aide de la clé publique de l'antémémoire.", connections: [] }
+      { id: "next_client", title: "Client Next.js App", subtitle: "Page Router SPA", type: "client", description: "Éditeur WYSIWYG de documents interactifs.", connections: ["local_idb", "next_server"] },
+      { id: "local_idb", title: "IndexedDB Locale", subtitle: "Stockage Client Navigateur", type: "cache", description: "Assure la fluidité d'écriture instantanée hors-ligne.", connections: [] },
+      { id: "next_server", title: "Server Routes Core", subtitle: "API Endpoints Serverless", type: "service", description: "Prend en charge la comparaison différentielle intelligente pour la sauvegarde.", connections: ["postgres_cloud"] },
+      { id: "postgres_cloud", title: "PostgreSQL Cloud Database", subtitle: "Centralized SQL Storage", type: "database", description: "Enregistre la référence maître synchronisée de chaque document.", metric: "Cloud DB", connections: [] }
     ]
   }
 ];
@@ -225,7 +201,7 @@ export const MOCK_API_ENDPOINTS: ApiEndpoint[] = [
   {
     method: "GET",
     path: "/api/v1/profile",
-    description: "Récupère les informations publiques professionnelles de John Doe, incluant son statut, ses indicateurs clés et de contact.",
+    description: "Récupère les informations publiques professionnelles de Koffi Levis, incluant son statut, ses indicateurs clés et de contact.",
     defaultResponse: JSON.stringify(JOHN_DOE_PROFILE, null, 2)
   },
   {
@@ -240,13 +216,13 @@ export const MOCK_API_ENDPOINTS: ApiEndpoint[] = [
   {
     method: "GET",
     path: "/api/v1/projects",
-    description: "Obtient les fiches d'architecture, défis et métriques des projets distribués conçus et maintenus par John Doe.",
+    description: "Obtient les fiches d'architecture, défis et métriques des projets distribués conçus et maintenus par Koffi Levis.",
     defaultResponse: JSON.stringify(PROJECTS_DATA, null, 2)
   },
   {
     method: "POST",
     path: "/api/v1/contact",
-    description: "Soumet un message de prise de contact à l'API de John Doe. En production, valide le schéma, journalise via Kafka et notifie sur Slack.",
+    description: "Soumet un message de prise de contact à l'API de Koffi Levis. En production, valide le schéma, journalise et notifie.",
     params: [
       { name: "name", type: "string", required: true, description: "Nom complet du recruteur ou collaborateur" },
       { name: "email", type: "string", required: true, description: "Adresse e-mail de contact valide" },
@@ -255,7 +231,7 @@ export const MOCK_API_ENDPOINTS: ApiEndpoint[] = [
     ],
     defaultResponse: JSON.stringify({
       status: "success",
-      message: "Message enregistré avec succès dans la base de données de John.",
+      message: "Message enregistré avec succès dans la base de données de Koffi Levis.",
       data: {
         receiptId: "job-ack-" + Math.floor(Math.random() * 89999 + 10000),
         dispatchedTo: "Kafka Topic: contact_notifications",

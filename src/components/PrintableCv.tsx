@@ -20,22 +20,36 @@ export default function PrintableCv() {
 
         {/* Header Block: 2 Columns */}
         <div className="border-b border-[#e2e8f0] pb-4 mb-4 flex justify-between items-start">
-          <div>
-            <h1 className="text-2xl font-bold font-serif tracking-tight text-[#0f172a]">
-              {profile.name}
-            </h1>
-            <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#475569] mt-1">
-              {profile.title}
-            </p>
-            <p className="text-[10px] text-[#64748b] mt-0.5 font-medium">
-              {profile.location}
-            </p>
+          <div className="flex gap-4 items-center">
+            {profile.avatarUrl && (
+              <img
+                src={profile.avatarUrl}
+                alt={profile.name}
+                className="w-14 h-14 rounded-full object-cover border border-[#cbd5e1]"
+                referrerPolicy="no-referrer"
+              />
+            )}
+            <div>
+              <h1 className="text-2xl font-bold font-serif tracking-tight text-[#0f172a]">
+                {profile.name}
+              </h1>
+              <p className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#475569] mt-1">
+                {profile.title}
+              </p>
+              <p className="text-[10px] text-[#64748b] mt-0.5 font-medium">
+                {profile.location}
+              </p>
+            </div>
           </div>
           
           <div className="text-right text-[10px] text-[#475569] font-mono leading-relaxed select-all">
             <div className="font-semibold text-[#1e293b]">{profile.socials.email}</div>
             <div>{profile.socials.linkedin || "linkedin.com/in/" + profile.name.toLowerCase().replace(/\s+/g, "")}</div>
             <div>github.com/{profile.socials.github.split("/").pop()}</div>
+            {/* Dynamic portfolio URL requested by the user */}
+            <div className="text-[#0284c7] font-bold mt-1 text-[10px]">
+              Portfolio: {window.location.origin.replace(/^https?:\/\//, "")}
+            </div>
           </div>
         </div>
 

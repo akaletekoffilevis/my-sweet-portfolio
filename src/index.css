@@ -102,22 +102,18 @@ body {
     print-color-adjust: exact !important;
   }
 
-  /* Completely hide everything inside root by default */
-  #root > *, 
-  body > *:not(#root) {
+  /* Completely hide the website viewport, standard modal toolbar overlays, backdrops, and interactive buttons */
+  #app-viewport,
+  .fixed,
+  .backdrop-blur-md,
+  button,
+  footer {
     display: none !important;
     visibility: hidden !important;
   }
 
-  /* Unhide root wrapper only as a structural block */
-  #root {
-    display: block !important;
-    visibility: visible !important;
-    background-color: #ffffff !important;
-  }
-
-  /* Force display only the target node */
-  #root #print-cv-target {
+  /* Force display only the CV target container inside standard A4 bounds */
+  #print-cv-target {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -127,14 +123,14 @@ body {
     top: 0 !important;
     width: 210mm !important;
     height: 297mm !important;
-    padding: 18mm !important; /* Elegant margin to fit structure exactly inside standard A4 boundaries */
+    padding: 16mm !important; /* Elegant margin to fit structure exactly inside standard A4 boundaries */
     background-color: #ffffff !important;
     color: #0f172a !important;
     box-sizing: border-box !important;
     z-index: 9999999 !important;
   }
 
-  #root #print-cv-target * {
+  #print-cv-target * {
     visibility: visible !important;
     color: #0f172a !important;
   }
