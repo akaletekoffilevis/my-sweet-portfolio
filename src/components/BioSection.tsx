@@ -11,7 +11,7 @@ export default function BioSection() {
   const { profile } = usePortfolio();
   const [copiedKey, setCopiedKey] = useState(false);
   const [showKey, setShowKey] = useState(false);
-  const [activeTab, setActiveTab] = useState<"about" | "philosophy" | "math_info">("about");
+  const [activeTab, setActiveTab] = useState<"about" | "philosophy">("about");
 
   const copyGpgKey = () => {
     navigator.clipboard.writeText(profile.socials.gpgKey);
@@ -162,17 +162,6 @@ export default function BioSection() {
                   <Sparkles className="w-3.5 h-3.5 shrink-0" />
                   02_Philosophie
                 </button>
-                <button
-                  onClick={() => setActiveTab("math_info")}
-                  className={`px-5 py-3.5 font-mono text-xs tracking-wider uppercase border-r border-app-border-subtle font-extrabold flex items-center gap-2 shrink-0 transition-all cursor-pointer ${
-                    activeTab === "math_info"
-                      ? "bg-app-card text-teal-400 border-b-2 border-b-teal-500"
-                      : "text-app-text-muted hover:text-app-text-white bg-transparent"
-                  }`}
-                >
-                  <BookOpen className="w-3.5 h-3.5 shrink-0" />
-                  03_Maths & Logique
-                </button>
               </div>
 
               {/* Dynamic Content Body based on tab */}
@@ -212,25 +201,6 @@ export default function BioSection() {
                         <li><strong>Performance SQL</strong> : Indexation saine et requêtes optimisées en écriture et lecture.</li>
                         <li><strong>Tests unitaires</strong> : Validation systématique du comportement critique des APIs.</li>
                       </ul>
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "math_info" && (
-                  <div className="space-y-4 animate-fadeIn">
-                    <h3 className="text-sm font-mono text-teal-300 uppercase font-black tracking-widest flex items-center gap-2">// COMPILER LOGIC & MATHS STRUCTURE</h3>
-                    <p className="text-[14px] text-app-text-body leading-relaxed">
-                      Actuellement en <strong>Licence 2 de Mathématiques & Informatique</strong> à l'Université Abdou Moumouni de Niamey. Cette double compétence me confère une rigueur analytique renforcée et des bases solides pour appréhender l'ingénierie des données et la logique algorithmique complexe.
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                      <div className="border border-app-border-subtle p-3 rounded bg-app-bg/30">
-                        <div className="text-[10px] font-mono font-bold text-teal-400 uppercase">Mathématiques pures</div>
-                        <p className="text-xs text-app-text-muted mt-1 leading-relaxed">Algèbre linéaire, structures algébriques discrètes et calculs de probabilités.</p>
-                      </div>
-                      <div className="border border-app-border-subtle p-3 rounded bg-app-bg/30">
-                        <div className="text-[10px] font-mono font-bold text-teal-400 uppercase">Algorithmique pure</div>
-                        <p className="text-xs text-app-text-muted mt-1 leading-relaxed">Arbres, graphes, structuration de données complexes et structures mémoires du processeur.</p>
-                      </div>
                     </div>
                   </div>
                 )}
