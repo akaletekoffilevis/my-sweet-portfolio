@@ -86,25 +86,24 @@ function AppContent() {
 
           <div className="relative z-10">
             
-            {/* Quick Access Anchor Rail - Sophisticated developer rail */}
-            <div className="bg-app-bg/80 border-b border-app-border-subtle sticky top-[73px] z-30 backdrop-blur-md hidden md:block">
-              <div className="mx-auto max-w-7xl px-6 py-2.5 flex justify-between items-center text-[10px] font-mono tracking-widest text-app-text-muted uppercase">
-                <span className="flex items-center gap-1.5 font-bold">
-                  <Terminal className="h-3.5 w-3.5 text-app-text-muted" />
-                  SYS_LOCATE:
+            {/* Scroll Navigation Rail */}
+            <div className="bg-app-bg/85 border-b border-app-border-subtle sticky top-[80px] z-30 backdrop-blur-md hidden md:block select-none">
+              <div className="mx-auto max-w-7xl px-6 py-3 flex justify-between items-center text-xs font-mono text-app-text-muted">
+                <span className="flex items-center gap-1.5 font-bold tracking-wider uppercase text-teal-500">
+                  <Terminal className="h-4 w-4" />
+                  Navigation Active
                 </span>
-                <div className="flex gap-6">
-                  <a href="#bio-section" className="hover:text-app-text-white border-b border-transparent hover:border-app-border-strong pb-0.5 transition">01_IDENTITÉ</a>
-                  <span className="text-app-text-muted-xs">/</span>
-                  <a href="#skills-section" className="hover:text-app-text-white border-b border-transparent hover:border-app-border-strong pb-0.5 transition">02_COMPÉTENCES</a>
-                  <span className="text-app-text-muted-xs">/</span>
-                  <a href="#projects-section" className="hover:text-app-text-white border-b border-transparent hover:border-app-border-strong pb-0.5 transition">03_PROJETS</a>
-                  <span className="text-app-text-muted-xs">/</span>
-                  <a href="#contact-resume-section" className="hover:text-app-text-white border-b border-transparent hover:border-app-border-strong pb-0.5 transition">04_CONTACT_&_CV</a>
+                <div className="flex gap-7 font-semibold uppercase tracking-wider">
+                  <a href="#bio-section" className="hover:text-app-text-white border-b border-transparent hover:border-teal-500 pb-0.5 transition">01. Présentation</a>
+                  <span className="text-app-text-muted/30">|</span>
+                  <a href="#skills-section" className="hover:text-app-text-white border-b border-transparent hover:border-teal-500 pb-0.5 transition">02. Compétences</a>
+                  <span className="text-app-text-muted/30">|</span>
+                  <a href="#projects-section" className="hover:text-app-text-white border-b border-transparent hover:border-teal-500 pb-0.5 transition">03. Projets réels</a>
+                  <span className="text-app-text-muted/30">|</span>
+                  <a href="#contact-resume-section" className="hover:text-app-text-white border-b border-transparent hover:border-teal-500 pb-0.5 transition">04. Contact & CV</a>
                 </div>
-                <div className="flex items-center gap-2 font-mono text-app-text-muted-xs text-[9px]">
-                  <div className="w-1.5 h-1.5 bg-[#22c55e] rounded-full shadow-[0_0_6px_rgba(34,197,94,0.8)] animate-pulse"></div>
-                  <span>SECURE_CONNECTION</span>
+                <div className="text-[10px] text-app-text-muted font-bold tracking-widest uppercase">
+                  BDD_SQLITE_SYNCPORTAL
                 </div>
               </div>
             </div>

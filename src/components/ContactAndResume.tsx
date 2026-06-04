@@ -23,223 +23,6 @@ export default function ContactAndResume() {
   const [lastReceipt, setLastReceipt] = useState<any>(null);
   const [isPdfGenerating, setIsPdfGenerating] = useState(false);
 
-  // Dynamic Word/DOCX file generation function matching schema & light styling
-  const downloadAsWord = () => {
-    const header = `
-      <html xmlns:o='urn:schemas-microsoft-com:office:office' 
-            xmlns:w='urn:schemas-microsoft-com:office:word' 
-            xmlns='http://www.w3.org/TR/REC-html40'>
-      <head>
-        <meta charset="utf-8">
-        <title>CV_${profile.name.replace(/\s+/g, "_")}</title>
-        <!--[if gte mso 9]>
-        <xml>
-          <w:WordDocument>
-            <w:View>Print</w:View>
-            <w:Zoom>100</w:Zoom>
-            <w:DoNotOptimizeForBrowser/>
-          </w:WordDocument>
-        </xml>
-        <![endif]-->
-        <style>
-          @page {
-            size: A4;
-            margin: 1.5cm 1.5cm 1.5cm 1.5cm;
-          }
-          body {
-            font-family: Arial, sans-serif;
-            color: #1e293b;
-            font-size: 10pt;
-            line-height: 1.4;
-          }
-          h1 {
-            font-size: 18pt;
-            font-weight: bold;
-            color: #0f172a;
-            margin: 0 0 2pt 0;
-            text-transform: uppercase;
-          }
-          .role-title {
-            font-size: 10.5pt;
-            font-weight: bold;
-            color: #0d9488;
-            text-transform: uppercase;
-            margin-bottom: 2px;
-          }
-          .section-title {
-            font-size: 11pt;
-            font-weight: bold;
-            color: #0f172a;
-            border-bottom: 2px solid #0f172a;
-            padding-bottom: 2px;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-          }
-          .project-title {
-            font-weight: bold;
-            color: #0f172a;
-            font-size: 10pt;
-          }
-          .project-period {
-            color: #0d9488;
-            font-size: 8.5pt;
-            font-weight: bold;
-          }
-          .tag {
-            background-color: #f8fafc;
-            color: #334155;
-            font-size: 8pt;
-            padding: 2px 6px;
-            border: 1px solid #e2e8f0;
-            margin-right: 4px;
-          }
-          .sidebar-item {
-            font-size: 9pt;
-            margin-bottom: 8px;
-          }
-          .sidebar-label {
-            font-weight: bold;
-            color: #0f172a;
-          }
-        </style>
-      </head>
-      <body>
-    `;
-
-    const footer = `
-      </body>
-      </html>
-    `;
-
-    const portfolioUrl = window.location.origin.replace(/^https?:\/\//, "");
-
-    const content = `
-      <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
-        <tr>
-          <td style="vertical-align:top; padding:12px; border:1px solid #0f172a; background-color:#f8fafc;">
-            <h1>${profile.name}</h1>
-            <div class="role-title">&gt; ${profile.title} • Licence 2 Mathématiques & Informatique</div>
-          </td>
-          <td style="text-align:right; vertical-align:top; border:1px solid #0f172a; padding:12px; font-size: 8.5pt; color: #1e293b; background-color:#f8fafc;">
-            <strong>Email:</strong> ${profile.socials.email}<br/>
-            <strong>Tél:</strong> +227 91 53 52 20<br/>
-            <strong>Adresse:</strong> ${profile.location}<br/>
-            <strong>GitHub:</strong> ${profile.socials.github.replace("https://", "")}<br/>
-            <strong>LinkedIn:</strong> ${profile.socials.linkedin.replace("https://", "")}<br/>
-            <strong>Portfolio:</strong> ${portfolioUrl}
-          </td>
-        </tr>
-      </table>
-
-      <table style="width:100%; border-collapse:collapse;">
-        <tr>
-          <!-- Column 1: Sidebar (33% content) -->
-          <td style="width:33%; vertical-align:top; padding-right:15px; border-right:1px solid #e2e8f0;">
-            
-            <div class="section-title">// 01_À propos</div>
-            <p style="font-size:9pt; text-align:justify; color:#334155; line-height:1.45; margin:0;">
-              ${profile.bio}
-            </p>
-
-            <div class="section-title">// 02_Formations</div>
-            <div class="sidebar-item">
-              <strong>Licence 2 en Mathématiques / Informatique</strong><br/>
-              <span style="color:#475569; font-size:8.5pt;">UAM de Niamey • 2025 (En cours)</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>Baccalauréat Général</strong><br/>
-              <span style="color:#475569; font-size:8.5pt;">Csp Assifa • 2024</span>
-            </div>
-            <div class="sidebar-item">
-              <strong>BEPC</strong><br/>
-              <span style="color:#475569; font-size:8.5pt;">Csp Assifa • 2023</span>
-            </div>
-
-            <div class="section-title">// 03_Certifications</div>
-            <div class="sidebar-item">
-              <strong>C# Free Foundation</strong><br/>
-              <span style="color:#475569; font-size:8.5pt;">FreeCodeCamp & Microsoft</span>
-            </div>
-
-            <div class="section-title">// 04_Langues</div>
-            <p style="font-size:8.5pt; color:#334155; margin:0; line-height:1.4;">
-              • Français : Maternelle<br/>
-              • Haoussa : Courant<br/>
-              • Zarma : Intermédiaire<br/>
-              • Anglais : Débutant
-            </p>
-
-            <div class="section-title">// 05_Qualités</div>
-            <p style="font-size:8.5pt; color:#334155; margin:0; line-height:1.4;">
-              • Rigueur & logique<br/>
-              • Capacité d'analyse & persévérance<br/>
-              • Esprit d'équipe & organisation<br/>
-              • Adaptabilité & autonomie
-            </p>
-
-          </td>
-
-          <!-- Column 2: Main Area (67% content) -->
-          <td style="width:67%; vertical-align:top; padding-left:15px;">
-            
-            <div class="section-title" style="margin-top:0;">// 06_Expertises Techniques</div>
-            <table style="width:100%; border-collapse:collapse;">
-              <tr>
-                <td style="width:50%; vertical-align:top; padding:4px;">
-                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Langages de programmation</strong><br/>
-                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "languages").map(s => s.name).join(", ")}</span>
-                </td>
-                <td style="width:50%; vertical-align:top; padding:4px;">
-                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Frameworks & Librairies</strong><br/>
-                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "frameworks").map(s => s.name).join(", ")}</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:50%; vertical-align:top; padding:4px; padding-top:10px;">
-                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Bases de données</strong><br/>
-                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "databases").map(s => s.name).join(", ")}</span>
-                </td>
-                <td style="width:50%; vertical-align:top; padding:4px; padding-top:10px;">
-                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Outils & DevOps</strong><br/>
-                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "devops").map(s => s.name).join(", ")}</span>
-                </td>
-              </tr>
-            </table>
-
-            <div class="section-title">// 07_Projets & Expériences Pratiques</div>
-            ${projects.map(proj => `
-              <div style="margin-bottom:12px; border:1px solid #e2e8f0; padding:8px; background-color:#f1f5f9/20;">
-                <table style="width:100%; border-collapse:collapse;">
-                  <tr>
-                    <td><span class="project-title">${proj.title}</span></td>
-                    <td style="text-align:right;"><span class="project-period">[ ${proj.period} ]</span></td>
-                  </tr>
-                </table>
-                <p style="font-size:8.5pt; text-align:justify; color:#475569; margin:4px 0; line-height:1.4;">
-                  ${proj.shortDescription || proj.fullDescription}
-                </p>
-                <div style="margin-top:4px;">
-                  <strong>Stack:</strong> ${proj.techStack.join(", ")}
-                </div>
-              </div>
-            `).join("")}
-
-          </td>
-        </tr>
-      </table>
-    `;
-
-    const blob = new Blob([header + content + footer], { type: "application/msword;charset=utf-8" });
-    const docUrl = URL.createObjectURL(blob);
-    const downloadLink = document.createElement("a");
-    downloadLink.href = docUrl;
-    downloadLink.download = "CV_" + profile.name.replace(/\s+/g, "_") + ".doc";
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  };
-
   // Direct instant download function of the pre-compiled high-fidelity static A4 PDF CV
   const downloadOfficialPdf = () => {
     const link = document.createElement("a");
@@ -391,20 +174,20 @@ export default function ContactAndResume() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-2.5 px-4 bg-app-text-white text-app-bg hover:bg-app-text-white/90 disabled:bg-app-text-muted font-mono text-[10.5px] uppercase tracking-widest font-extrabold flex items-center justify-center gap-2 transition duration-200 cursor-pointer"
+                  className="w-full py-2.5 px-4 bg-[#0d9488] hover:bg-teal-500 text-slate-950 font-sans text-xs tracking-wider uppercase font-extrabold flex items-center justify-center gap-2 transition duration-200 cursor-pointer rounded"
                 >
                   <Send className="h-3.5 w-3.5" />
-                  {isSubmitting ? "ENVOI_EN_COURS..." : "TRANSMETTRE_LE_MESSAGE"}
+                  {isSubmitting ? "Envoi en cours..." : "Transmettre le message"}
                 </button>
               </form>
             </div>
 
-            {/* Quick Stats on interactions */}
-            <div className="p-4 bg-app-text-white/[0.02] border border-app-border-subtle font-mono text-[10px] text-app-text-muted text-left space-y-1.5 select-none transition-colors duration-200">
-              <div className="text-app-text-white font-bold uppercase tracking-wider text-[11px]">// PORTFOLIO_MESSAGING_STATS</div>
-              <div>• Total enregistrements locaux : <span className="font-bold text-app-text-soft">{messages.length} messages</span></div>
-              <div>• Protocole de chiffrement : <span className="font-bold text-app-text-soft">SHA-256 HMAC</span></div>
-              <div>• Statut serveur de simulation : <span className="text-[#22c55e] font-extrabold text-[9px] px-1 py-[1px] border border-[#22c55e]/20 bg-[#22c55e]/5 ml-1.5 rounded">OPÉRATIONNEL</span></div>
+            {/* Structured Stats on SQLite database */}
+            <div className="p-4 bg-app-text-white/[0.02] border border-app-border-subtle font-mono text-xs text-app-text-muted text-left space-y-1.5 select-none transition-colors duration-200">
+              <div className="text-teal-400 font-bold uppercase tracking-wider text-xs">// BASE DE DONNÉES SQLITE</div>
+              <div>• Base de données relationnelle : <span className="font-bold text-app-text-soft">portfolio.db</span></div>
+              <div>• Messages persistés en SQLite : <span className="font-bold text-teal-400">{messages.length} messages</span></div>
+              <div>• Status serveur d'API : <span className="text-[#22c55e] font-bold">Actif & Synchronisé</span></div>
             </div>
           </div>
 
@@ -412,14 +195,14 @@ export default function ContactAndResume() {
           <div className="lg:col-span-7 space-y-6">
             <div className="bg-app-card border border-app-border-subtle p-6 rounded-none space-y-6 shadow-xl transition-colors duration-200">
               <div className="flex items-center gap-2 border-b border-app-border-subtle pb-4 select-none">
-                <FileText className="h-4 w-4 text-app-text-muted" />
-                <h3 className="font-mono text-xs font-bold text-app-text-white uppercase tracking-wider">
-                  CURRICULUM_VITAE : SYSTEM_EXPORT
+                <FileText className="h-4 w-4 text-teal-400" />
+                <h3 className="font-sans text-sm font-bold text-app-text-white uppercase tracking-wider">
+                  Mon Curriculum Vitae (A4)
                 </h3>
               </div>
 
               <p className="text-xs text-app-text-soft leading-relaxed select-none">
-                Téléchargez directement mon curriculum vitae officiel au format PDF. Ce document est généré pour être toujours conforme aux dernières informations clés de mon profil et de mon parcours d'ingénieur.
+                Téléchargez mon curriculum vitae officiel au format PDF. Ce document est généré en temps réel pour être toujours conforme aux dernières informations du backend.
               </p>
 
               {/* Redesigned Single Download UI Panel */}
@@ -429,7 +212,7 @@ export default function ContactAndResume() {
                 
                 {/* Header tag */}
                 <div className="text-[9px] font-mono text-teal-400 font-black uppercase tracking-widest mb-4">
-                  // EXPORT_CONSOLE_READY (FAST_STATIC_DOWNLOAD)
+                  // Téléchargement Direct
                 </div>
 
                 <div className="space-y-4">
@@ -456,9 +239,9 @@ export default function ContactAndResume() {
 
                 {/* Decorative terminal footer */}
                 <div className="mt-5 pt-3 border-t border-app-border-subtle/30 flex justify-between items-center text-[8px] font-mono text-app-text-muted-xs uppercase">
-                  <span>SCALE: A4_PORTRAIT_OFFICIAL</span>
-                  <span>THEME_LOCKED: LIGHT_MODE</span>
-                  <span>SYNC: ARCHIVE_PORTABLE</span>
+                  <span>FORMAT: A4 PORTRAIT</span>
+                  <span>THEME: MODE CLAIR UNIFIÉ</span>
+                  <span>SOURCE BDD: SQLite</span>
                 </div>
               </div>
 
