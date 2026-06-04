@@ -33,12 +33,14 @@ interface PortfolioContextType {
   theme: "dark" | "light";
   isAdminMode: boolean;
   messages: any[];
+  isCvModalOpen: boolean;
   setProfile: React.Dispatch<React.SetStateAction<ProfileData>>;
   setSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
   setProjects: React.Dispatch<React.SetStateAction<Project[]>>;
   setTheme: (theme: "dark" | "light") => void;
   toggleTheme: () => void;
   setIsAdminMode: (isAdmin: boolean) => void;
+  setIsCvModalOpen: (isOpen: boolean) => void;
   resetToDefault: () => void;
   updateProfile: (updated: Partial<ProfileData>) => void;
   addSkill: (newSkill: Skill) => void;
@@ -78,6 +80,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem("portfolio_admin_mode");
     return saved === "true";
   });
+
+  const [isCvModalOpen, setIsCvModalOpen] = useState<boolean>(false);
 
   const [messages, setMessages] = useState<any[]>(() => {
     const saved = localStorage.getItem("portfolio_messages");
@@ -202,12 +206,14 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         theme,
         isAdminMode,
         messages,
+        isCvModalOpen,
         setProfile,
         setSkills,
         setProjects,
         setTheme,
         toggleTheme,
         setIsAdminMode,
+        setIsCvModalOpen,
         resetToDefault,
         updateProfile,
         addSkill,

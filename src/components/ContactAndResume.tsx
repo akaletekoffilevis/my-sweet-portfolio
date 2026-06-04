@@ -5,11 +5,11 @@
 
 import React, { useState } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
+import PrintableCv from "./PrintableCv";
 import { Send, FileText, Printer, CheckCircle2, Mail, Briefcase, Award, Globe, Link2, ExternalLink, X, Eye, Maximize2 } from "lucide-react";
 
 export default function ContactAndResume() {
-  const { profile, skills, projects, addMessage, messages } = usePortfolio();
-  const [isCvModalOpen, setIsCvModalOpen] = useState(false);
+  const { profile, skills, projects, addMessage, messages, isCvModalOpen, setIsCvModalOpen } = usePortfolio();
   
   // Contact Form states
   const [formData, setFormData] = useState({
@@ -247,139 +247,6 @@ export default function ContactAndResume() {
               </div>
             </div>
           </div>
-
-          {/* CV Preview & Download Interactive Modal */}
-          {isCvModalOpen && (
-            <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto flex items-center justify-center p-2 sm:p-6 md:p-10 select-none">
-              <div className="bg-app-bg border border-app-border-strong w-full max-w-4xl rounded-none shadow-2xl relative flex flex-col my-auto max-h-[95vh] focus:outline-none">
-                
-                {/* Modal Toolbar Header */}
-                <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-b border-app-border-subtle bg-app-card select-none">
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-app-text-muted" />
-                    <span className="font-mono text-[9px] sm:text-[10px] font-bold tracking-widest uppercase text-app-text-soft">
-                      CV_VIEWER // PRÉVISUALISATION IMPRESSION EN PDF
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <button
-                      onClick={handlePrint}
-                      className="py-1.5 px-3.5 bg-app-text-white text-app-bg hover:bg-app-text-white/95 text-[10px] font-mono tracking-widest uppercase transition-all flex items-center gap-1.5 cursor-pointer font-extrabold"
-                    >
-                      <Printer className="h-3.5 w-3.5" />
-                      IMPRIMER & EXPORTER_PDF
-                    </button>
-                    <button
-                      onClick={() => setIsCvModalOpen(false)}
-                      className="p-1.5 border border-app-border-subtle hover:text-app-text-white hover:border-app-text-white transition cursor-pointer text-app-text-muted rounded-none"
-                      title="Fermer la prévisualisation"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Scrollable Document Container */}
-                <div className="p-4 sm:p-8 overflow-y-auto bg-black/40 flex justify-center flex-grow">
-                  
-                  {/* CV A4 Sheet block (with clean CSS matching perfect printing layout) */}
-                  <div 
-                    id="printable-cv-pdf"
-                    className="bg-white text-[#0f172a] p-8 sm:p-12 font-sans shadow-2xl w-full max-w-[210mm] min-h-[297mm] text-left relative flex flex-col justify-between"
-                  >
-                    <div>
-                      {/* Top accent accent */}
-                      <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#0f172a]" />
-
-                      {/* Header info */}
-                      <div className="border-b border-[#e2e8f0] pb-5 mb-5 flex justify-between items-start">
-                        <div>
-                          <h1 className="text-2xl font-bold font-serif tracking-tight text-[#0f172a]">{profile.name}</h1>
-                          <p className="text-xs font-mono font-bold uppercase tracking-wider text-[#475569] mt-1">{profile.title}</p>
-                          <p className="text-[11px] text-[#64748b] font-medium mt-1">{profile.location}</p>
-                        </div>
-                        <div className="text-right text-[10.5px] text-[#475569] font-mono leading-relaxed select-all">
-                          <div>{profile.socials.email}</div>
-                          <div className="hover:underline">linkedin.com/in/...</div>
-                          <div className="hover:underline">github.com/{profile.socials.github.split("/").pop()}</div>
-                        </div>
-                      </div>
-
-                      {/* Bio Summary Segment */}
-                      <div className="mb-6">
-                        <h4 className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0f172a] border-b border-[#e2e8f0] pb-1 mb-2">
-                          01 // PROFIL PROFESSIONNEL
-                        </h4>
-                        <p className="text-[11.5px] text-[#334155] leading-relaxed select-all">
-                          {profile.bio}
-                        </p>
-                      </div>
-
-                      {/* Technical skill matrix */}
-                      <div className="mb-6">
-                        <h4 className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0f172a] border-b border-[#e2e8f0] pb-1 mb-2">
-                          02 // EXPERTISES TECHNIQUES
-                        </h4>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-2 mt-1.5">
-                          {["languages", "frameworks", "databases", "devops"].map((catKey) => {
-                            const catSkills = skills.filter((s) => s.category === catKey).map((s) => s.name);
-                            const categoryLabels: { [key: string]: string } = {
-                              languages: "Langages",
-                              frameworks: "Frameworks & Libs",
-                              databases: "Bases de données / MD",
-                              devops: "DevOps & Cloud"
-                            };
-                            if (catSkills.length === 0) return null;
-                            return (
-                              <div key={catKey} className="text-[11px] text-[#334155]">
-                                <span className="font-bold underline text-[#0f172a] font-mono mr-1.5">{categoryLabels[catKey] || catKey} :</span>
-                                <span className="select-all">{catSkills.join(", ")}</span>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      {/* Key Projects */}
-                      <div>
-                        <h4 className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#0f172a] border-b border-[#e2e8f0] pb-1 mb-2">
-                          03 // PROJETS MAJEURS & ARCHITECTURES INFRASTRUCTURE
-                        </h4>
-                        <div className="space-y-4 mt-2">
-                          {projects.slice(0, 3).map((proj, pIdx) => (
-                            <div key={pIdx} className="text-[11px]">
-                              <div className="flex justify-between items-baseline">
-                                <span className="font-bold text-[#0f172a] text-xs select-all">{proj.title}</span>
-                                <span className="text-[10px] font-mono text-[#64748b] font-semibold">{proj.techStack[0]} // STACK</span>
-                              </div>
-                              <p className="text-[#475569] text-[11px] mt-0.5 leading-relaxed select-all">{proj.description}</p>
-                              <div className="flex flex-wrap gap-1 mt-1 font-mono text-[9px] text-[#475569]">
-                                {proj.techStack.map((tech, tIdx) => (
-                                  <span key={tIdx} className="bg-[#f1f5f9] px-1.5 py-0.5 rounded border border-[#e2e8f0]/60 select-all">{tech}</span>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Footer synchronization footprint */}
-                    <div className="mt-8 pt-4 border-t border-[#e2e8f0] text-center text-[9px] text-[#94a3b8] font-mono select-none">
-                      SYNCHRONISÉ AVEC LE PORTFOLIO DE {profile.name.toUpperCase()} // ÉMETTEUR DE CERTIFICAT INTÉGRÉ
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* Mobile Helper/Indicator */}
-                <div className="p-3 text-center bg-app-card border-t border-app-border-subtle font-mono text-[9px] text-app-text-muted select-none">
-                  SI LA GÉNÉRATION NE SE DÉCLENCHE PAS AUTOMATIQUEMENT, UTILISEZ L'OPTION "SAUVEGARDER EN PDF" DE VOTRE NAVIGATEUR.
-                </div>
-
-              </div>
-            </div>
-          )}
 
         </div>
 

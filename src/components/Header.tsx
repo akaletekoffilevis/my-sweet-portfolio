@@ -8,7 +8,7 @@ import { usePortfolio } from "../context/PortfolioContext";
 import { Server, Shield, Radio, Sun, Moon } from "lucide-react";
 
 export default function Header() {
-  const { profile, theme, toggleTheme } = usePortfolio();
+  const { profile, theme, toggleTheme, setIsCvModalOpen } = usePortfolio();
   const [latency, setLatency] = useState(14);
   const [time, setTime] = useState("");
 
@@ -99,12 +99,12 @@ export default function Header() {
             <div className="text-xs font-mono font-medium text-app-text-white">{time || "21:42:14"}</div>
           </div>
           
-          <a
-            href="#contact-resume-section"
+          <button
+            onClick={() => setIsCvModalOpen(true)}
             className="border border-app-border-sec px-3.5 py-1.5 text-[10px] tracking-widest uppercase font-bold text-app-text-white hover:bg-app-text-white hover:text-app-bg hover:border-transparent transition-all cursor-pointer font-bold font-mono"
           >
             VOIR_MON_CV
-          </a>
+          </button>
         </div>
       </div>
     </header>
