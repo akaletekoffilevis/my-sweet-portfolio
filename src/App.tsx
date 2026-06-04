@@ -18,8 +18,39 @@ import { PortfolioProvider, usePortfolio } from "./context/PortfolioContext";
 import { Terminal, FileText, Printer, X } from "lucide-react";
 
 function AppContent() {
-  const { isAdminMode, setIsAdminMode, isCvModalOpen, setIsCvModalOpen } = usePortfolio();
+  const { isAdminMode, setIsAdminMode } = usePortfolio();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  // Check if we are in direct CV preview tab
+  const isCvPreviewTab = typeof window !== "undefined" && window.location.search.includes("cv=preview");
+
+  if (isCvPreviewTab) {
+    return (
+      <div className="bg-[#f8fafc] min-h-screen p-4 sm:p-8 flex justify-center items-start print:p-0 select-text">
+        <div className="w-full max-w-[210mm] min-h-[297mm] shadow-[0_4px_30px_rgba(0,0,0,0.06)] border border-slate-200 bg-white print:shadow-none print:border-none">
+          <PrintableCv />
+        </div>
+        
+        {/* Print / Close controls floating at side of screen, hidden when printed */}
+        <div className="fixed bottom-6 right-6 flex flex-col xs:flex-row gap-3 print:hidden z-50">
+          <button
+            onClick={() => window.print()}
+            className="bg-slate-900 border border-slate-800 text-white font-mono text-[11px] uppercase tracking-widest px-5 py-3 font-extrabold hover:bg-slate-800 transition flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+          >
+            <Printer className="w-4 h-4 text-teal-400" />
+            Imprimer / PDF
+          </button>
+          <button
+            onClick={() => window.close()}
+            className="bg-white border border-slate-300 text-slate-800 font-mono text-[11px] uppercase tracking-widest px-5 py-3 font-bold hover:bg-slate-50 transition flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+          >
+            <X className="w-4 h-4 text-slate-500" />
+            Fermer l'onglet
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -132,56 +163,6 @@ function AppContent() {
         {/* Lateral sliding AdminPanel overlay */}
         {isAdminMode && <AdminPanel onClose={() => setIsAdminMode(false)} />}
       </div>
-
-      {/* Dynamic CV Modal in highest Stacking Context to prevent header slideunder */}
-      {isCvModalOpen && (
-        <div className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 overflow-y-auto flex items-center justify-center p-2 sm:p-6 md:p-10 select-none print:hidden">
-          <div className="bg-app-bg border border-app-border-strong w-full max-w-4xl rounded-none shadow-2xl relative flex flex-col my-auto max-h-[95vh] focus:outline-none">
-            
-            {/* Modal Toolbar Header */}
-            <div className="flex justify-between items-center px-4 sm:px-6 py-4 border-b border-app-border-subtle bg-app-card select-none">
-              <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-app-text-muted" />
-                <span className="font-mono text-[9px] sm:text-[10px] font-bold tracking-widest uppercase text-app-text-soft">
-                  CV_VIEWER // PRÉVISUALISATION IMPRESSION EN PDF
-                </span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <button
-                  onClick={() => window.print()}
-                  className="py-1.5 px-3.5 bg-app-text-white text-app-bg hover:bg-app-text-white/95 text-[10px] font-mono tracking-widest uppercase transition-all flex items-center gap-1.5 cursor-pointer font-extrabold border border-transparent"
-                >
-                  <Printer className="h-3.5 w-3.5" />
-                  IMPRIMER & EXPORTER_PDF
-                </button>
-                <button
-                  onClick={() => setIsCvModalOpen(false)}
-                  className="p-1.5 border border-app-border-subtle hover:text-app-text-white hover:border-app-text-white transition cursor-pointer text-app-text-muted rounded-none"
-                  title="Fermer la prévisualisation"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Scrollable Document Container */}
-            <div className="p-4 sm:p-8 overflow-y-auto bg-black/40 flex justify-center flex-grow">
-              
-              {/* CV A4 Sheet wrapper inside modal */}
-              <div className="bg-white text-[#0f172a] p-8 sm:p-12 font-sans shadow-2xl w-full max-w-[210mm] min-h-[297mm] text-left relative">
-                <PrintableCv />
-              </div>
-
-            </div>
-
-            {/* Mobile Helper/Indicator */}
-            <div className="p-3 text-center bg-app-card border-t border-app-border-subtle font-mono text-[9px] text-[#ff3366] select-none font-bold">
-              SI L'APERÇU S'IMPRIME SUR PLUSIEURS PAGES, DANS LA BOÎTE D'IMPRESSION, DÉSHACTIVEZ "EN-TÊTES ET PIEDS DE PAGE" ET VÉRIFIEZ LES MARGES.
-            </div>
-
-          </div>
-        </div>
-      )}
 
       {/* Raw Print Sheet Target: Unconditionally rendered and optimized exclusively for media print */}
       <div id="print-cv-target" className="hidden print:block">

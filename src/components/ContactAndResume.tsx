@@ -6,10 +6,10 @@
 import React, { useState } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 import PrintableCv from "./PrintableCv";
-import { Send, FileText, Printer, CheckCircle2, Mail, Briefcase, Award, Globe, Link2, ExternalLink, X, Eye, Maximize2 } from "lucide-react";
+import { Send, FileText, Printer, CheckCircle2, Mail, Briefcase, Award, Globe, Link2, ExternalLink, X, Eye, Download, FileDown, ArrowRight } from "lucide-react";
 
 export default function ContactAndResume() {
-  const { profile, skills, projects, addMessage, messages, isCvModalOpen, setIsCvModalOpen } = usePortfolio();
+  const { profile, skills, projects, addMessage, messages } = usePortfolio();
   
   // Contact Form states
   const [formData, setFormData] = useState({
@@ -21,6 +21,223 @@ export default function ContactAndResume() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [lastReceipt, setLastReceipt] = useState<any>(null);
+
+  // Dynamic Word/DOCX file generation function matching schema & light styling
+  const downloadAsWord = () => {
+    const header = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' 
+            xmlns:w='urn:schemas-microsoft-com:office:word' 
+            xmlns='http://www.w3.org/TR/REC-html40'>
+      <head>
+        <meta charset="utf-8">
+        <title>CV_${profile.name.replace(/\s+/g, "_")}</title>
+        <!--[if gte mso 9]>
+        <xml>
+          <w:WordDocument>
+            <w:View>Print</w:View>
+            <w:Zoom>100</w:Zoom>
+            <w:DoNotOptimizeForBrowser/>
+          </w:WordDocument>
+        </xml>
+        <![endif]-->
+        <style>
+          @page {
+            size: A4;
+            margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+          }
+          body {
+            font-family: Arial, sans-serif;
+            color: #1e293b;
+            font-size: 10pt;
+            line-height: 1.4;
+          }
+          h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #0f172a;
+            margin: 0 0 2pt 0;
+            text-transform: uppercase;
+          }
+          .role-title {
+            font-size: 10.5pt;
+            font-weight: bold;
+            color: #0d9488;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+          }
+          .section-title {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #0f172a;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 2px;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+          }
+          .project-title {
+            font-weight: bold;
+            color: #0f172a;
+            font-size: 10pt;
+          }
+          .project-period {
+            color: #0d9488;
+            font-size: 8.5pt;
+            font-weight: bold;
+          }
+          .tag {
+            background-color: #f8fafc;
+            color: #334155;
+            font-size: 8pt;
+            padding: 2px 6px;
+            border: 1px solid #e2e8f0;
+            margin-right: 4px;
+          }
+          .sidebar-item {
+            font-size: 9pt;
+            margin-bottom: 8px;
+          }
+          .sidebar-label {
+            font-weight: bold;
+            color: #0f172a;
+          }
+        </style>
+      </head>
+      <body>
+    `;
+
+    const footer = `
+      </body>
+      </html>
+    `;
+
+    const portfolioUrl = window.location.origin.replace(/^https?:\/\//, "");
+
+    const content = `
+      <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+        <tr>
+          <td style="vertical-align:top; padding:12px; border:1px solid #0f172a; background-color:#f8fafc;">
+            <h1>${profile.name}</h1>
+            <div class="role-title">&gt; ${profile.title} • Licence 2 Mathématiques & Informatique</div>
+          </td>
+          <td style="text-align:right; vertical-align:top; border:1px solid #0f172a; padding:12px; font-size: 8.5pt; color: #1e293b; background-color:#f8fafc;">
+            <strong>Email:</strong> ${profile.socials.email}<br/>
+            <strong>Tél:</strong> +227 91 53 52 20<br/>
+            <strong>Adresse:</strong> ${profile.location}<br/>
+            <strong>GitHub:</strong> ${profile.socials.github.replace("https://", "")}<br/>
+            <strong>LinkedIn:</strong> ${profile.socials.linkedin.replace("https://", "")}<br/>
+            <strong>Portfolio:</strong> ${portfolioUrl}
+          </td>
+        </tr>
+      </table>
+
+      <table style="width:100%; border-collapse:collapse;">
+        <tr>
+          <!-- Column 1: Sidebar (33% content) -->
+          <td style="width:33%; vertical-align:top; padding-right:15px; border-right:1px solid #e2e8f0;">
+            
+            <div class="section-title">// 01_À propos</div>
+            <p style="font-size:9pt; text-align:justify; color:#334155; line-height:1.45; margin:0;">
+              ${profile.bio}
+            </p>
+
+            <div class="section-title">// 02_Formations</div>
+            <div class="sidebar-item">
+              <strong>Licence 2 en Mathématiques / Informatique</strong><br/>
+              <span style="color:#475569; font-size:8.5pt;">UAM de Niamey • 2025 (En cours)</span>
+            </div>
+            <div class="sidebar-item">
+              <strong>Baccalauréat Général</strong><br/>
+              <span style="color:#475569; font-size:8.5pt;">Csp Assifa • 2024</span>
+            </div>
+            <div class="sidebar-item">
+              <strong>BEPC</strong><br/>
+              <span style="color:#475569; font-size:8.5pt;">Csp Assifa • 2023</span>
+            </div>
+
+            <div class="section-title">// 03_Certifications</div>
+            <div class="sidebar-item">
+              <strong>C# Free Foundation</strong><br/>
+              <span style="color:#475569; font-size:8.5pt;">FreeCodeCamp & Microsoft</span>
+            </div>
+
+            <div class="section-title">// 04_Langues</div>
+            <p style="font-size:8.5pt; color:#334155; margin:0; line-height:1.4;">
+              • Français : Maternelle<br/>
+              • Haoussa : Courant<br/>
+              • Zarma : Intermédiaire<br/>
+              • Anglais : Débutant
+            </p>
+
+            <div class="section-title">// 05_Qualités</div>
+            <p style="font-size:8.5pt; color:#334155; margin:0; line-height:1.4;">
+              • Rigueur & logique<br/>
+              • Capacité d'analyse & persévérance<br/>
+              • Esprit d'équipe & organisation<br/>
+              • Adaptabilité & autonomie
+            </p>
+
+          </td>
+
+          <!-- Column 2: Main Area (67% content) -->
+          <td style="width:67%; vertical-align:top; padding-left:15px;">
+            
+            <div class="section-title" style="margin-top:0;">// 06_Expertises Techniques</div>
+            <table style="width:100%; border-collapse:collapse;">
+              <tr>
+                <td style="width:50%; vertical-align:top; padding:4px;">
+                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Langages de programmation</strong><br/>
+                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "languages").map(s => s.name).join(", ")}</span>
+                </td>
+                <td style="width:50%; vertical-align:top; padding:4px;">
+                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Frameworks & Librairies</strong><br/>
+                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "frameworks").map(s => s.name).join(", ")}</span>
+                </td>
+              </tr>
+              <tr>
+                <td style="width:50%; vertical-align:top; padding:4px; padding-top:10px;">
+                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Bases de données</strong><br/>
+                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "databases").map(s => s.name).join(", ")}</span>
+                </td>
+                <td style="width:50%; vertical-align:top; padding:4px; padding-top:10px;">
+                  <strong style="color:#0d9488; font-size:8.5pt;">&gt; Outils & DevOps</strong><br/>
+                  <span style="font-size:8.5pt; color:#334155;">${skills.filter(s => s.category === "devops").map(s => s.name).join(", ")}</span>
+                </td>
+              </tr>
+            </table>
+
+            <div class="section-title">// 07_Projets & Expériences Pratiques</div>
+            ${projects.map(proj => `
+              <div style="margin-bottom:12px; border:1px solid #e2e8f0; padding:8px; background-color:#f1f5f9/20;">
+                <table style="width:100%; border-collapse:collapse;">
+                  <tr>
+                    <td><span class="project-title">${proj.title}</span></td>
+                    <td style="text-align:right;"><span class="project-period">[ ${proj.period} ]</span></td>
+                  </tr>
+                </table>
+                <p style="font-size:8.5pt; text-align:justify; color:#475569; margin:4px 0; line-height:1.4;">
+                  ${proj.shortDescription || proj.fullDescription}
+                </p>
+                <div style="margin-top:4px;">
+                  <strong>Stack:</strong> ${proj.techStack.join(", ")}
+                </div>
+              </div>
+            `).join("")}
+
+          </td>
+        </tr>
+      </table>
+    `;
+
+    const blob = new Blob([header + content + footer], { type: "application/msword;charset=utf-8" });
+    const docUrl = URL.createObjectURL(blob);
+    const downloadLink = document.createElement("a");
+    downloadLink.href = docUrl;
+    downloadLink.download = "CV_" + profile.name.replace(/\s+/g, "_") + ".doc";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
 
   // Print function
   const handlePrint = () => {
@@ -186,65 +403,93 @@ export default function ContactAndResume() {
               <div className="flex items-center gap-2 border-b border-app-border-subtle pb-4 select-none">
                 <FileText className="h-4 w-4 text-app-text-muted" />
                 <h3 className="font-mono text-xs font-bold text-app-text-white uppercase tracking-wider">
-                  CURRICULUM_VITAE : GENERATOR
+                  CURRICULUM_VITAE : SYSTEM_EXPORT
                 </h3>
               </div>
 
               <p className="text-xs text-app-text-soft leading-relaxed select-none">
-                Ce service d'ingénierie génère en temps réel votre curriculum vitae au format PDF de qualité professionnelle. Veuillez cliquer sur le bouton ci-dessous pour ouvrir l'aperçu du document interactif et accéder aux fonctionnalités d'impression et d'export PDF.
+                Téléchargez mon curriculum vitae mis à jour en temps réel à partir du portfolio. Choisissez le format officiel pré-configuré ou prévisualisez l'édition claire et optimisée A4 directement dans un autre onglet pour impression.
               </p>
 
-              {/* Graphical CV Mockup Card representing the blueprint of the A4 paper to tap before modal opens */}
-              <div 
-                onClick={() => setIsCvModalOpen(true)}
-                className="border border-app-border-subtle bg-app-card-sec hover:bg-app-text-white/[0.02] p-6 text-left relative overflow-hidden transition-all duration-300 group cursor-pointer shadow-lg hover:border-app-text-white flex flex-col justify-between min-h-[220px]"
-              >
-                {/* Visual accents simulating code template binder */}
-                <div className="absolute top-0 left-0 w-1 bg-app-text-white/40 group-hover:bg-app-text-white h-full transition-colors" />
-                <div className="absolute top-4 right-4 text-app-text-muted group-hover:text-app-text-white transition-colors">
-                  <Maximize2 className="h-4 w-4" />
+              {/* Redesigned Download UI Panel - High-contrast console theme but adapted as a beautiful download dashboard */}
+              <div className="border border-app-border-subtle bg-app-card-sec p-6 text-left relative overflow-hidden transition-all duration-300 shadow-md">
+                {/* Visual accent simulating console frame */}
+                <div className="absolute top-0 left-0 w-1 bg-teal-600 h-full" />
+                
+                {/* Header tag */}
+                <div className="text-[9px] font-mono text-teal-500 font-black uppercase tracking-widest mb-4">
+                  // EXPORT_CONSOLE_READY (ONLINE_SYNCED)
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex gap-4 items-start">
-                    {/* Tiny avatar mockup space */}
-                    <div className="w-12 h-12 bg-app-text-white/10 flex items-center justify-center font-mono text-[10px] text-app-text-muted select-none">
-                      PDF_A4
+                {/* Sub-bento Layout for formats */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  
+                  {/* PDF Direct Box */}
+                  <div className="border border-app-border-subtle bg-app-bg p-4 relative group hover:border-[#ef4444]/30 transition-all">
+                    <div className="text-[10px] font-mono text-[#ef4444] font-bold mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 bg-[#ef4444] rounded-full animate-pulse"></span>
+                      Format PDF (.pdf)
                     </div>
-                    <div>
-                      <h4 className="text-sm font-sans font-extrabold text-app-text-white tracking-tight uppercase">
-                        CV_{profile.name.replace(/\s+/g, "_").toUpperCase()}
-                      </h4>
-                      <p className="text-[10px] font-mono text-app-text-muted mt-0.5 tracking-wider uppercase">
-                        {profile.title}
-                      </p>
-                      <p className="text-[9px] font-mono text-app-text-muted-xs">
-                        {profile.location} • {profile.socials.email}
-                      </p>
-                    </div>
+                    <p className="text-[10px] text-app-text-muted mb-4 font-sans leading-relaxed">
+                      Idéal pour impression ou envois d'embauche. Calibré sur grille A4 géométrique.
+                    </p>
+                    <button
+                      onClick={() => {
+                        // Open direct printable view in a new tab which triggers nice layout
+                        window.open(window.location.origin + "?cv=preview", "_blank");
+                      }}
+                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <FileDown className="w-3.5 h-3.5 text-teal-400" />
+                      TÉLÉCHARGER PDF
+                    </button>
                   </div>
 
-                  <div className="border-t border-app-border-subtle/50 pt-3 select-none">
-                    <div className="grid grid-cols-2 gap-2 text-[9px] text-app-text-soft font-mono uppercase">
-                      <div>• PROFILE COMPLET CONFORME</div>
-                      <div>• {skills.length} EXPERTISES CARTOGRAPHIÉES</div>
-                      <div>• SYNCHRONISATION EN DIRECT</div>
-                      <div>• PRÊT POUR TÉLÉCHARGEMENT</div>
+                  {/* Word Direct Box */}
+                  <div className="border border-app-border-subtle bg-app-bg p-4 relative group hover:border-[#3b82f6]/30 transition-all">
+                    <div className="text-[10px] font-mono text-[#3b82f6] font-bold mb-1 uppercase tracking-wider flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full"></span>
+                      Format Word (.doc)
                     </div>
+                    <p className="text-[10px] text-app-text-muted mb-4 font-sans leading-relaxed">
+                      Format éditable Microsoft Word, structuré avec les styles et rubriques clés.
+                    </p>
+                    <button
+                      onClick={downloadAsWord}
+                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5 text-teal-400" />
+                      TÉLÉCHARGER WORD
+                    </button>
                   </div>
 
-                  <p className="text-[11px] text-app-text-muted italic line-clamp-2 pt-2">
-                    "{profile.bio}"
+                </div>
+
+                {/* Additional Preview Section */}
+                <div className="border-t border-app-border-subtle/50 mt-5 pt-4 text-center">
+                  <p className="text-[10.5px] text-app-text-soft font-mono mb-3">
+                    &gt;_ Vous préférez relire ou configurer l'aperçu avant d'enregistrer ?
                   </p>
+                  
+                  <button
+                    onClick={() => window.open(window.location.origin + "?cv=preview", "_blank")}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600/10 border border-teal-500/20 hover:border-teal-500/80 text-teal-400 font-mono text-[10px] font-extrabold tracking-widest uppercase transition-all duration-200 cursor-pointer rounded-none hover:bg-teal-500/5"
+                  >
+                    <Eye className="w-4 h-4" />
+                    PRÉVISUALISER DANS UN NOUVEL ONGLET
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-app-border-subtle/30 flex items-center justify-center">
-                  <span className="text-[10px] font-mono font-bold tracking-widest text-[#22c55e] uppercase flex items-center gap-1.5 group-hover:underline">
-                    <Eye className="h-3.5 w-3.5" />
-                    CLIQUEZ POUR CONFIGURER & TÉLÉCHARGER LE CV
-                  </span>
+                {/* Decorative terminal footer */}
+                <div className="mt-4 pt-2.5 border-t border-app-border-subtle/30 flex justify-between items-center text-[8px] font-mono text-app-text-muted-xs uppercase">
+                  <span>SCALE: A4_PORTRAIT</span>
+                  <span>THEME_LOCKED: LIGHT ONLY</span>
+                  <span>SYNC: EN DIRECT DU PROFIL</span>
                 </div>
+
               </div>
+
             </div>
           </div>
 
