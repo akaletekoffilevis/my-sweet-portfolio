@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 import { createServer as createViteServer } from "vite";
+import nodemailer from "nodemailer";
 
 // Fallbacks inline to avoid loading raw client TS files directly inside node process
 const DEFAULT_PROFILE = {
@@ -12,8 +13,9 @@ const DEFAULT_PROFILE = {
   avatarUrl: "/src/assets/images/koffi_avatar_1780568229358.png",
   github: "https://github.com/akaletekoffilevis",
   linkedin: "https://linkedin.com/in/akalete-koffi-levis",
-  email: "koffilevis21@gmail.com",
-  gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D"
+  email: "kiffilevis21@gmail.com",
+  gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D",
+  whatsapp: "+227 91 53 52 20"
 };
 
 const DEFAULT_SKILLS = [
@@ -149,7 +151,8 @@ async function startServer() {
           github: dbProfile.github,
           linkedin: dbProfile.linkedin,
           email: dbProfile.email,
-          gpgKey: dbProfile.gpgKey
+          gpgKey: dbProfile.gpgKey,
+          whatsapp: dbProfile.whatsapp || DEFAULT_PROFILE.whatsapp
         },
         metrics: [
           { label: "Projets Pratiques", value: `${db.projects.length}+`, desc: "Applications réelles C#/.NET, Web et Console" },
@@ -214,7 +217,8 @@ async function startServer() {
         github: socials?.github || db.profile.github,
         linkedin: socials?.linkedin || db.profile.linkedin,
         email: socials?.email || db.profile.email,
-        gpgKey: socials?.gpgKey || db.profile.gpgKey
+        gpgKey: socials?.gpgKey || db.profile.gpgKey,
+        whatsapp: socials?.whatsapp || db.profile.whatsapp || DEFAULT_PROFILE.whatsapp
       };
 
       await writeDb(db);
@@ -421,9 +425,75 @@ async function startServer() {
       db.messages.unshift(newMessage);
       await writeDb(db);
 
+      let emailSent = false;
+      let emailStatusDetail = "";
+
+      const gmailUser = process.env.GMAIL_USER || "kiffilevis21@gmail.com";
+      const gmailAppPass = process.env.GMAIL_APP_PASSWORD;
+
+      if (gmailAppPass) {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: gmailUser,
+              pass: gmailAppPass
+            }
+          });
+
+          const mailOptions = {
+            from: `"${name} (Contact Portfolio)" <${gmailUser}>`,
+            to: "kiffilevis21@gmail.com",
+            replyTo: email,
+            subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
+            text: `Nouveau message de contact recu de ${name} (${email}):\n\nSujet: ${subject}\n\nMessage:\n${message}`,
+            html: `
+              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #ffffff; color: #1e293b;">
+                <h2 style="color: #0f766e; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-top: 0;">Nouveau Message Portfolio</h2>
+                <p>Vous avez reçu un nouveau message de contact depuis votre site portfolio officiel.</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                  <tr style="background-color: #f8fafc;">
+                    <td style="padding: 10px; font-weight: bold; width: 120px; border: 1px solid #e2e8f0;">Expéditeur:</td>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0;">${name}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Email:</td>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0;"><a href="mailto:${email}" style="color: #0f766e; text-decoration: none;">${email}</a></td>
+                  </tr>
+                  <tr style="background-color: #f8fafc;">
+                    <td style="padding: 10px; font-weight: bold; border: 1px solid #e2e8f0;">Sujet:</td>
+                    <td style="padding: 10px; border: 1px solid #e2e8f0;">${subject || "Sans sujet"}</td>
+                  </tr>
+                </table>
+
+                <div style="background-color: #f1f5f9; padding: 15px; border-radius: 6px; border-left: 4px solid #0f766e; font-style: italic; white-space: pre-wrap;">${message}</div>
+
+                <p style="font-size: 11px; color: #64748b; margin-top: 30px; text-align: center; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                  Ce message a été envoyé de manière synchrone via votre moteur de portfolio.
+                </p>
+              </div>
+            `
+          };
+
+          await transporter.sendMail(mailOptions);
+          emailSent = true;
+          emailStatusDetail = "Sent successfully via Gmail SMTP Gateway.";
+          console.log(`Email successfully forwarded to kiffilevis21@gmail.com from ${email}`);
+        } catch (mailErr: any) {
+          console.error("Failed to dispatcher SMTP mail real-time:", mailErr);
+          emailStatusDetail = `Failed to send email: ${mailErr.message}`;
+        }
+      } else {
+        console.info("GMAIL_APP_PASSWORD is not configured in .env. Skip SMTP flow. Local JSON storage success.");
+        emailStatusDetail = "Notification email was not dispatched because GMAIL_APP_PASSWORD is not configured. Saved in JSON database successfully.";
+      }
+
       res.status(201).json({
         success: true,
         message: "Message enregistré avec succès.",
+        emailSent,
+        emailStatusDetail,
         data: {
           id: newId,
           name,
@@ -432,7 +502,7 @@ async function startServer() {
           message,
           timestamp,
           receiptId: "job-ack-" + Math.floor(Math.random() * 89999 + 10000),
-          dispatchedTo: "JSON Engine: messages_relation",
+          dispatchedTo: emailSent ? "Gmail SMTP + JSON local" : "JSON Engine: messages_relation",
           sqliteSyncStatus: "synced"
         }
       });

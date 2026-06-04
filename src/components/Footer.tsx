@@ -70,6 +70,16 @@ export default function Footer({ onManageClick }: FooterProps) {
           >
             EMAIL_CONTACT
           </a>
+          {profile.socials.whatsapp && (
+            <a
+              href={`https://wa.me/${profile.socials.whatsapp.replace(/[^0-9]/g, "")}`}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-emerald-400 transition"
+            >
+              WHATSAPP
+            </a>
+          )}
         </div>
 
       </div>
