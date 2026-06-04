@@ -21,6 +21,7 @@ export default function ContactAndResume() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [lastReceipt, setLastReceipt] = useState<any>(null);
+  const [isPdfGenerating, setIsPdfGenerating] = useState(false);
 
   // Dynamic Word/DOCX file generation function matching schema & light styling
   const downloadAsWord = () => {
@@ -239,6 +240,69 @@ export default function ContactAndResume() {
     document.body.removeChild(downloadLink);
   };
 
+  // Direct PDF generation and download utilizing client-side canvas-to-pdf compile
+  const downloadAsPdf = async () => {
+    if (isPdfGenerating) return;
+    setIsPdfGenerating(true);
+    try {
+      if (!(window as any).html2pdf) {
+        // Dynamically load html2pdf from a secure, high-speed CDN to avoid package bloat and react version conflicts
+        await new Promise<void>((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error("Unable to load html2pdf.js script."));
+          document.head.appendChild(script);
+        });
+      }
+
+      const sourceElement = document.getElementById("print-cv-target");
+      if (!sourceElement) {
+        throw new Error("CV element not found.");
+      }
+
+      // Create a temporary off-screen container to render PrintableCv cleanly without "hidden" styles
+      const tempContainer = document.createElement("div");
+      tempContainer.style.position = "absolute";
+      tempContainer.style.left = "-9999px";
+      tempContainer.style.top = "-9999px";
+      tempContainer.style.width = "210mm"; // A4 Width
+      tempContainer.className = "bg-white text-slate-800 font-sans";
+
+      const cloned = sourceElement.cloneNode(true) as HTMLDivElement;
+      cloned.id = "print-cv-temp-capture";
+      cloned.className = "block bg-white text-slate-800 font-sans p-0 m-0 w-full"; // Clear all CSS rules that hide/collapse it during normal layout
+
+      tempContainer.appendChild(cloned);
+      document.body.appendChild(tempContainer);
+
+      const options = {
+        margin: [10, 10, 10, 10], // standard mm layout margins
+        filename: `CV_${profile.name.replace(/\s+/g, "_")}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false, 
+          letterRendering: true,
+          backgroundColor: "#ffffff"
+        },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+      };
+
+      // @ts-ignore
+      await window.html2pdf().set(options).from(cloned).save();
+
+      document.body.removeChild(tempContainer);
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+      // Fallback: If direct export fails, gracefully open the preview tab
+      window.open(window.location.origin + "?cv=preview", "_blank");
+    } finally {
+      setIsPdfGenerating(false);
+    }
+  };
+
   // Print function
   const handlePrint = () => {
     window.print();
@@ -434,14 +498,12 @@ export default function ContactAndResume() {
                       Idéal pour impression ou envois d'embauche. Calibré sur grille A4 géométrique.
                     </p>
                     <button
-                      onClick={() => {
-                        // Open direct printable view in a new tab which triggers nice layout
-                        window.open(window.location.origin + "?cv=preview", "_blank");
-                      }}
-                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                      onClick={downloadAsPdf}
+                      disabled={isPdfGenerating}
+                      className="w-full py-2 bg-slate-900 border border-slate-800 text-white font-mono text-[9px] font-bold tracking-widest uppercase hover:bg-slate-800 disabled:bg-slate-800/80 disabled:cursor-not-allowed transition flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <FileDown className="w-3.5 h-3.5 text-teal-400" />
-                      TÉLÉCHARGER PDF
+                      <FileDown className={`w-3.5 h-3.5 text-teal-400 ${isPdfGenerating ? 'animate-bounce' : ''}`} />
+                      {isPdfGenerating ? "COMPILATION PDF..." : "TÉLÉCHARGER PDF"}
                     </button>
                   </div>
 
