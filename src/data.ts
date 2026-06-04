@@ -20,7 +20,7 @@ export const JOHN_DOE_PROFILE = {
   },
   metrics: [
     { label: "Projets Pratiques", value: "5+", desc: "Applications réelles C#/.NET, Web et Console" },
-    { label: "Formation", value: "Licence", desc: "Informatique & Spécialisation Mathématiques" },
+    { label: "Formation", value: "Licence", desc: "Informatique & Développement Logiciel" },
     { label: "Certification", value: "Microsoft", desc: "C# Free Foundation par FreeCodeCamp" },
     { label: "Langues", value: "4", desc: "Français, Haoussa, Zarma, Anglais" }
   ]

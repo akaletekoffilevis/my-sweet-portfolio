@@ -64,7 +64,7 @@ function generatePdf() {
   doc.fillColor(COLOR_TEAL)
      .font("Helvetica-Bold")
      .fontSize(10)
-     .text("> DÉVELOPPEUR BACKEND JUNIOR  •  Licence 2 Mathématiques & Informatique", headerX + 15, headerY + 42);
+     .text("> DÉVELOPPEUR BACKEND JUNIOR  •  Licence 2 Informatique", headerX + 15, headerY + 42);
 
   // Contact header details (compact layout on the right)
   const contactText = "Email: koffilevis21@gmail.com\n" +
@@ -128,7 +128,7 @@ function generatePdf() {
   doc.fillColor(COLOR_DARK)
      .font("Helvetica-Bold")
      .fontSize(8.5)
-     .text("Licence 2 Mathématiques-Info", leftColX, leftY);
+     .text("Licence 2 Informatique", leftColX, leftY);
   doc.fillColor(COLOR_TEAL)
      .font("Helvetica")
      .fontSize(8)
@@ -183,7 +183,7 @@ function generatePdf() {
 
   // // 05_Qualités
   leftY = drawSectionTitle("// 05_Qualités", leftColX, leftY, leftColWidth);
-  const softSkills = "• Rigueur & logique mathématique\n" +
+  const softSkills = "• Rigueur & logique algorithmique\n" +
                      "• Capacité d'analyse technique\n" +
                      "• Esprit d'équipe & persévérance\n" +
                      "• Adaptabilité aux technologies";

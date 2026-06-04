@@ -233,7 +233,7 @@ export default function ContactAndResume() {
 
               <div className="space-y-4">
                 <p className="text-xs text-app-text-soft leading-relaxed">
-                  Le curriculum vitae ci-dessous respecte les standards professionnels les plus exigeants : une structure claire à double colonne, des sections claires valorisant la double spécialisation en mathématiques et informatique, et une mise en page géométrique épurée.
+                  Le curriculum vitae ci-dessous respecte les standards professionnels les plus exigeants : une structure claire à double colonne, des sections claires valorisant la spécialisation en informatique et développement logiciel, et une mise en page géométrique épurée.
                 </p>
 
                 {/* Elegant Miniature visual representation of the actual PDF Resume */}
@@ -245,7 +245,7 @@ export default function ContactAndResume() {
                   <div className="pb-3 border-b border-slate-800 flex justify-between items-start">
                     <div className="space-y-1">
                       <div className="text-teal-400 font-extrabold font-mono text-[11px] uppercase tracking-wider">Koffi Lévis Akalete</div>
-                      <div className="text-[9.5px] uppercase text-app-text-soft">Développeur Backend Junior | L2 Math-Info</div>
+                      <div className="text-[9.5px] uppercase text-app-text-soft">Développeur Backend Junior | L2 Informatique</div>
                     </div>
                     <div className="text-[9px] font-mono text-emerald-400 border border-emerald-500/30 px-1 py-0.2 bg-emerald-500/5 rounded shrink-0">
                       Niamey, Niger
@@ -257,7 +257,7 @@ export default function ContactAndResume() {
                     <div className="col-span-4 space-y-3 border-r border-slate-800 pr-2">
                       <div className="space-y-1">
                         <div className="text-[8.5px] font-mono font-bold text-teal-500 uppercase tracking-widest">// Éducation</div>
-                        <div className="text-[9.5px] text-app-text-white font-bold">Licence 2 Math/Info</div>
+                        <div className="text-[9.5px] text-app-text-white font-bold">Licence 2 Informatique</div>
                         <div className="text-[8.5px]">UAM de Niamey • 2025</div>
                       </div>
                       <div className="space-y-1">

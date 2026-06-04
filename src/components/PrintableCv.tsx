@@ -9,7 +9,7 @@ export default function PrintableCv() {
   const formations = [
     {
       year: "2025",
-      degree: "Licence 2 en Mathématiques / Informatique",
+      degree: "Licence 2 en Informatique",
       status: "(En cours)",
       institution: "Université Abdou Moumouni de Niamey"
     },
