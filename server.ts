@@ -503,7 +503,7 @@ async function startServer() {
           timestamp,
           receiptId: "job-ack-" + Math.floor(Math.random() * 89999 + 10000),
           dispatchedTo: emailSent ? "Gmail SMTP + JSON local" : "JSON Engine: messages_relation",
-          sqliteSyncStatus: "synced"
+          syncStatus: "saved"
         }
       });
     } catch (err: any) {

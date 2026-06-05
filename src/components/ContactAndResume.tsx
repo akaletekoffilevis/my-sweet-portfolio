@@ -211,12 +211,12 @@ export default function ContactAndResume() {
               </a>
             )}
 
-            {/* Structured SQLite Synchronizer widget */}
+            {/* Storage status widget */}
             <div className="p-4 bg-app-card border border-app-border-subtle rounded font-mono text-[11px] text-app-text-muted text-left space-y-1.5 select-none transition-colors duration-200 shadow-sm border-l-2 border-l-teal-500">
-              <div className="text-teal-400 font-bold uppercase tracking-wider text-xs">// PERSISTANCE RELATIONNELLE</div>
-              <div>• Base Locale Active : <span className="font-bold text-app-text-soft">portfolio.db (SQLite)</span></div>
-              <div>• Historique d'échanges : <span className="font-bold text-teal-400">{messages.length} messages synchronisés</span></div>
-              <div>• Statut du canal d'API : <span className="text-emerald-400 font-bold uppercase">Opérationnel (HTTP 200)</span></div>
+              <div className="text-teal-400 font-bold uppercase tracking-wider text-xs">// PERSISTANCE</div>
+              <div>• Stockage : <span className="font-bold text-app-text-soft">JSON File</span></div>
+              <div>• Messages reçus : <span className="font-bold text-teal-400">{messages.length}</span></div>
+              <div>• API Status : <span className="text-emerald-400 font-bold uppercase">OK</span></div>
             </div>
           </div>
 

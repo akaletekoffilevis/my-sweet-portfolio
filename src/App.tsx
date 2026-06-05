@@ -103,7 +103,7 @@ function AppContent() {
                   <a href="#contact-resume-section" className="hover:text-app-text-white border-b border-transparent hover:border-teal-500 pb-0.5 transition">04. Contact & CV</a>
                 </div>
                 <div className="text-[10px] text-app-text-muted font-bold tracking-widest uppercase">
-                  BDD_SQLITE_SYNCPORTAL
+                  PORTFOLIO_V2
                 </div>
               </div>
             </div>

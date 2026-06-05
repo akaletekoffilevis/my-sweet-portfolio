@@ -128,9 +128,9 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     ];
   });
 
-  // Load all records from actual SQLite DB on mount
+  // Load portfolio data from API on mount
   useEffect(() => {
-    async function loadPortfolioFromSQLite() {
+    async function loadPortfolio() {
       try {
         const response = await fetch("/api/portfolio");
         const json = await response.json();
@@ -140,15 +140,15 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           if (json.projects) setProjects(json.projects);
         }
       } catch (err) {
-        console.warn("Could not load from SQLite API. Running with local fallback.", err);
+        console.warn("Could not load from API. Running with local fallback.", err);
       }
     }
-    loadPortfolioFromSQLite();
+    loadPortfolio();
   }, []);
 
-  // Sync messages list dynamically when admin connects
+  // Sync messages list when admin mode is active
   useEffect(() => {
-    async function loadMessagesFromSQLite() {
+    async function loadMessages() {
       if (!isAdminMode) return;
       try {
         const response = await fetch("/api/messages");
@@ -157,10 +157,10 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           setMessages(json.messages);
         }
       } catch (err) {
-        console.warn("Could not load messages from SQLite", err);
+        console.warn("Could not load messages from API", err);
       }
     }
-    loadMessagesFromSQLite();
+    loadMessages();
   }, [isAdminMode]);
 
   // Keep LocalStorage synced as robust offline/resilient storage
@@ -211,7 +211,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       localStorage.removeItem("portfolio_skills");
       localStorage.removeItem("portfolio_projects");
       
-      // Update SQLite DB
+      // Update API DB
       try {
         await fetch("/api/profile", {
           method: "PUT",
@@ -238,7 +238,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(nextProfile)
       });
     } catch (err) {
-      console.error("SQLite profile update request failed:", err);
+      console.error("API profile update request failed:", err);
     }
   };
 
@@ -251,7 +251,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(newSkill)
       });
     } catch (err) {
-      console.error("SQLite skill insert failed:", err);
+      console.error("API skill insert failed:", err);
     }
   };
 
@@ -264,7 +264,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify(updatedSkill)
       });
     } catch (err) {
-      console.error("SQLite skill update failed:", err);
+      console.error("API skill update failed:", err);
     }
   };
 
@@ -275,7 +275,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         method: "DELETE"
       });
     } catch (err) {
-      console.error("SQLite skill delete failed:", err);
+      console.error("API skill delete failed:", err);
     }
   };
 
@@ -291,7 +291,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         })
       });
     } catch (err) {
-      console.error("SQLite project insert failed:", err);
+      console.error("API project insert failed:", err);
     }
   };
 
@@ -307,7 +307,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         })
       });
     } catch (err) {
-      console.error("SQLite project update failed:", err);
+      console.error("API project update failed:", err);
     }
   };
 
@@ -318,7 +318,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         method: "DELETE"
       });
     } catch (err) {
-      console.error("SQLite project delete failed:", err);
+      console.error("API project delete failed:", err);
     }
   };
 
@@ -341,7 +341,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         return data.data;
       }
     } catch (err) {
-      console.error("SQLite direct save failed, staying fallback:", err);
+      console.error("API direct save failed, staying fallback:", err);
     }
     return mockMsg;
   };
@@ -353,7 +353,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         method: "DELETE"
       });
     } catch (err) {
-      console.error("SQLite message clearing failed:", err);
+      console.error("API message clearing failed:", err);
     }
   };
 
