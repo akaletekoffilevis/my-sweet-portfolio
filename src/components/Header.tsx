@@ -45,7 +45,16 @@ export default function Header() {
 
       {isMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg">
-          <div className="flex-1 flex flex-col items-center justify-center gap-10">
+          <div className="flex justify-end p-6">
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="p-2 rounded-lg border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent transition cursor-pointer"
+              aria-label="Fermer"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          <div className="flex-1 flex flex-col items-center justify-center gap-10 -mt-20">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
