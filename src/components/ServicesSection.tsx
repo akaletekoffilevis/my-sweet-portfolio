@@ -29,6 +29,16 @@ const services = [
     desc: "Configuration Docker, docker-compose, pipelines GitHub Actions, déploiement sur Vercel, hébergement d'APIs et sites statiques.",
     tech: "Docker / GitHub Actions",
   },
+  {
+    title: "Sites web & Applications React",
+    desc: "Développement de sites vitrines, landing pages, applications interactives avec React, HTML5, CSS3, Tailwind CSS, intégration d'APIs.",
+    tech: "React / HTML / CSS / JS",
+  },
+  {
+    title: "Applications mobiles",
+    desc: "Développement d'applications mobiles avec React Native (cross-platform) et C#/.NET MAUI (native), interfaces modernes et connexion aux APIs.",
+    tech: "React Native / C# MAUI",
+  },
 ];
 
 export default function ServicesSection() {

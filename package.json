@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "tsx server.ts",
     "build": "node scripts/generate_pdf.cjs && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit"
