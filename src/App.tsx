@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import Header from "./components/Header";
 import BioSection from "./components/BioSection";
 import SkillsSection from "./components/SkillsSection";
+import ServicesSection from "./components/ServicesSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactAndResume from "./components/ContactAndResume";
 import Footer from "./components/Footer";
@@ -47,21 +48,16 @@ function AppContent() {
           <div className="absolute top-0 left-0 w-full h-[600px] bg-[linear-gradient(to_right,var(--grid-color)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-color)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none z-0 transition-opacity"></div>
 
           <div className="relative z-10">
-            <div className="bg-app-bg/85 border-b border-app-border-subtle sticky top-[64px] z-30 backdrop-blur-md hidden md:block select-none">
-              <div className="mx-auto max-w-7xl px-6 py-2.5 flex justify-center items-center gap-6 text-sm text-app-text-muted">
-                <a href="#bio-section" className="hover:text-app-accent border-b border-transparent hover:border-app-accent pb-0.5 transition font-medium">Présentation</a>
-                <a href="#skills-section" className="hover:text-app-accent border-b border-transparent hover:border-app-accent pb-0.5 transition font-medium">Compétences</a>
-                <a href="#projects-section" className="hover:text-app-accent border-b border-transparent hover:border-app-accent pb-0.5 transition font-medium">Projets</a>
-                <a href="#contact-resume-section" className="hover:text-app-accent border-b border-transparent hover:border-app-accent pb-0.5 transition font-medium">Contact & CV</a>
-              </div>
-            </div>
-
             <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <BioSection />
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: 0.1 }}>
               <SkillsSection />
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: 0.1 }}>
+              <ServicesSection />
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
