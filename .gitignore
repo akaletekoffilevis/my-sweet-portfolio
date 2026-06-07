@@ -7,3 +7,4 @@ coverage/
 .env
 !.env.example
 portfolio_db.json
+*.txt
