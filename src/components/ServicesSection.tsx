@@ -57,15 +57,15 @@ export default function ServicesSection() {
                 <span className="w-2 h-2 rounded-full bg-red-500/60" />
                 <span className="w-2 h-2 rounded-full bg-yellow-500/60" />
                 <span className="w-2 h-2 rounded-full bg-green-500/60" />
-                <Terminal className="h-3 w-3 text-app-accent ml-2" />
-                <span className="text-[10px] font-mono text-app-text-muted">service-{idx + 1}</span>
+                <Terminal className="h-3.5 w-3.5 text-app-accent ml-2" />
+                <span className="text-xs font-mono text-app-text-muted">service-{idx + 1}</span>
               </div>
               <div className="p-5">
-                <div className="text-[10px] font-mono text-app-accent mb-3 tracking-wider uppercase">
+                <div className="text-xs font-mono text-app-accent mb-3 tracking-wider uppercase">
                   <span className="text-app-text-muted">$ </span>{svc.tech}
                 </div>
                 <h3 className="text-sm font-mono font-semibold text-app-text-white mb-2">{svc.title}</h3>
-                <p className="text-xs font-mono text-app-text-soft leading-relaxed">{svc.desc}</p>
+                <p className="text-sm font-mono text-app-text-soft leading-relaxed">{svc.desc}</p>
               </div>
             </div>
           ))}

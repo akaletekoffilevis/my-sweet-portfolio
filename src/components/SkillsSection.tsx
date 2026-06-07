@@ -57,7 +57,7 @@ export default function SkillsSection() {
                 <span className="w-2 h-2 rounded-full bg-red-500/60" />
                 <span className="w-2 h-2 rounded-full bg-yellow-500/60" />
                 <span className="w-2 h-2 rounded-full bg-green-500/60" />
-                <span className="text-[10px] font-mono text-app-text-muted ml-2">{skill.name.toLowerCase().replace(/\s+/g, "-")}.conf</span>
+                <span className="text-xs font-mono text-app-text-muted ml-2">{skill.name.toLowerCase().replace(/\s+/g, "-")}.conf</span>
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2.5 mb-3">
@@ -66,12 +66,12 @@ export default function SkillsSection() {
                   </div>
                   <div>
                     <h3 className="text-sm font-mono font-semibold text-app-text-white">{skill.name}</h3>
-                    <span className="text-[10px] font-mono text-app-text-muted">{skill.experienceYears} an(s)</span>
+                    <span className="text-xs font-mono text-app-text-muted">{skill.experienceYears} an(s)</span>
                   </div>
                 </div>
-                <p className="text-xs font-mono text-app-text-soft leading-relaxed">{skill.description}</p>
+                <p className="text-sm font-mono text-app-text-soft leading-relaxed">{skill.description}</p>
                 <div className="mt-4">
-                  <div className="flex justify-between text-[10px] font-mono text-app-text-muted mb-1.5">
+                  <div className="flex justify-between text-xs font-mono text-app-text-muted mb-1.5">
                     <span>level</span>
                     <span>{skill.level}%</span>
                   </div>
