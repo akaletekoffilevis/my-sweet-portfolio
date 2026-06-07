@@ -82,7 +82,7 @@ export default function PrintableCv() {
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight font-mono uppercase">
                 {profile.name}
               </h1>
-              <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-teal-600 mt-1 font-mono">
+              <p className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-600 mt-1 font-mono">
                 &gt; {profile.title}
               </p>
               <span className="inline-block mt-1 text-[8.5px] bg-slate-900 text-white font-mono uppercase px-1.5 py-0.5 font-bold tracking-widest">
@@ -94,11 +94,11 @@ export default function PrintableCv() {
           {/* Actionable contact parameters */}
           <div className="text-right text-[10px] text-slate-600 space-y-1 font-mono leading-tight sm:self-center self-start w-full sm:w-auto border-t sm:border-t-0 border-slate-200 pt-2 sm:pt-0">
             <div className="flex items-center sm:justify-end gap-1.5 font-bold text-slate-900">
-              <Mail className="w-3 h-3 text-teal-600" />
+              <Mail className="w-3 h-3 text-amber-600" />
               <span>{profile.socials.email}</span>
             </div>
             <div className="flex items-center sm:justify-end gap-1.5 font-bold text-slate-900">
-              <Phone className="w-3 h-3 text-teal-600" />
+              <Phone className="w-3 h-3 text-amber-600" />
               <span>{profile.socials.whatsapp || "+227 91 53 52 20"}</span>
             </div>
             <div className="flex items-center sm:justify-end gap-1.5">
@@ -113,8 +113,8 @@ export default function PrintableCv() {
               <Linkedin className="w-3 h-3 text-slate-400" />
               <span>{profile.socials.linkedin.replace("https://", "")}</span>
             </div>
-            <div className="flex items-center sm:justify-end gap-1.5 text-teal-600 font-extrabold mt-1">
-              <Globe className="w-3 h-3 text-teal-600 shrink-0" />
+            <div className="flex items-center sm:justify-end gap-1.5 text-amber-600 font-extrabold mt-1">
+              <Globe className="w-3 h-3 text-amber-600 shrink-0" />
               <span>{portfolioUrl}</span>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function PrintableCv() {
                       <span>{f.degree}</span>
                     </div>
                     <p className="text-slate-500 text-[9px] mt-0.5 leading-tight font-mono">
-                      {f.institution} <span className="text-teal-600 font-bold">{f.year}</span>
+                      {f.institution} <span className="text-amber-600 font-bold">{f.year}</span>
                     </p>
                   </div>
                 ))}
@@ -179,7 +179,7 @@ export default function PrintableCv() {
                 {languages.map((l, index) => (
                   <div key={index} className="flex flex-col bg-slate-50 p-1 border border-slate-200">
                     <span className="font-bold text-slate-900 text-[9.5px]">{l.name}</span>
-                    <span className="text-teal-600 text-[8px] font-mono font-bold">{l.level}</span>
+                    <span className="text-amber-600 text-[8px] font-mono font-bold">{l.level}</span>
                   </div>
                 ))}
               </div>
@@ -193,7 +193,7 @@ export default function PrintableCv() {
               <ul className="text-[9.5px] text-slate-600 space-y-1 leading-tight">
                 {softSkills.map((s, index) => (
                   <li key={index} className="font-mono text-slate-700 flex items-start gap-1">
-                    <span className="text-teal-600 font-extrabold shrink-0">*</span>
+                    <span className="text-amber-600 font-extrabold shrink-0">*</span>
                     <span>{s}</span>
                   </li>
                 ))}
@@ -228,7 +228,7 @@ export default function PrintableCv() {
 
                   return (
                     <div key={catKey} className="text-[10px] p-2 border border-slate-200 bg-slate-50/50">
-                      <span className="font-extrabold text-[#0d9488] block text-[9.5px] uppercase tracking-wider font-mono mb-1">
+                      <span className="font-extrabold text-amber-600 block text-[9.5px] uppercase tracking-wider font-mono mb-1">
                         &gt; {categoryLabels[catKey] || catKey}
                       </span>
                       <span className="text-slate-800 font-medium">{catSkills.join(", ")}</span>
@@ -251,13 +251,13 @@ export default function PrintableCv() {
                       <span className="font-black text-slate-900 text-[10.5px] font-mono">
                         {proj.title}
                       </span>
-                      <span className="text-[8px] font-mono text-teal-600 shrink-0 font-bold uppercase">
+                      <span className="text-[8px] font-mono text-amber-600 shrink-0 font-bold uppercase">
                         [{proj.period}]
                       </span>
                     </div>
                     
                     <p className="text-slate-600 text-[9.5px] mt-0.5 leading-relaxed text-justify">
-                      {proj.shortDescription || proj.fullDescription.slice(0, 160) + "..."}
+                      {proj.description}
                     </p>
 
                     {/* Tech stack & indicators */}

@@ -1,48 +1,8 @@
-:root {
-  --bg-main: #0a0a0b;
-  --bg-card: #0d0d0f;
-  --bg-card-sec: #121214;
-  --bg-darker: #050506;
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-sec: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --text-main: #e0e0e0;
-  --text-white: #ffffff;
-  --text-muted-xs: rgba(255, 255, 255, 0.3);
-  --text-muted: rgba(255, 255, 255, 0.4);
-  --text-body: rgba(255, 255, 255, 0.8);
-  --text-soft: rgba(255, 255, 255, 0.6);
-  --grid-color: rgba(255, 255, 255, 0.015);
-}
-
-.light {
-  --bg-main: #f8fafc;
-  --bg-card: #ffffff;
-  --bg-card-sec: #f1f5f9;
-  --bg-darker: #e2e8f0;
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-sec: rgba(0, 0, 0, 0.1);
-  --border-strong: rgba(0, 0, 0, 0.18);
-  --text-main: #334155;
-  --text-white: #0f172a;
-  --text-muted-xs: rgba(15, 23, 42, 0.45);
-  --text-muted: rgba(15, 23, 42, 0.6);
-  --text-body: rgba(15, 23, 42, 0.85);
-  --text-soft: rgba(15, 23, 42, 0.7);
-  --grid-color: rgba(15, 23, 42, 0.03);
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-
-  /* Additional refinement for smooth transitions */
-  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-
   --color-app-bg: var(--bg-main);
   --color-app-card: var(--bg-card);
   --color-app-card-sec: var(--bg-card-sec);
@@ -52,87 +12,50 @@
   --color-app-border-strong: var(--border-strong);
   --color-app-text-main: var(--text-main);
   --color-app-text-white: var(--text-white);
-  --color-app-text-muted-xs: var(--text-muted-xs);
   --color-app-text-muted: var(--text-muted);
   --color-app-text-body: var(--text-body);
   --color-app-text-soft: var(--text-soft);
+  --color-app-accent: var(--accent);
+  --color-app-accent-light: var(--accent-light);
+  --color-app-accent-dark: var(--accent-dark);
 }
 
-/* Custom scrollbars for a clean dev feel */
-::-webkit-scrollbar {
-  width: 6.0px;
-  height: 6.0px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border-strong);
-  border-radius: 3.0px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(120, 120, 120, 0.4);
+:root {
+  --bg-main: #0b1121;
+  --bg-card: #111827;
+  --bg-card-sec: #1e293b;
+  --bg-darker: #020617;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-sec: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --text-main: #e2e8f0;
+  --text-white: #f8fafc;
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-body: rgba(255, 255, 255, 0.8);
+  --text-soft: rgba(255, 255, 255, 0.6);
+  --accent: #f59e0b;
+  --accent-light: rgba(245, 158, 11, 0.1);
+  --accent-dark: #fbbf24;
 }
 
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-main);
   color: var(--text-main);
-  overflow-x: hidden;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-/* Perfect print stylesheet to optimize portfolio to single-page A4 PDF CV */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(37, 211, 102, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.6); }
+}
+
 @media print {
-  /* Set exact page size and margin and hide default headers/footers */
-  @page {
-    size: A4 portrait;
-    margin: 0mm !important;
-  }
-
-  html, body {
-    width: 210mm !important;
-    height: 297mm !important;
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: hidden !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-  /* Completely hide the website viewport, standard modal toolbar overlays, backdrops, and interactive buttons */
-  #app-viewport,
-  .fixed,
-  .backdrop-blur-md,
-  button,
-  footer {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  /* Force display only the CV target container inside standard A4 bounds */
-  #print-cv-target {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    visibility: visible !important;
-    position: fixed !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 210mm !important;
-    height: 297mm !important;
-    padding: 16mm !important; /* Elegant margin to fit structure exactly inside standard A4 boundaries */
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    box-sizing: border-box !important;
-    z-index: 9999999 !important;
-  }
-
-  #print-cv-target * {
-    visibility: visible !important;
-    color: #0f172a !important;
-  }
+  @page { size: A4; margin: 0; }
+  #app-viewport, .fixed, button, footer { display: none !important; }
+  #print-cv-target { display: flex !important; flex-direction: column !important; position: fixed; left: 0; top: 0; width: 210mm; height: 297mm; padding: 16mm; background: white; color: #0f172a; z-index: 9999; }
 }
-
