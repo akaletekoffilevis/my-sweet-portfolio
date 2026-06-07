@@ -13,7 +13,6 @@ export interface ProfileData {
     github: string;
     linkedin: string;
     email: string;
-    gpgKey: string;
     whatsapp?: string;
   };
   metrics: {

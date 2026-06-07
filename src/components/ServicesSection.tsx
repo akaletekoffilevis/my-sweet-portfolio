@@ -45,12 +45,12 @@ export default function ServicesSection() {
   return (
     <section className="py-20 px-6 border-b border-app-border-subtle" id="services-section">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-2xl font-bold text-app-text-white mb-2">Services</h2>
-        <p className="text-app-text-soft mb-10">Ce que je peux faire pour vous</p>
+        <h2 className="section-title mb-2">Services</h2>
+        <p className="section-subtitle mb-10">Ce que je peux faire pour vous</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((svc, idx) => (
-            <div key={idx} className="bg-app-card border border-app-border-subtle rounded-xl p-6 hover:border-app-accent/30 transition">
+            <div key={idx} className="bg-app-card card-glow p-6">
               <div className="text-xs font-mono text-app-accent mb-3 tracking-wider uppercase">
                 {svc.tech}
               </div>

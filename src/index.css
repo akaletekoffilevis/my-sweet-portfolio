@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-app-bg: var(--bg-main);
   --color-app-card: var(--bg-card);
   --color-app-card-sec: var(--bg-card-sec);
@@ -44,14 +45,34 @@ body {
   color: var(--text-main);
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+.section-title {
+  @apply text-2xl font-bold text-app-text-white;
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(37, 211, 102, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.6); }
+.section-title::before {
+  content: "// ";
+  @apply text-app-accent/60;
+  font-family: var(--font-mono);
+}
+
+.section-subtitle {
+  @apply text-sm text-app-text-soft mb-10;
+  font-family: var(--font-mono);
+}
+
+.card-glow {
+  @apply border border-app-border-subtle rounded-xl transition-all duration-300;
+}
+
+.card-glow:hover {
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 24px -8px rgba(245, 158, 11, 0.08);
+}
+
+.btn-accent {
+  @apply inline-flex items-center gap-2 px-6 py-3 bg-app-accent text-white rounded-xl font-medium hover:bg-app-accent-dark transition text-sm cursor-pointer;
 }
 
 @media print {

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
-import { Code2, Database, Layers, Terminal, Boxes } from "lucide-react";
+import { Code2, Database, Layers, Terminal, Boxes, Layout, Zap, GitBranch, SquareTerminal } from "lucide-react";
 
 const iconMap: Record<string, ReactNode> = {
   Code2: <Code2 className="h-5 w-5 text-app-accent" />,
@@ -8,6 +8,10 @@ const iconMap: Record<string, ReactNode> = {
   Layers: <Layers className="h-5 w-5 text-app-accent" />,
   Terminal: <Terminal className="h-5 w-5 text-app-accent" />,
   Boxes: <Boxes className="h-5 w-5 text-app-accent" />,
+  Layout: <Layout className="h-5 w-5 text-app-accent" />,
+  Zap: <Zap className="h-5 w-5 text-app-accent" />,
+  GitBranch: <GitBranch className="h-5 w-5 text-app-accent" />,
+  SquareTerminal: <SquareTerminal className="h-5 w-5 text-app-accent" />,
 };
 
 const categories = [
@@ -27,8 +31,8 @@ export default function SkillsSection() {
   return (
     <section className="py-20 px-6 border-b border-app-border-subtle" id="skills-section">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-2xl font-bold text-app-text-white mb-2">Compétences</h2>
-        <p className="text-app-text-soft mb-8">Technologies et outils maîtrisés</p>
+        <h2 className="section-title mb-2">Compétences</h2>
+        <p className="section-subtitle mb-8">Technologies et outils maîtrisés</p>
 
         <div className="flex flex-wrap gap-2 mb-8">
           {categories.map(cat => (
@@ -48,7 +52,7 @@ export default function SkillsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((skill, idx) => (
-            <div key={idx} className="bg-app-card border border-app-border-subtle rounded-xl p-6 hover:border-app-accent/30 transition">
+            <div key={idx} className="bg-app-card card-glow p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="p-2 rounded-lg bg-app-accent-light">
                   {iconMap[skill.icon] || <Code2 className="h-5 w-5 text-app-accent" />}

@@ -61,8 +61,8 @@ export default function ContactAndResume() {
   return (
     <section className="py-20 px-6 border-b border-app-border-subtle" id="contact-resume-section">
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-2xl font-bold text-app-text-white mb-2">Contact & CV</h2>
-        <p className="text-app-text-soft mb-10">N'hésitez pas à me contacter</p>
+        <h2 className="section-title mb-2">Contact & CV</h2>
+        <p className="section-subtitle mb-10">N'hésitez pas à me contacter</p>
 
         {/* CV Download Banner */}
         <a
@@ -91,7 +91,7 @@ export default function ContactAndResume() {
 
         {/* Contact Form - centered */}
         <div className="mx-auto max-w-2xl">
-          <div className="bg-app-card border border-app-border-subtle rounded-2xl p-10">
+          <div className="bg-app-card card-glow rounded-2xl p-10">
             <div className="flex items-center gap-2 mb-6">
               <Mail className="h-5 w-5 text-app-accent" />
               <h3 className="font-semibold text-app-text-white">Envoyer un message</h3>
@@ -154,7 +154,7 @@ export default function ContactAndResume() {
                 href={link.href}
                 target={link.href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noreferrer"
-                className="group flex items-center justify-center w-14 h-14 rounded-xl border border-app-border-subtle bg-app-card text-app-text-soft hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
+                className="group flex items-center justify-center w-14 h-14 rounded-xl border border-app-border-subtle bg-app-card text-app-text-soft hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 hover:shadow-[0_0_16px_-4px_rgba(245,158,11,0.15)] transition-all duration-200"
                 title={link.label}
               >
                 <Icon className="h-6 w-6" />

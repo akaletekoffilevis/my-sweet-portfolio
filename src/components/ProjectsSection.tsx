@@ -7,12 +7,12 @@ export default function ProjectsSection() {
   return (
     <section className="py-20 px-6 border-b border-app-border-subtle" id="projects-section">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-2xl font-bold text-app-text-white mb-2">Projets</h2>
-        <p className="text-app-text-soft mb-10">Réalisations et études de cas</p>
+        <h2 className="section-title mb-2">Projets</h2>
+        <p className="section-subtitle mb-10">Réalisations et études de cas</p>
 
         <div className="space-y-8">
           {projects.map((project) => (
-            <div key={project.id} className="bg-app-card border border-app-border-subtle rounded-2xl p-8 hover:border-app-accent/20 transition">
+            <div key={project.id} className="bg-app-card card-glow rounded-2xl p-8">
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 <span className="text-sm text-app-text-muted bg-app-bg px-3 py-1 rounded-lg border border-app-border-subtle">
                   {project.period}
