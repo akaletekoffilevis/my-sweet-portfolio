@@ -5,7 +5,7 @@ export default function BioSection() {
   const { profile } = usePortfolio();
 
   return (
-    <section className="py-20 px-6 border-b border-app-border-subtle relative overflow-hidden" id="bio-section">
+    <section className="pt-32 pb-20 px-6 border-b border-app-border-subtle relative overflow-hidden" id="bio-section">
       {/* Tech background pattern */}
       <div className="absolute inset-0 pointer-events-none select-none opacity-[0.025]">
         <div className="absolute top-10 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01101111 01110000 01110100 01101001 01101111 01101110 01110011</div>
@@ -13,7 +13,7 @@ export default function BioSection() {
       </div>
 
       <div className="mx-auto max-w-7xl relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
           <div className="lg:col-span-4 flex flex-col items-center lg:items-start space-y-6">
             <div className="w-full max-w-xs">
@@ -22,7 +22,7 @@ export default function BioSection() {
                   <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                   <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-                  <span className="text-[10px] font-mono text-app-text-muted ml-2">avatar.png</span>
+                  <span className="text-xs font-mono text-app-text-muted ml-2">avatar.png</span>
                 </div>
                 <img
                   src={profile.avatarUrl}
