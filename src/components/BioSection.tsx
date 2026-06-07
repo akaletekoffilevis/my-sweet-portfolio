@@ -59,7 +59,7 @@ export default function BioSection() {
               <p className="text-app-text-body leading-relaxed">{profile.bio}</p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {profile.metrics.map((m, idx) => (
                 <div key={idx} className="bg-app-card border border-app-border-subtle rounded-xl p-5 text-center">
                   <div className="text-xl font-bold text-app-accent">{m.value}</div>

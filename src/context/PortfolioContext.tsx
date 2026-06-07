@@ -7,6 +7,7 @@ export interface ProfileData {
   title: string;
   location: string;
   bio: string;
+  phone?: string;
   avatarUrl: string;
   socials: {
     github: string;

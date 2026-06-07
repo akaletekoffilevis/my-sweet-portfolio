@@ -2,22 +2,21 @@ import { Skill, Project } from "./types";
 
 export const JOHN_DOE_PROFILE = {
   name: "Koffi Lévis Akalete",
-  title: "Développeur Backend Junior",
+  title: "Développeur Backend/Full-Stack Junior",
   location: "Niamey, Niger / Télétravail possible",
-  bio: "Étudiant en Licence 2 Informatique à l'Université Abdou Moumouni de Niamey, passionné par le développement backend et les architectures logicielles. Je travaille principalement avec C# et l'écosystème .NET (ASP.NET Core, Blazor, Entity Framework). J'ai conçu plusieurs APIs REST, applications console, outils CLI et une PWA Blazor complète.",
+  bio: "Étudiant en Licence Informatique à l'Université Abdou Moumouni de Niamey, passionné par le développement backend et les architectures logicielles. Je travaille principalement avec C# et l'écosystème .NET (ASP.NET Core, Blazor, Entity Framework). J'ai conçu plusieurs APIs REST, applications console, outils CLI et une PWA Blazor complète.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
+  phone: "+227 91 53 52 20",
   socials: {
     github: "https://github.com/akaletekoffilevis",
     linkedin: "https://linkedin.com/in/akalete-koffi-levis",
     email: "koffilevis21@gmail.com",
-    gpgKey: "9A3C 41B1 E09D A7CF C209 EF1A B23D",
     whatsapp: "+227 91 53 52 20"
   },
   metrics: [
-    { label: "Projets", value: "10+", desc: "APIs, CLI, PWA, Blazor, Console" },
-    { label: "Formation", value: "Licence 2", desc: "Informatique à l'Université Abdou Moumouni" },
-    { label: "Certification", value: "Microsoft", desc: "C# Free Foundation par FreeCodeCamp" },
-    { label: "Langues", value: "4", desc: "Français, Haoussa, Zarma, Anglais" }
+    { label: "Projets", value: "8+", desc: "APIs, Web, Mobile, CLI, Console" },
+    { label: "Formation", value: "Licence (En cours)", desc: "Informatique — Université Abdou Moumouni" },
+    { label: "Certification", value: "Microsoft", desc: "C# Foundational — FreeCodeCamp" }
   ]
 };
 
@@ -53,6 +52,22 @@ export const SKILLS_DATA: Skill[] = [
     experienceYears: 1,
     icon: "Terminal",
     description: "Interaction frontend, React, Node.js basique."
+  },
+  {
+    name: "PHP",
+    category: "languages",
+    level: 55,
+    experienceYears: 0.5,
+    icon: "Terminal",
+    description: "POO, MVC, interactions avec bases de données, développement web backend."
+  },
+  {
+    name: "Go",
+    category: "languages",
+    level: 20,
+    experienceYears: 0.5,
+    icon: "Terminal",
+    description: "Notions de base, initiation."
   },
   {
     name: "HTML5 / CSS3",
@@ -120,7 +135,8 @@ export const PROJECTS_DATA: Project[] = [
     period: "2025 - En cours",
     description: "CLI universel écrit en C# .NET 9 avec System.CommandLine pour générer des projets dans plus de 20 langages via 40+ commandes. Compilé en binaire natif AOT (12MB) multi-plateforme. Dispose d'une intégration IA (OpenAI, Claude, Gemini) pour suggérer des architectures, de plugins extensibles, et de commandes pour Docker, CI/CD et déploiement.",
     techStack: ["C#", ".NET 9", "System.CommandLine", "Native AOT", "OpenAI/Claude API"],
-    githubUrl: "https://github.com/akaletekoffilevis/Scaffolder-CLI"
+    githubUrl: "https://github.com/akaletekoffilevis/Scaffolder-CLI",
+    demoUrl: "https://scaffolder-cli.vercel.app"
   },
   {
     id: "todos-api",
@@ -144,7 +160,8 @@ export const PROJECTS_DATA: Project[] = [
     period: "2025",
     description: "Application Blazor WebAssembly .NET 9 — site vitrine pour le groupe Dan Kassawoua (MSA Niger — NextDev). Affiche les membres de l'équipe avec profils détaillés, routage Blazor, données JSON statiques, design responsive.",
     techStack: ["C#", ".NET 9", "Blazor WebAssembly", "HTML", "CSS"],
-    githubUrl: "https://github.com/akaletekoffilevis/nextdevblazor-app"
+    githubUrl: "https://github.com/akaletekoffilevis/nextdev-blazor-app",
+    demoUrl: "http://nextdev.runasp.net"
   },
   {
     id: "scholl-api",

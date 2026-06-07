@@ -1,6 +1,6 @@
 {
   "name": "Portfolio de Koffi Levis",
-  "description": "Portfolio interactif de Koffi Levis, Développeur Fullstack Junior, présentant ses compétences, projets réels et d'études, son CV A4 imprimable et sa console d'administration.",
+  "description": "Portfolio interactif de Koffi Levis, Développeur Fullstack Junior, présentant ses compétences, projets réels et d'études",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

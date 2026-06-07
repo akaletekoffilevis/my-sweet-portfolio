@@ -6,38 +6,10 @@ import ServicesSection from "./components/ServicesSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ContactAndResume from "./components/ContactAndResume";
 import Footer from "./components/Footer";
-import PrintableCv from "./components/PrintableCv";
 import { PortfolioProvider } from "./context/PortfolioContext";
-import { Printer, X } from "lucide-react";
 
 function AppContent() {
-  const isCvPreviewTab = typeof window !== "undefined" && window.location.search.includes("cv=preview");
 
-  if (isCvPreviewTab) {
-    return (
-      <div className="bg-[#f8fafc] min-h-screen p-4 sm:p-8 flex justify-center items-start print:p-0 select-text">
-        <div className="w-full max-w-[210mm] min-h-[297mm] shadow-[0_4px_30px_rgba(0,0,0,0.06)] border border-slate-200 bg-white print:shadow-none print:border-none">
-          <PrintableCv />
-        </div>
-        <div className="fixed bottom-6 right-6 flex flex-col xs:flex-row gap-3 print:hidden z-50">
-          <button
-            onClick={() => window.print()}
-            className="bg-slate-900 border border-slate-800 text-white font-mono text-[11px] uppercase tracking-widest px-5 py-3 font-extrabold hover:bg-slate-800 transition flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-          >
-            <Printer className="w-4 h-4" />
-            Imprimer / PDF
-          </button>
-          <button
-            onClick={() => window.close()}
-            className="bg-white border border-slate-300 text-slate-800 font-mono text-[11px] uppercase tracking-widest px-5 py-3 font-bold hover:bg-slate-50 transition flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-          >
-            <X className="w-4 h-4 text-slate-500" />
-            Fermer
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative">
@@ -73,9 +45,6 @@ function AppContent() {
         <Footer />
       </div>
 
-      <div id="print-cv-target" className="hidden print:block">
-        <PrintableCv />
-      </div>
     </div>
   );
 }
