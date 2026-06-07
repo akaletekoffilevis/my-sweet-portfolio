@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -40,7 +40,7 @@
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   background-color: var(--bg-main);
   color: var(--text-main);
 }
@@ -60,19 +60,6 @@ body {
 .section-subtitle {
   @apply text-sm text-app-text-soft mb-10;
   font-family: var(--font-mono);
-}
-
-.card-glow {
-  @apply border border-app-border-subtle rounded-xl transition-all duration-300;
-}
-
-.card-glow:hover {
-  border-color: rgba(245, 158, 11, 0.25);
-  box-shadow: 0 0 24px -8px rgba(245, 158, 11, 0.08);
-}
-
-.btn-accent {
-  @apply inline-flex items-center gap-2 px-6 py-3 bg-app-accent text-white rounded-xl font-medium hover:bg-app-accent-dark transition text-sm cursor-pointer;
 }
 
 @keyframes fade-in {

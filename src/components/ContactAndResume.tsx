@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
-import { Send, CheckCircle2, Mail, FileText, Download, Github, Linkedin, Loader2, MapPin, Phone } from "lucide-react";
+import { Send, CheckCircle2, Mail, FileText, Download, Github, Linkedin, Loader2, MapPin, Phone, Terminal } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -57,131 +57,169 @@ export default function ContactAndResume() {
   };
 
   return (
-    <section className="py-20 px-6 border-b border-app-border-subtle" id="contact-resume-section">
-      <div className="mx-auto max-w-6xl">
+    <section className="py-20 px-6 border-b border-app-border-subtle relative overflow-hidden" id="contact-resume-section">
+      {/* Tech background pattern */}
+      <div className="absolute inset-0 pointer-events-none select-none opacity-[0.03]">
+        <div className="absolute top-20 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01010010 01000101 01000001 01000100 01011001</div>
+        <div className="absolute bottom-20 right-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>00100100 01001111 01001011 01000101</div>
+        <div className="absolute top-1/3 right-1/4 text-[10px] font-mono text-app-accent/60">0x7F 0x9E 0x3B 0xA1</div>
+        <div className="absolute bottom-1/3 left-1/4 text-[10px] font-mono text-app-accent/40">0x00 0x00 0x00 0x00</div>
+      </div>
+
+      <div className="mx-auto max-w-7xl relative">
         <h2 className="section-title mb-2">Contact & CV</h2>
         <p className="section-subtitle mb-10">N'hésitez pas à me contacter</p>
 
-        <div className="mx-auto max-w-3xl space-y-8">
+        <div className="mx-auto max-w-2xl space-y-8">
 
-          {/* CV Download Banner */}
-          <a
-            href="/cv_koffi_levis_akalete.pdf"
-            download
-            className="card-glow group flex items-center justify-between gap-6 bg-app-card rounded-2xl p-6"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-app-accent/10 flex items-center justify-center group-hover:bg-app-accent/20 transition-colors shrink-0">
-                <FileText className="h-6 w-6 text-app-accent" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-app-text-white text-base">Télécharger mon CV</h3>
-                <p className="text-xs text-app-text-muted mt-0.5">PDF — Mis à jour récemment</p>
-              </div>
+          {/* CV Download Terminal-style */}
+          <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+              <span className="text-[10px] font-mono text-app-text-muted ml-2">resume.pdf — bash</span>
             </div>
-            <span className="btn-accent shrink-0 group-hover:scale-105 duration-200">
-              <Download className="h-4 w-4" />
-              PDF
-            </span>
-          </a>
-
-          {/* Contact Form Card */}
-          <div className="bg-app-card card-glow rounded-2xl p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-8 pb-6 border-b border-app-border-subtle">
-              <div className="w-10 h-10 rounded-lg bg-app-accent/10 flex items-center justify-center">
-                <Mail className="h-5 w-5 text-app-accent" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-app-text-white">Envoyer un message</h3>
-                <p className="text-xs text-app-text-muted mt-0.5">Je vous répondrai dans les plus brefs délais</p>
-              </div>
-            </div>
-
-            {submitSuccess && (
-              <div className="bg-emerald-900/15 border border-emerald-800/30 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
-                <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+            <a href="/cv_koffi_levis_akalete.pdf" download
+              className="group flex items-center justify-between gap-4 p-5 hover:bg-app-accent/5 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <FileText className="h-5 w-5 text-app-accent shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-emerald-300">Message envoyé avec succès !</p>
-                  <p className="text-xs text-emerald-400/60 mt-0.5">Je vous répondrai dès que possible.</p>
+                  <p className="text-sm font-mono text-app-text-white group-hover:text-app-accent transition-colors">$ <span className="font-semibold">./download-cv.sh</span></p>
+                  <p className="text-xs font-mono text-app-text-muted mt-0.5"># Curriculum Vitae — Format PDF</p>
                 </div>
               </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="group">
-                  <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Nom *</label>
-                  <input type="text" required value={formData.name}
-                    onChange={e => setFormData({...formData, name: e.target.value})}
-                    className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
-                    placeholder="Votre nom" />
-                </div>
-                <div className="group">
-                  <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Email *</label>
-                  <input type="email" required value={formData.email}
-                    onChange={e => setFormData({...formData, email: e.target.value})}
-                    className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
-                    placeholder="votre@email.com" />
-                </div>
-              </div>
-              <div className="group">
-                <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Sujet</label>
-                <input type="text" value={formData.subject}
-                  onChange={e => setFormData({...formData, subject: e.target.value})}
-                  className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
-                  placeholder="Objet du message" />
-              </div>
-              <div className="group">
-                <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Message *</label>
-                <textarea required rows={5} value={formData.message}
-                  onChange={e => setFormData({...formData, message: e.target.value})}
-                  className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all resize-none"
-                  placeholder="Votre message..." />
-              </div>
-              <button type="submit" disabled={isSubmitting}
-                className="w-full py-3.5 bg-app-accent text-white rounded-xl font-medium hover:bg-app-accent-dark transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-lg shadow-app-accent/10">
-                {isSubmitting ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Send className="h-4 w-4" />
-                )}
-                {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
-              </button>
-            </form>
+              <span className="flex items-center gap-1.5 px-4 py-2 bg-app-accent/10 border border-app-accent/20 rounded-lg text-xs font-mono text-app-accent hover:bg-app-accent/20 transition-colors shrink-0">
+                <Download className="h-3.5 w-3.5" />
+                Télécharger
+              </span>
+            </a>
           </div>
 
-          {/* Contact Info + Social */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-app-bg border border-app-border-subtle rounded-2xl p-6">
-            <div className="flex flex-wrap items-center gap-4 text-xs text-app-text-muted">
-              <div className="flex items-center gap-1.5">
-                <MapPin className="h-3.5 w-3.5" />
-                <span>{profile.location}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Phone className="h-3.5 w-3.5" />
-                <span>{profile.phone || profile.socials.whatsapp}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <Mail className="h-3.5 w-3.5" />
-                <span>{profile.socials.email}</span>
-              </div>
+          {/* Contact Form Card */}
+          <div className="bg-app-card border border-app-border-subtle rounded-xl overflow-hidden">
+            {/* Terminal header */}
+            <div className="flex items-center gap-1.5 px-4 py-2.5 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+              <span className="text-[10px] font-mono text-app-text-muted ml-2">contact-form.sh</span>
             </div>
-            <div className="flex items-center gap-2">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                    rel="noreferrer"
-                    className="flex items-center justify-center w-9 h-9 rounded-lg border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
-                    title={link.label}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </a>
-                );
-              })}
+
+            <div className="p-6 md:p-8">
+              <div className="flex items-center gap-2.5 mb-6 pb-4 border-b border-app-border-subtle/50">
+                <Terminal className="h-4 w-4 text-app-accent" />
+                <div>
+                  <h3 className="text-sm font-mono font-semibold text-app-text-white">
+                    <span className="text-app-text-muted">root@portfolio</span>:<span className="text-app-accent">~</span>$ ./send-message
+                  </h3>
+                  <p className="text-xs font-mono text-app-text-muted mt-0.5"># Je vous répondrai dans les plus brefs délais</p>
+                </div>
+              </div>
+
+              {submitSuccess && (
+                <div className="bg-emerald-900/15 border border-emerald-800/30 rounded-lg p-4 mb-6 flex items-start gap-3 animate-fade-in">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-xs font-mono font-medium text-emerald-300">$ echo "Message envoyé avec succès !"</p>
+                    <p className="text-xs font-mono text-emerald-400/60 mt-0.5"># Je vous répondrai dès que possible.</p>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-mono text-app-text-muted mb-1.5">
+                      <span className="text-app-accent">$</span> NAME <span className="text-app-accent">*</span>
+                    </label>
+                    <input type="text" required value={formData.name}
+                      onChange={e => setFormData({...formData, name: e.target.value})}
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-3.5 py-2.5 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      placeholder="Votre nom" />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-mono text-app-text-muted mb-1.5">
+                      <span className="text-app-accent">$</span> EMAIL <span className="text-app-accent">*</span>
+                    </label>
+                    <input type="email" required value={formData.email}
+                      onChange={e => setFormData({...formData, email: e.target.value})}
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-3.5 py-2.5 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      placeholder="votre@email.com" />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-mono text-app-text-muted mb-1.5">
+                    <span className="text-app-accent">$</span> SUBJECT
+                  </label>
+                  <input type="text" value={formData.subject}
+                    onChange={e => setFormData({...formData, subject: e.target.value})}
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-3.5 py-2.5 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                    placeholder="Objet du message" />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-mono text-app-text-muted mb-1.5">
+                    <span className="text-app-accent">$</span> MESSAGE <span className="text-app-accent">*</span>
+                  </label>
+                  <textarea required rows={5} value={formData.message}
+                    onChange={e => setFormData({...formData, message: e.target.value})}
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-3.5 py-2.5 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all resize-none"
+                    placeholder="Votre message..." />
+                </div>
+                <button type="submit" disabled={isSubmitting}
+                  className="w-full py-3 bg-app-accent/10 border border-app-accent/20 rounded-lg font-mono text-sm text-app-accent hover:bg-app-accent/20 transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer">
+                  {isSubmitting ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <Send className="h-3.5 w-3.5" />
+                  )}
+                  <span className="text-app-text-muted">$</span> {isSubmitting ? "./send --processing" : "./send --execute"}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* Contact Info + Social — terminal style */}
+          <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
+            <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+              <span className="text-[10px] font-mono text-app-text-muted ml-2">contact-info</span>
+            </div>
+            <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono text-app-text-muted">
+                <span className="flex items-center gap-1.5">
+                  <MapPin className="h-3 w-3 text-app-accent/60" />
+                  <span>{profile.location}</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Phone className="h-3 w-3 text-app-accent/60" />
+                  <span>{profile.phone || profile.socials.whatsapp}</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Mail className="h-3 w-3 text-app-accent/60" />
+                  <span>{profile.socials.email}</span>
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                {socialLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                      rel="noreferrer"
+                      className="flex items-center justify-center w-8 h-8 rounded-lg border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
+                      title={link.label}
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

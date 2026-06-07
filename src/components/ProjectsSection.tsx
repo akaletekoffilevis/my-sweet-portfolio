@@ -1,5 +1,5 @@
 import { usePortfolio } from "../context/PortfolioContext";
-import { Github, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Folder } from "lucide-react";
 
 export default function ProjectsSection() {
   const { projects } = usePortfolio();
@@ -10,39 +10,45 @@ export default function ProjectsSection() {
         <h2 className="section-title mb-2">Projets</h2>
         <p className="section-subtitle mb-10">Réalisations et études de cas</p>
 
-        <div className="space-y-8">
+        <div className="space-y-6">
           {projects.map((project) => (
-            <div key={project.id} className="bg-app-card card-glow rounded-2xl p-8">
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                <span className="text-sm text-app-text-muted bg-app-bg px-3 py-1 rounded-lg border border-app-border-subtle">
-                  {project.period}
-                </span>
+            <div key={project.id} className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden hover:border-app-accent/20 transition-all duration-300">
+              <div className="flex items-center gap-1.5 px-4 py-2.5 bg-app-darker border-b border-app-border-subtle">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <Folder className="h-3.5 w-3.5 text-app-accent ml-2" />
+                <span className="text-[10px] font-mono text-app-text-muted">{project.id}/</span>
+                <span className="text-[10px] font-mono text-app-text-muted ml-auto">{project.period}</span>
               </div>
+              <div className="p-6">
+                <div className="flex items-start justify-between gap-4 mb-4">
+                  <h3 className="text-base font-mono font-semibold text-app-text-white">{project.title}</h3>
+                </div>
+                <p className="text-xs font-mono text-app-text-body leading-relaxed mb-5">{project.description}</p>
 
-              <h3 className="text-xl font-semibold text-app-text-white mb-3">{project.title}</h3>
-              <p className="text-app-text-body leading-relaxed mb-6">{project.description}</p>
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {(Array.isArray(project.techStack) ? project.techStack : project.techStack.split(",")).map((tech: string) => (
+                    <span key={tech.trim()} className="text-[10px] font-mono bg-app-accent/10 text-app-accent border border-app-accent/10 px-2.5 py-1 rounded-md">
+                      <span className="text-app-text-muted">$</span> {tech.trim()}
+                    </span>
+                  ))}
+                </div>
 
-              <div className="flex flex-wrap gap-2 mb-6">
-                {(Array.isArray(project.techStack) ? project.techStack : project.techStack.split(",")).map((tech: string) => (
-                  <span key={tech.trim()} className="text-xs bg-app-accent-light text-app-accent px-3 py-1 rounded-lg font-medium">
-                    {tech.trim()}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex gap-3">
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 bg-app-accent text-white rounded-lg text-sm font-medium hover:bg-app-accent-dark transition">
-                    <Github className="w-4 h-4" /> Code source
-                  </a>
-                )}
-                {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 border border-app-accent text-app-accent rounded-lg text-sm font-medium hover:bg-app-accent-light transition">
-                    <ExternalLink className="w-4 h-4" /> Démo
-                  </a>
-                )}
+                <div className="flex gap-2.5">
+                  {project.githubUrl && (
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-4 py-2 bg-app-accent/10 border border-app-accent/20 rounded-lg text-xs font-mono text-app-accent hover:bg-app-accent/20 transition">
+                      <Github className="w-3.5 h-3.5" /> <span className="text-app-text-muted">$</span> code-source
+                    </a>
+                  )}
+                  {project.demoUrl && (
+                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-4 py-2 border border-app-border-subtle rounded-lg text-xs font-mono text-app-text-soft hover:border-app-accent/30 hover:text-app-accent transition">
+                      <ExternalLink className="w-3.5 h-3.5" /> <span className="text-app-text-muted">$</span> demo
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           ))}

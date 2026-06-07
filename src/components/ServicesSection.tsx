@@ -1,3 +1,5 @@
+import { Terminal } from "lucide-react";
+
 const services = [
   {
     title: "APIs REST sur mesure",
@@ -48,14 +50,23 @@ export default function ServicesSection() {
         <h2 className="section-title mb-2">Services</h2>
         <p className="section-subtitle mb-10">Ce que je peux faire pour vous</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.map((svc, idx) => (
-            <div key={idx} className="bg-app-card card-glow p-6">
-              <div className="text-xs font-mono text-app-accent mb-3 tracking-wider uppercase">
-                {svc.tech}
+            <div key={idx} className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden hover:border-app-accent/20 transition-all duration-300">
+              <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
+                <span className="w-2 h-2 rounded-full bg-red-500/60" />
+                <span className="w-2 h-2 rounded-full bg-yellow-500/60" />
+                <span className="w-2 h-2 rounded-full bg-green-500/60" />
+                <Terminal className="h-3 w-3 text-app-accent ml-2" />
+                <span className="text-[10px] font-mono text-app-text-muted">service-{idx + 1}</span>
               </div>
-              <h3 className="font-semibold text-app-text-white mb-2">{svc.title}</h3>
-              <p className="text-sm text-app-text-soft leading-relaxed">{svc.desc}</p>
+              <div className="p-5">
+                <div className="text-[10px] font-mono text-app-accent mb-3 tracking-wider uppercase">
+                  <span className="text-app-text-muted">$ </span>{svc.tech}
+                </div>
+                <h3 className="text-sm font-mono font-semibold text-app-text-white mb-2">{svc.title}</h3>
+                <p className="text-xs font-mono text-app-text-soft leading-relaxed">{svc.desc}</p>
+              </div>
             </div>
           ))}
         </div>
