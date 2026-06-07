@@ -74,24 +74,24 @@ export default function ContactAndResume() {
 
           {/* CV Download Terminal-style */}
           <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-              <span className="text-xs font-mono text-app-text-muted ml-2">resume.pdf — bash</span>
+            <div className="flex items-center gap-1.5 px-5 py-3 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-3 h-3 rounded-full bg-red-500/60" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+              <span className="w-3 h-3 rounded-full bg-green-500/60" />
+              <span className="text-sm font-mono text-app-text-muted ml-2">resume.pdf — bash</span>
             </div>
             <a href="/cv_koffi_levis_akalete.pdf" download
-              className="group flex items-center justify-between gap-4 p-5 hover:bg-app-accent/5 transition-colors"
+              className="group flex items-center justify-between gap-6 p-6 hover:bg-app-accent/5 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <FileText className="h-5 w-5 text-app-accent shrink-0" />
+              <div className="flex items-center gap-4">
+                <FileText className="h-7 w-7 text-app-accent shrink-0" />
                 <div>
-                  <p className="text-sm font-mono text-app-text-white group-hover:text-app-accent transition-colors">$ <span className="font-semibold">./download-cv.sh</span></p>
-                  <p className="text-sm font-mono text-app-text-muted mt-0.5"># Curriculum Vitae — Format PDF</p>
+                  <p className="text-base font-mono text-app-text-white group-hover:text-app-accent transition-colors">$ <span className="font-semibold">./download-cv.sh</span></p>
+                  <p className="text-sm font-mono text-app-text-muted mt-1"># Curriculum Vitae — Format PDF</p>
                 </div>
               </div>
-              <span className="flex items-center gap-1.5 px-4 py-2 bg-app-accent/10 border border-app-accent/20 rounded-lg text-xs font-mono text-app-accent hover:bg-app-accent/20 transition-colors shrink-0">
-                <Download className="h-4 w-4" />
+              <span className="flex items-center gap-2 px-5 py-3 bg-app-accent/10 border border-app-accent/20 rounded-lg text-sm font-mono text-app-accent hover:bg-app-accent/20 transition-colors shrink-0">
+                <Download className="h-5 w-5" />
                 Télécharger
               </span>
             </a>
@@ -100,43 +100,43 @@ export default function ContactAndResume() {
           {/* Contact Form Card */}
           <div className="bg-app-card border border-app-border-subtle rounded-xl overflow-hidden">
             {/* Terminal header */}
-            <div className="flex items-center gap-1.5 px-4 py-2.5 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-              <span className="text-xs font-mono text-app-text-muted ml-2">contact-form.sh</span>
+            <div className="flex items-center gap-1.5 px-5 py-3 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-3 h-3 rounded-full bg-red-500/60" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+              <span className="w-3 h-3 rounded-full bg-green-500/60" />
+              <span className="text-sm font-mono text-app-text-muted ml-2">contact-form.sh</span>
             </div>
 
-            <div className="p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-app-border-subtle/50">
-                <Terminal className="h-5 w-5 text-app-accent shrink-0" />
+            <div className="p-8 md:p-10">
+              <div className="flex items-center gap-4 mb-8 pb-5 border-b border-app-border-subtle/50">
+                <Terminal className="h-6 w-6 text-app-accent shrink-0" />
                 <div>
-                  <h3 className="text-base font-mono font-semibold text-app-text-white">
+                  <h3 className="text-lg font-mono font-semibold text-app-text-white">
                     <span className="text-app-text-muted">root@portfolio</span>:<span className="text-app-accent">~</span>$ ./send-message
                   </h3>
-                  <p className="text-sm font-mono text-app-text-muted mt-0.5"># Je vous répondrai dans les plus brefs délais</p>
+                  <p className="text-sm font-mono text-app-text-muted mt-1"># Je vous répondrai dans les plus brefs délais</p>
                 </div>
               </div>
 
               {submitSuccess && (
-                <div className="bg-emerald-900/15 border border-emerald-800/30 rounded-lg p-4 mb-6 flex items-start gap-3 animate-fade-in">
-                  <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div className="bg-emerald-900/15 border border-emerald-800/30 rounded-lg p-5 mb-6 flex items-start gap-3 animate-fade-in">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-mono font-medium text-emerald-300">$ echo "Message envoyé avec succès !"</p>
+                    <p className="text-base font-mono font-medium text-emerald-300">$ echo "Message envoyé avec succès !"</p>
                     <p className="text-sm font-mono text-emerald-400/60 mt-0.5"># Je vous répondrai dès que possible.</p>
                   </div>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-sm font-mono text-app-text-muted mb-1.5">
                       <span className="text-app-accent">$</span> NAME <span className="text-app-accent">*</span>
                     </label>
                     <input type="text" required value={formData.name}
                       onChange={e => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 py-3 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-5 py-3.5 text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
                       placeholder="Votre nom" />
                   </div>
                   <div>
@@ -145,7 +145,7 @@ export default function ContactAndResume() {
                     </label>
                     <input type="email" required value={formData.email}
                       onChange={e => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 py-3 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-5 py-3.5 text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
                       placeholder="votre@email.com" />
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export default function ContactAndResume() {
                   </label>
                   <input type="text" value={formData.subject}
                     onChange={e => setFormData({...formData, subject: e.target.value})}
-                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 py-3 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-5 py-3.5 text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
                     placeholder="Objet du message" />
                 </div>
                 <div>
@@ -164,15 +164,15 @@ export default function ContactAndResume() {
                   </label>
                   <textarea required rows={5} value={formData.message}
                     onChange={e => setFormData({...formData, message: e.target.value})}
-                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 py-3 text-sm font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all resize-none"
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-5 py-3.5 text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all resize-none"
                     placeholder="Votre message..." />
                 </div>
                 <button type="submit" disabled={isSubmitting}
-                  className="w-full py-3.5 bg-app-accent/10 border border-app-accent/20 rounded-lg font-mono text-sm text-app-accent hover:bg-app-accent/20 transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer">
+                  className="w-full py-4 bg-app-accent/10 border border-app-accent/20 rounded-lg font-mono text-base text-app-accent hover:bg-app-accent/20 transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer">
                   {isSubmitting ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
-                    <Send className="h-4 w-4" />
+                    <Send className="h-5 w-5" />
                   )}
                   <span className="text-app-text-muted">$</span> {isSubmitting ? "./send --processing" : "./send --execute"}
                 </button>
@@ -182,28 +182,28 @@ export default function ContactAndResume() {
 
           {/* Contact Info + Social — terminal style */}
           <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
-            <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-              <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
-              <span className="text-xs font-mono text-app-text-muted ml-2">contact-info</span>
+            <div className="flex items-center gap-1.5 px-5 py-3 bg-app-darker border-b border-app-border-subtle">
+              <span className="w-3 h-3 rounded-full bg-red-500/60" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
+              <span className="w-3 h-3 rounded-full bg-green-500/60" />
+              <span className="text-sm font-mono text-app-text-muted ml-2">contact-info</span>
             </div>
-            <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono text-app-text-muted">
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-app-accent/60" />
+            <div className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+              <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-sm font-mono text-app-text-muted">
+                <span className="flex items-center gap-2">
+                  <MapPin className="h-5 w-5 text-app-accent/60" />
                   <span>{profile.location}</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Phone className="h-4 w-4 text-app-accent/60" />
+                <span className="flex items-center gap-2">
+                  <Phone className="h-5 w-5 text-app-accent/60" />
                   <span>{profile.phone || profile.socials.whatsapp}</span>
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <Mail className="h-4 w-4 text-app-accent/60" />
+                <span className="flex items-center gap-2">
+                  <Mail className="h-5 w-5 text-app-accent/60" />
                   <span>{profile.socials.email}</span>
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 {socialLinks.map((link) => {
                   const Icon = link.icon;
                   return (
@@ -212,10 +212,10 @@ export default function ContactAndResume() {
                       href={link.href}
                       target={link.href.startsWith("mailto") ? undefined : "_blank"}
                       rel="noreferrer"
-                      className="flex items-center justify-center w-10 h-10 rounded-lg border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
+                      className="flex items-center justify-center w-12 h-12 rounded-xl border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 hover:shadow-[0_0_16px_-4px_rgba(245,158,11,0.12)] transition-all duration-200"
                       title={link.label}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-5 w-5" />
                     </a>
                   );
                 })}
