@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
-import { Send, CheckCircle2, Mail, FileText, Download, Github, Linkedin } from "lucide-react";
+import { Send, CheckCircle2, Mail, FileText, Download, Github, Linkedin, Loader2, MapPin, Phone } from "lucide-react";
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -40,22 +40,20 @@ export default function ContactAndResume() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     setIsSubmitting(true);
-    setTimeout(() => {
-      addMessage({
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject || "Sans Objet",
-        message: formData.message
-      });
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setSubmitSuccess(false), 6000);
-    }, 600);
+    await addMessage({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || "Sans Objet",
+      message: formData.message
+    });
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    setFormData({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setSubmitSuccess(false), 6000);
   };
 
   return (
@@ -64,103 +62,129 @@ export default function ContactAndResume() {
         <h2 className="section-title mb-2">Contact & CV</h2>
         <p className="section-subtitle mb-10">N'hésitez pas à me contacter</p>
 
-        {/* CV Download Banner */}
-        <a
-          href="/cv_koffi_levis_akalete.pdf"
-          download
-          className="group block bg-app-card border border-app-border-subtle hover:border-app-accent/50 rounded-2xl p-8 mb-12 transition-all duration-300"
-        >
-          <div className="flex items-center justify-between flex-wrap gap-6">
-            <div className="flex items-center gap-5">
-              <div className="w-14 h-14 bg-app-accent/10 rounded-xl flex items-center justify-center group-hover:bg-app-accent/20 transition-colors">
-                <FileText className="h-7 w-7 text-app-accent" />
+        <div className="mx-auto max-w-3xl space-y-8">
+
+          {/* CV Download Banner */}
+          <a
+            href="/cv_koffi_levis_akalete.pdf"
+            download
+            className="card-glow group flex items-center justify-between gap-6 bg-app-card rounded-2xl p-6"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-app-accent/10 flex items-center justify-center group-hover:bg-app-accent/20 transition-colors shrink-0">
+                <FileText className="h-6 w-6 text-app-accent" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-app-text-white">Télécharger mon CV</h3>
-                <p className="text-sm text-app-text-soft mt-0.5">
-                  Curriculum Vitae — Format PDF
-                </p>
+                <h3 className="font-semibold text-app-text-white text-base">Télécharger mon CV</h3>
+                <p className="text-xs text-app-text-muted mt-0.5">PDF — Mis à jour récemment</p>
               </div>
             </div>
-            <span className="inline-flex items-center gap-2 px-6 py-3 bg-app-accent text-white rounded-xl font-medium hover:bg-app-accent-dark transition text-sm group-hover:scale-105 duration-200">
+            <span className="btn-accent shrink-0 group-hover:scale-105 duration-200">
               <Download className="h-4 w-4" />
-              Télécharger (PDF)
+              PDF
             </span>
-          </div>
-        </a>
+          </a>
 
-        {/* Contact Form - centered */}
-        <div className="mx-auto max-w-2xl">
-          <div className="bg-app-card card-glow rounded-2xl p-10">
-            <div className="flex items-center gap-2 mb-6">
-              <Mail className="h-5 w-5 text-app-accent" />
-              <h3 className="font-semibold text-app-text-white">Envoyer un message</h3>
+          {/* Contact Form Card */}
+          <div className="bg-app-card card-glow rounded-2xl p-8 md:p-10">
+            <div className="flex items-center gap-3 mb-8 pb-6 border-b border-app-border-subtle">
+              <div className="w-10 h-10 rounded-lg bg-app-accent/10 flex items-center justify-center">
+                <Mail className="h-5 w-5 text-app-accent" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-app-text-white">Envoyer un message</h3>
+                <p className="text-xs text-app-text-muted mt-0.5">Je vous répondrai dans les plus brefs délais</p>
+              </div>
             </div>
 
             {submitSuccess && (
-              <div className="bg-green-900/20 border border-green-800 rounded-xl p-4 mb-6 flex items-center gap-3">
-                <CheckCircle2 className="h-5 w-5 text-green-400 shrink-0" />
-                <p className="text-sm text-green-300">Message envoyé avec succès !</p>
+              <div className="bg-emerald-900/15 border border-emerald-800/30 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
+                <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium text-emerald-300">Message envoyé avec succès !</p>
+                  <p className="text-xs text-emerald-400/60 mt-0.5">Je vous répondrai dès que possible.</p>
+                </div>
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium text-app-text-white mb-1.5">Nom *</label>
+                <div className="group">
+                  <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Nom *</label>
                   <input type="text" required value={formData.name}
                     onChange={e => setFormData({...formData, name: e.target.value})}
-                    className="w-full bg-app-bg border border-app-border-subtle rounded-lg px-4 py-3 text-sm text-app-text-white focus:border-app-accent focus:outline-none"
+                    className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
                     placeholder="Votre nom" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-app-text-white mb-1.5">Email *</label>
+                <div className="group">
+                  <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Email *</label>
                   <input type="email" required value={formData.email}
                     onChange={e => setFormData({...formData, email: e.target.value})}
-                    className="w-full bg-app-bg border border-app-border-subtle rounded-lg px-4 py-3 text-sm text-app-text-white focus:border-app-accent focus:outline-none"
+                    className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
                     placeholder="votre@email.com" />
                 </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-app-text-white mb-1.5">Sujet</label>
+              <div className="group">
+                <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Sujet</label>
                 <input type="text" value={formData.subject}
                   onChange={e => setFormData({...formData, subject: e.target.value})}
-                  className="w-full bg-app-bg border border-app-border-subtle rounded-lg px-4 py-3 text-sm text-app-text-white focus:border-app-accent focus:outline-none"
+                  className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all"
                   placeholder="Objet du message" />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-app-text-white mb-1.5">Message *</label>
+              <div className="group">
+                <label className="block text-xs font-medium text-app-text-muted mb-1.5 uppercase tracking-wider">Message *</label>
                 <textarea required rows={5} value={formData.message}
                   onChange={e => setFormData({...formData, message: e.target.value})}
-                  className="w-full bg-app-bg border border-app-border-subtle rounded-lg px-4 py-3 text-sm text-app-text-white focus:border-app-accent focus:outline-none resize-none"
+                  className="w-full bg-app-bg border border-app-border-subtle rounded-xl px-4 py-3 text-sm text-app-text-white placeholder-app-text-muted/40 focus:border-app-accent focus:ring-1 focus:ring-app-accent/20 focus:outline-none transition-all resize-none"
                   placeholder="Votre message..." />
               </div>
               <button type="submit" disabled={isSubmitting}
-                className="w-full py-3.5 bg-app-accent text-white rounded-lg font-medium hover:bg-app-accent-dark transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer">
-                <Send className="h-4 w-4" />
-                {isSubmitting ? "Envoi..." : "Envoyer le message"}
+                className="w-full py-3.5 bg-app-accent text-white rounded-xl font-medium hover:bg-app-accent-dark transition flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-lg shadow-app-accent/10">
+                {isSubmitting ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4" />
+                )}
+                {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
               </button>
             </form>
           </div>
-        </div>
 
-        {/* Social Links Row */}
-        <div className="flex justify-center items-center gap-4 mt-12">
-          {socialLinks.map((link) => {
-            const Icon = link.icon;
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noreferrer"
-                className="group flex items-center justify-center w-14 h-14 rounded-xl border border-app-border-subtle bg-app-card text-app-text-soft hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 hover:shadow-[0_0_16px_-4px_rgba(245,158,11,0.15)] transition-all duration-200"
-                title={link.label}
-              >
-                <Icon className="h-6 w-6" />
-              </a>
-            );
-          })}
+          {/* Contact Info + Social */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-app-bg border border-app-border-subtle rounded-2xl p-6">
+            <div className="flex flex-wrap items-center gap-4 text-xs text-app-text-muted">
+              <div className="flex items-center gap-1.5">
+                <MapPin className="h-3.5 w-3.5" />
+                <span>{profile.location}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Phone className="h-3.5 w-3.5" />
+                <span>{profile.phone || profile.socials.whatsapp}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Mail className="h-3.5 w-3.5" />
+                <span>{profile.socials.email}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {socialLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target={link.href.startsWith("mailto") ? undefined : "_blank"}
+                    rel="noreferrer"
+                    className="flex items-center justify-center w-9 h-9 rounded-lg border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
+                    title={link.label}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
