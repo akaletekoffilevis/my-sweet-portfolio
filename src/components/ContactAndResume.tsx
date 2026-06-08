@@ -36,7 +36,7 @@ const socialLinks = [
 export default function ContactAndResume() {
   const { profile, addMessage } = usePortfolio();
 
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", whatsapp: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -48,11 +48,12 @@ export default function ContactAndResume() {
       name: formData.name,
       email: formData.email,
       subject: formData.subject || "Sans Objet",
-      message: formData.message
+      message: formData.message,
+      whatsapp: formData.whatsapp
     });
     setIsSubmitting(false);
     setSubmitSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setFormData({ name: "", email: "", subject: "", message: "", whatsapp: "" });
     setTimeout(() => setSubmitSuccess(false), 6000);
   };
 
@@ -136,7 +137,7 @@ export default function ContactAndResume() {
                     </label>
                     <input type="text" required value={formData.name}
                       onChange={e => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/50 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
                       placeholder="Votre nom" />
                   </div>
                   <div>
@@ -145,9 +146,18 @@ export default function ContactAndResume() {
                     </label>
                     <input type="email" required value={formData.email}
                       onChange={e => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                      className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/50 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
                       placeholder="votre@email.com" />
                   </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-mono text-app-text-muted mb-1.5">
+                    <span className="text-app-accent">$</span> WHATSAPP <span className="text-app-text-muted/50">(optionnel)</span>
+                  </label>
+                  <input type="tel" value={formData.whatsapp}
+                    onChange={e => setFormData({...formData, whatsapp: e.target.value})}
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/50 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
+                    placeholder="+227 XX XX XX XX" />
                 </div>
                 <div>
                   <label className="block text-sm font-mono text-app-text-muted mb-1.5">
@@ -175,7 +185,7 @@ export default function ContactAndResume() {
                   </label>
                   <textarea required rows={5} value={formData.message}
                     onChange={e => setFormData({...formData, message: e.target.value})}
-                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all resize-none"
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/50 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all resize-none"
                     placeholder="Votre message..." />
                 </div>
                 <button type="submit" disabled={isSubmitting}

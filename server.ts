@@ -13,7 +13,7 @@ async function startServer() {
   // POST /api/messages - Contact form
   app.post("/api/messages", async (req, res) => {
     try {
-      const { name, email, subject, message } = req.body;
+      const { name, email, subject, message, whatsapp } = req.body;
       if (!name || !email || !message) {
         return res.status(400).json({ success: false, error: "Champs requis manquants." });
       }
@@ -37,7 +37,7 @@ async function startServer() {
             to: "koffilevis21@gmail.com",
             replyTo: email,
             subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
-            text: `Nouveau message de contact recu de ${name} (${email}):\n\nSujet: ${subject}\n\nMessage:\n${message}`,
+            text: `Nouveau message de contact recu de ${name} (${email}):\n\nSujet: ${subject}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
             html: `
               <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                 <h2 style="color: #f59e0b;">Nouveau Message Portfolio</h2>
@@ -45,6 +45,7 @@ async function startServer() {
                 <table style="width:100%; border-collapse:collapse; margin:20px 0;">
                   <tr><td style="padding:10px; font-weight:bold;">Nom:</td><td style="padding:10px;">${name}</td></tr>
                   <tr><td style="padding:10px; font-weight:bold;">Email:</td><td style="padding:10px;">${email}</td></tr>
+                  <tr><td style="padding:10px; font-weight:bold;">WhatsApp:</td><td style="padding:10px;">${whatsapp || "Non renseigné"}</td></tr>
                   <tr><td style="padding:10px; font-weight:bold;">Sujet:</td><td style="padding:10px;">${subject || "Sans sujet"}</td></tr>
                 </table>
                 <div style="background:#f1f5f9; padding:15px; border-left:4px solid #f59e0b;">${message}</div>

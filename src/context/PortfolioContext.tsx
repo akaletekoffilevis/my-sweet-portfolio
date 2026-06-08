@@ -26,7 +26,7 @@ interface PortfolioContextType {
   profile: ProfileData;
   skills: Skill[];
   projects: Project[];
-  addMessage: (msg: { name: string; email: string; subject: string; message: string }) => Promise<any>;
+  addMessage: (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => Promise<any>;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
@@ -36,7 +36,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const skills = SKILLS_DATA;
   const projects = PROJECTS_DATA;
 
-  const addMessage = async (msg: { name: string; email: string; subject: string; message: string }) => {
+  const addMessage = async (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => {
     try {
       const response = await fetch("/api/messages", {
         method: "POST",
