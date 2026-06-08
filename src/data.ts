@@ -102,6 +102,14 @@ export const SKILLS_DATA: Skill[] = [
     description: "ORM Entity Framework Core, migrations, persistance de données."
   },
   {
+    name: "MySQL",
+    category: "databases",
+    level: 60,
+    experienceYears: 1,
+    icon: "Database",
+    description: "Requêtes, conception de schémas, relations, jointures."
+  },
+  {
     name: "Git / GitHub",
     category: "devops",
     level: 85,
