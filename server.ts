@@ -26,9 +26,10 @@ async function startServer() {
 
       if (gmailAppPass) {
         try {
+          const cleanPass = gmailAppPass.replace(/\s+/g, "");
           const transporter = nodemailer.createTransport({
             service: "gmail",
-            auth: { user: gmailUser, pass: gmailAppPass }
+            auth: { user: gmailUser, pass: cleanPass }
           });
 
           const mailOptions = {

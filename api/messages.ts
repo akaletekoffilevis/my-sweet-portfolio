@@ -26,9 +26,10 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       const gmailAppPass = process.env.GMAIL_APP_PASSWORD;
 
       if (gmailAppPass) {
+        const cleanPass = gmailAppPass.replace(/\s+/g, "");
         const transporter = nodemailer.createTransport({
           service: "gmail",
-          auth: { user: gmailUser, pass: gmailAppPass }
+          auth: { user: gmailUser, pass: cleanPass }
         });
 
         await transporter.sendMail({
