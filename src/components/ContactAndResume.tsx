@@ -153,10 +153,21 @@ export default function ContactAndResume() {
                   <label className="block text-sm font-mono text-app-text-muted mb-1.5">
                     <span className="text-app-accent">$</span> SUBJECT
                   </label>
-                  <input type="text" value={formData.subject}
+                  <select value={formData.subject}
                     onChange={e => setFormData({...formData, subject: e.target.value})}
-                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white placeholder-app-text-muted/30 focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all"
-                    placeholder="Objet du message" />
+                    className="w-full bg-app-bg/50 border border-app-border-subtle rounded-lg px-4 md:px-5 py-3 md:py-3.5 text-sm md:text-base font-mono text-app-text-white focus:border-app-accent focus:ring-1 focus:ring-app-accent/10 focus:outline-none transition-all appearance-none cursor-pointer"
+                  >
+                    <option value="" disabled className="bg-app-bg text-app-text-muted">Choisissez un sujet</option>
+                    <option value="Collaboration / Projet" className="bg-app-bg">Collaboration / Projet</option>
+                    <option value="Offre de stage / Emploi" className="bg-app-bg">Offre de stage / Emploi</option>
+                    <option value="Mission Freelance" className="bg-app-bg">Mission Freelance</option>
+                    <option value="Demande d'information" className="bg-app-bg">Demande d'information</option>
+                    <option value="Soutien technique / Bug" className="bg-app-bg">Soutien technique / Bug</option>
+                    <option value="Proposition de partenariat" className="bg-app-bg">Proposition de partenariat</option>
+                    <option value="Review de code" className="bg-app-bg">Review de code</option>
+                    <option value="Contribution open-source" className="bg-app-bg">Contribution open-source</option>
+                    <option value="Autre" className="bg-app-bg">Autre</option>
+                  </select>
                 </div>
                 <div>
                   <label className="block text-sm font-mono text-app-text-muted mb-1.5">
