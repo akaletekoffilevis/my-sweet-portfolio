@@ -5,7 +5,7 @@ export default function BioSection() {
   const { profile } = usePortfolio();
 
   return (
-    <section className="pt-32 pb-20 px-6 border-b border-app-border-subtle relative overflow-hidden" id="bio-section">
+    <section className="pt-20 md:pt-32 pb-20 px-6 border-b border-app-border-subtle relative overflow-hidden" id="bio-section">
       {/* Tech background pattern */}
       <div className="absolute inset-0 pointer-events-none select-none opacity-[0.025]">
         <div className="absolute top-10 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01101111 01110000 01110100 01101001 01101111 01101110 01110011</div>
@@ -72,7 +72,7 @@ export default function BioSection() {
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
                 <Terminal className="h-3.5 w-3.5 text-app-accent ml-2" />
-                <span className="text-[10px] font-mono text-app-text-muted">about.sh</span>
+                <span className="text-xs font-mono text-app-text-muted">about.sh</span>
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-4">
@@ -87,8 +87,8 @@ export default function BioSection() {
               {profile.metrics.map((m, idx) => (
                 <div key={idx} className="bg-app-bg border border-app-border-subtle rounded-xl p-5 text-center">
                   <div className="text-lg font-bold font-mono text-app-accent">{m.value}</div>
-                  <div className="text-[10px] font-mono text-app-text-muted mt-1.5 uppercase tracking-wider">{m.label}</div>
-                  <div className="text-[10px] font-mono text-app-text-soft mt-0.5">{m.desc}</div>
+                  <div className="text-xs font-mono text-app-text-muted mt-1.5 uppercase tracking-wider">{m.label}</div>
+                  <div className="text-xs font-mono text-app-text-soft mt-0.5">{m.desc}</div>
                 </div>
               ))}
             </div>

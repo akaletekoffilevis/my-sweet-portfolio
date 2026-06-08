@@ -50,7 +50,7 @@ export default function Header() {
                 <span className="text-app-text-muted hidden sm:inline">$ </span>
                 {profile.name}
               </span>
-              <span className="text-xs font-mono text-app-text-muted hidden sm:block">{profile.title}</span>
+              <span className="text-[11px] sm:text-xs font-mono text-app-text-muted">{profile.title}</span>
             </div>
           </div>
 

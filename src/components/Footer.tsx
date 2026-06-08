@@ -14,14 +14,14 @@ export default function Footer() {
             <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
             <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
             <Terminal className="h-3 w-3 text-app-accent ml-2" />
-            <span className="text-[10px] font-mono text-app-text-muted">footer</span>
+            <span className="text-xs font-mono text-app-text-muted">footer</span>
           </div>
           <div className="p-5 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
               <p className="text-xs font-mono text-app-text-white">
                 <span className="text-app-text-muted">$</span> <span className="text-app-accent">echo</span> <span className="text-green-400/80">"&copy; {currentYear} {profile.name}"</span>
               </p>
-              <p className="text-[10px] font-mono text-app-text-muted mt-0.5"># Tous droits réservés.</p>
+              <p className="text-xs font-mono text-app-text-muted mt-0.5"># Tous droits réservés.</p>
             </div>
             <div className="flex items-center gap-4 text-[11px] font-mono">
               <a href={profile.socials.github} target="_blank" rel="noreferrer" className="text-app-text-muted hover:text-app-accent transition">
