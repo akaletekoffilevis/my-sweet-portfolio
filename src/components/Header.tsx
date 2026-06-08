@@ -72,7 +72,7 @@ export default function Header() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className={`md:hidden p-2 rounded-lg border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent transition cursor-pointer ${isMenuOpen ? "relative z-[60]" : ""}`}
+            className={`md:hidden p-2 rounded-lg border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent transition cursor-pointer ${isMenuOpen ? "fixed top-6 right-6 z-[60]" : ""}`}
             aria-label="Menu"
           >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -81,11 +81,8 @@ export default function Header() {
       </header>
 
       {isMenuOpen && (
-        <div
-          className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          <div className="flex items-center justify-between p-6 border-b border-app-border-subtle" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg">
+          <div className="flex items-center justify-between p-6 border-b border-app-border-subtle">
             <span className="text-sm font-mono text-app-text-muted">[menu] $</span>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -95,7 +92,7 @@ export default function Header() {
               <X className="h-6 w-6" />
             </button>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-8" onClick={e => e.stopPropagation()}>
+          <div className="flex-1 flex flex-col items-center justify-center gap-8">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
