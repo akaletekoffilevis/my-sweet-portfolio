@@ -8,3 +8,4 @@ coverage/
 !.env.example
 portfolio_db.json
 *.txt
+.vercel

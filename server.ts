@@ -28,8 +28,12 @@ async function startServer() {
         try {
           const cleanPass = gmailAppPass.replace(/\s+/g, "");
           const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: { user: gmailUser, pass: cleanPass }
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: { user: gmailUser, pass: cleanPass },
+            connectionTimeout: 10000,
+            greetingTimeout: 10000
           });
 
           const mailOptions = {
