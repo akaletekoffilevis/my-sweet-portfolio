@@ -4,7 +4,7 @@ export const JOHN_DOE_PROFILE = {
   name: "Koffi Lévis Akalete",
   title: "Développeur Backend/Full-Stack Junior",
   location: "Niamey, Niger / Télétravail possible",
-  bio: "Étudiant en Licence Informatique à l'Université Abdou Moumouni de Niamey, passionné par le développement backend et les architectures logicielles. Je travaille principalement avec C# et l'écosystème .NET (ASP.NET Core, Blazor, Entity Framework). J'ai conçu plusieurs APIs REST, applications console, outils CLI et une PWA Blazor complète.",
+  bio: "Passionné par l'architecture des systèmes et la logique, je suis actuellement étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Mon objectif est clair : devenir un expert en développement Backend capable de bâtir les infrastructures numériques de demain. Admis au sein de l'association 10000 Codeurs, je cultive les Soft Skills et l'éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé dans l'univers .NET (ASP.NET Core), je conçois des API REST performantes, sécurisées (JWT) et documentées (Swagger). Stack : .NET Core, C#, SQL Server, PostgreSQL, Docker, Git.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
   phone: "+227 91 53 52 20",
   socials: {
