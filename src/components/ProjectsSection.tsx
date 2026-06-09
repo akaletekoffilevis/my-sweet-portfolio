@@ -14,9 +14,9 @@ export default function ProjectsSection() {
           {projects.map((project) => (
             <div key={project.id} className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden hover:border-app-accent/20 transition-all duration-300">
               <div className="flex items-center gap-1.5 px-4 py-2.5 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/60" aria-hidden="true" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" aria-hidden="true" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500/60" aria-hidden="true" />
                 <Folder className="h-3.5 w-3.5 text-app-accent ml-2" />
                 <span className="text-xs font-mono text-app-text-muted">{project.id}/</span>
                 <span className="text-sm font-mono text-app-text-muted ml-auto">{project.period}</span>
@@ -37,15 +37,15 @@ export default function ProjectsSection() {
 
                 <div className="flex gap-2.5">
                   {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`Code source de ${project.title} sur GitHub`}
                       className="flex items-center gap-1.5 px-4 py-2 bg-app-accent/10 border border-app-accent/20 rounded-lg text-sm font-mono text-app-accent hover:bg-app-accent/20 transition">
-                      <Github className="w-3.5 h-3.5" /> <span className="text-app-text-muted">$</span> code-source
+                      <Github className="w-3.5 h-3.5" aria-hidden="true" /> <span className="text-app-text-muted">$</span> code-source
                     </a>
                   )}
                   {project.demoUrl && (
-                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Démo en ligne de ${project.title}`}
                       className="flex items-center gap-1.5 px-4 py-2 border border-app-border-subtle rounded-lg text-sm font-mono text-app-text-soft hover:border-app-accent/30 hover:text-app-accent transition">
-                      <ExternalLink className="w-3.5 h-3.5" /> <span className="text-app-text-muted">$</span> demo
+                      <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" /> <span className="text-app-text-muted">$</span> demo
                     </a>
                   )}
                 </div>

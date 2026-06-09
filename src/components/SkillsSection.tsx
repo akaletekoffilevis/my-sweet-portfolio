@@ -54,9 +54,9 @@ export default function SkillsSection() {
           {filtered.map((skill, idx) => (
             <div key={idx} className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden hover:border-app-accent/20 transition-all duration-300">
               <div className="flex items-center gap-1.5 px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2 h-2 rounded-full bg-red-500/60" />
-                <span className="w-2 h-2 rounded-full bg-yellow-500/60" />
-                <span className="w-2 h-2 rounded-full bg-green-500/60" />
+                <span className="w-2 h-2 rounded-full bg-red-500/60" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-yellow-500/60" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-green-500/60" aria-hidden="true" />
                 <span className="text-xs font-mono text-app-text-muted ml-2">{skill.name.toLowerCase().replace(/\s+/g, "-")}.conf</span>
               </div>
               <div className="p-5">

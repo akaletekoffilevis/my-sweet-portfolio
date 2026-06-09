@@ -76,9 +76,9 @@ export default function ContactAndResume() {
           {/* CV Download Terminal-style */}
           <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
             <div className="flex items-center gap-1.5 px-4 md:px-5 py-2.5 md:py-3 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/60" />
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/60" />
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/60" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/60" aria-hidden="true" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/60" aria-hidden="true" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/60" aria-hidden="true" />
               <span className="text-xs md:text-sm font-mono text-app-text-muted ml-2">resume.pdf — bash</span>
             </div>
             <a href="/cv_koffi_levis_akalete.pdf" download
@@ -102,9 +102,9 @@ export default function ContactAndResume() {
           <div className="bg-app-card border border-app-border-subtle rounded-xl overflow-hidden">
             {/* Terminal header */}
             <div className="flex items-center gap-1.5 px-5 py-3 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-3 h-3 rounded-full bg-red-500/60" />
-              <span className="w-3 h-3 rounded-full bg-yellow-500/60" />
-              <span className="w-3 h-3 rounded-full bg-green-500/60" />
+              <span className="w-3 h-3 rounded-full bg-red-500/60" aria-hidden="true" />
+              <span className="w-3 h-3 rounded-full bg-yellow-500/60" aria-hidden="true" />
+              <span className="w-3 h-3 rounded-full bg-green-500/60" aria-hidden="true" />
               <span className="text-sm font-mono text-app-text-muted ml-2">contact-form.sh</span>
             </div>
 
@@ -204,9 +204,9 @@ export default function ContactAndResume() {
           {/* Contact Info + Social — terminal style */}
           <div className="bg-app-bg border border-app-border-subtle rounded-xl overflow-hidden">
             <div className="flex items-center gap-1.5 px-4 md:px-5 py-2.5 md:py-3 bg-app-darker border-b border-app-border-subtle">
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/60" />
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/60" />
-              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/60" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/60" aria-hidden="true" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/60" aria-hidden="true" />
+              <span className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/60" aria-hidden="true" />
               <span className="text-xs md:text-sm font-mono text-app-text-muted ml-2">contact-info</span>
             </div>
             <div className="p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
