@@ -168,7 +168,7 @@ export const PROJECTS_DATA: Project[] = [
     period: "2025",
     description: "Application Blazor WebAssembly .NET 9 — site vitrine pour le groupe Dan Kassawoua (MSA Niger — NextDev). Affiche les membres de l'équipe avec profils détaillés, routage Blazor, données JSON statiques, design responsive.",
     techStack: ["C#", ".NET 9", "Blazor WebAssembly", "HTML", "CSS"],
-    githubUrl: "https://github.com/akaletekoffilevis/nextdev-blazor-app",
+    githubUrl: "https://github.com/akaletekoffilevis/nextdevblazor-app",
     demoUrl: "http://nextdev.runasp.net"
   },
   {
