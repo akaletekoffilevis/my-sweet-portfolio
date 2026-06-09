@@ -33,7 +33,7 @@ export default function BioSection() {
             </div>
 
             <div className="text-center lg:text-left space-y-3 w-full">
-              <h1 className="text-4xl md:text-5xl font-bold text-app-text-white font-mono tracking-tight leading-tight">{profile.name} — {profile.title}</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-app-text-white font-mono tracking-tight leading-tight">{profile.name}</h1>
               <p className="text-app-accent font-mono text-sm">&gt; {profile.title}</p>
               <p className="text-xs font-mono text-app-text-soft flex items-center justify-center lg:justify-start gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-app-accent/60" /> <span className="text-app-text-muted">$</span> {profile.location}
