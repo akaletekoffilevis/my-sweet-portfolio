@@ -178,5 +178,63 @@ export const PROJECTS_DATA: Project[] = [
     description: "API REST avec ASP.NET Core 9 pour la gestion des cours scolaires. Opérations CRUD complètes avec Entity Framework Core et base SQLite.",
     techStack: ["C#", ".NET 9", "ASP.NET Core", "Entity Framework Core", "SQLite"],
     githubUrl: "https://github.com/akaletekoffilevis/SchollApi"
+  },
+  {
+    id: "dotnetniger",
+    title: "DotnetNiger — Plateforme Communautaire .NET",
+    period: "2026",
+    description: "Plateforme open-source microservices pour la communauté .NET Niger. Architecture modulaire avec API Gateway Ocelot pour le routage, l'authentification JWT et le rate-limiting. Services Identity (OpenIddict/OAuth2) pour l'authentification multi-tenant et Community pour les posts, événements, ressources et profils membres. Déploiement conteneurisé avec Docker.",
+    techStack: ["C#", ".NET 9", "Ocelot API Gateway", "OpenIddict", "Entity Framework Core", "SQLite", "Docker"],
+    githubUrl: "https://github.com/akaletekoffilevis/DotnetNiger"
+  },
+  {
+    id: "smart-downloader",
+    title: "SmartDownloader — Téléchargeur YouTube Desktop",
+    period: "2026",
+    description: "Application desktop Python avec interface GTK3 pour télécharger des vidéos et playlists YouTube via yt-dlp. Interface dark moderne, sélection de qualité (4K, 1080p, 720p, MP3), détection automatique des médias, suivi de progression en temps réel, téléchargement par lots et annulation.",
+    techStack: ["Python", "GTK3", "yt-dlp", "PyGObject"],
+    githubUrl: "https://github.com/akaletekoffilevis/SmartDownloader"
+  },
+  {
+    id: "challenge-dotnet-niger",
+    title: "Challenge .NET Niger — Hébergement & Infrastructure",
+    period: "2026",
+    description: "Projet de déploiement d'infrastructure complète pour le Challenge NextDev. Mise en place d'un serveur Ubuntu avec DNS BIND9, DHCP, Apache2 en reverse proxy, et déploiement d'applications .NET 9 (Razor Pages + Minimal API) avec base SQLite. Scripts d'automatisation et documentation complète.",
+    techStack: [".NET 9", "Apache", "BIND9", "Linux", "Python", "Bash"],
+    githubUrl: "https://github.com/akaletekoffilevis/challenge-dotnet-niger"
+  },
+  {
+    id: "minichat-realtime",
+    title: "MiniChat — Chat Temps-Réel",
+    period: "2026",
+    description: "Application de chat temps-réel avec React et Socket.io. Fonctionnalités : messagerie instantanée sans création de compte, envoi de stickers, messages audio, partage de fichiers, interface moderne et responsive.",
+    techStack: ["React", "Socket.io", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/akaletekoffilevis/minichat-realtime",
+    demoUrl: "https://sayhello-vert.vercel.app"
+  },
+  {
+    id: "mytodosapp",
+    title: "MyTodosApp — Gestion de Tâches ASP.NET Core",
+    period: "2026",
+    description: "Application web de gestion de tâches moderne avec ASP.NET Core 9 et Entity Framework Core. CRUD complet, tri intelligent par date de création, validation serveur, design responsive Bootstrap 5, base SQLite persistante.",
+    techStack: ["C#", "ASP.NET Core 9", "Entity Framework Core", "SQLite", "Bootstrap 5", "jQuery"],
+    githubUrl: "https://github.com/akaletekoffilevis/mytodosapp"
+  },
+  {
+    id: "nextdev-api",
+    title: "NextDev API — Minimal API .NET 9",
+    period: "2026",
+    description: "API Minimal ASP.NET Core 9 pour la gestion des membres de l'équipe DANKASSAWA. Endpoints CRUD complets, documentation Swagger interactive, base SQLite avec Entity Framework Core. Architecture RESTful légère et performante.",
+    techStack: ["C#", ".NET 9", "ASP.NET Core Minimal API", "Entity Framework Core", "SQLite", "Swagger"],
+    githubUrl: "https://github.com/akaletekoffilevis/nextdevapi"
+  },
+  {
+    id: "scaffold-docs",
+    title: "Scaffolder Docs — Site de Documentation",
+    period: "2026",
+    description: "Site de documentation officiel pour Scaffolder-CLI, construit avec React 19 et TypeScript. Présente la documentation complète du CLI, les guides d'installation, les exemples d'utilisation et l'API. Design moderne et responsive, déployé sur Vercel.",
+    techStack: ["React", "TypeScript", "Vite"],
+    githubUrl: "https://github.com/akaletekoffilevis/scaffold-docs",
+    demoUrl: "https://scaffold-docs.vercel.app"
   }
 ];
