@@ -2,9 +2,9 @@ import { Skill, Project } from "./types";
 
 export const JOHN_DOE_PROFILE = {
   name: "Koffi Lévis Akalete",
-  title: "Développeur Backend/Full-Stack Junior",
+  title: "Ambassadeur 10000 CODEURS | Développeur Backend Junior",
   location: "Niamey, Niger / Télétravail possible",
-  bio: "Passionné par l'architecture des systèmes et la logique, je suis actuellement étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Mon objectif est clair : devenir un expert en développement Backend capable de bâtir les infrastructures numériques de demain. Admis au sein de l'association 10000 Codeurs, je cultive les Soft Skills et l'éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé dans l'univers .NET (ASP.NET Core), je conçois des API REST performantes, sécurisées (JWT) et documentées (Swagger). Stack : .NET Core, C#, SQL Server, PostgreSQL, Docker, Git.",
+  bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger). En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET 9, Blazor, SQL Server, PostgreSQL, Docker, Git, React.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
   phone: "+227 91 53 52 20",
   socials: {
@@ -13,10 +13,11 @@ export const JOHN_DOE_PROFILE = {
     email: "koffilevis21@gmail.com",
     whatsapp: "+227 91 53 52 20"
   },
+  certUrl: "https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft",
   metrics: [
-    { label: "Projets", value: "8+", desc: "APIs, Web, Mobile, CLI, Console" },
-    { label: "Formation", value: "Licence (En cours)", desc: "Informatique — Université Abdou Moumouni" },
-    { label: "Certification", value: "Microsoft", desc: "C# Foundational — FreeCodeCamp" }
+    { label: "Projets", value: "15+", desc: "APIs, Web, Mobile, CLI, Desktop" },
+    { label: "Formation", value: "Licence (En cours)", desc: "Math-Info — Université Abdou Moumouni" },
+    { label: "Certification", value: "Microsoft", desc: "Foundational C# — freeCodeCamp" }
   ]
 };
 
@@ -25,7 +26,7 @@ export const SKILLS_DATA: Skill[] = [
     name: "C#",
     category: "languages",
     level: 82,
-    experienceYears: 2,
+    experienceYears: 1.5,
     icon: "Code2",
     description: "Langage principal : POO, APIs REST, applications console, architectures microservices."
   },
@@ -33,7 +34,7 @@ export const SKILLS_DATA: Skill[] = [
     name: "SQL",
     category: "languages",
     level: 75,
-    experienceYears: 2,
+    experienceYears: 1.5,
     icon: "Database",
     description: "Requêtes relationnelles, modélisation de données, SQLite, SQL Server, MySQL."
   },
@@ -41,17 +42,17 @@ export const SKILLS_DATA: Skill[] = [
     name: "Python",
     category: "languages",
     level: 65,
-    experienceYears: 1,
+    experienceYears: 1.5,
     icon: "SquareTerminal",
-    description: "Scripts, automatisation, formation pédagogique."
+    description: "Scripts, automatisation, GTK3, formation pédagogique."
   },
   {
     name: "JavaScript / TypeScript",
     category: "languages",
     level: 60,
-    experienceYears: 1,
+    experienceYears: 1.5,
     icon: "Terminal",
-    description: "Interaction frontend, React, Node.js basique."
+    description: "Frontend React, Node.js, Socket.io, Vite."
   },
   {
     name: "PHP",
@@ -81,7 +82,7 @@ export const SKILLS_DATA: Skill[] = [
     name: ".NET / ASP.NET Core",
     category: "frameworks",
     level: 80,
-    experienceYears: 2,
+    experienceYears: 1.5,
     icon: "Layers",
     description: "APIs RESTful, Minimal APIs, MVC, Entity Framework Core, JWT."
   },
@@ -94,10 +95,18 @@ export const SKILLS_DATA: Skill[] = [
     description: "Blazor WebAssembly, MudBlazor, PWA, composants interactifs."
   },
   {
+    name: "React",
+    category: "frameworks",
+    level: 55,
+    experienceYears: 1.5,
+    icon: "Terminal",
+    description: "Sites interactifs, Socket.io, Vite, Tailwind CSS."
+  },
+  {
     name: "SQLite / EF Core",
     category: "databases",
     level: 78,
-    experienceYears: 2,
+    experienceYears: 1.5,
     icon: "Database",
     description: "ORM Entity Framework Core, migrations, persistance de données."
   },
@@ -127,6 +136,7 @@ export const SKILLS_DATA: Skill[] = [
   }
 ];
 
+// Projects with liveUrl are sorted first
 export const PROJECTS_DATA: Project[] = [
   {
     id: "bible-pwa",
@@ -135,7 +145,36 @@ export const PROJECTS_DATA: Project[] = [
     description: "Application PWA complète développée en Blazor WebAssembly .NET 9 avec MudBlazor 8.x. Elle embarque les 66 livres de la Bible avec chargement paresseux, recherche plein texte avec index inversé (modes AND/OR/exact), lecture audio verset par verset (Web Speech API), génération d'images de versets (Canvas API, 12 palettes), export PDF par chapitre, quiz biblique, suivi de progression, plans de lecture sur 1 an, et thème sombre/clair. Entièrement fonctionnelle hors-ligne grâce au service worker PWA.",
     techStack: ["C#", ".NET 9", "Blazor WebAssembly", "MudBlazor 8", "IndexedDB", "PWA"],
     githubUrl: "https://github.com/akaletekoffilevis/Bible",
-    demoUrl: "https://bibeli.vercel.app"
+    demoUrl: "https://bibeli.vercel.app",
+    liveUrl: "https://bibeli.vercel.app"
+  },
+  {
+    id: "portfolio",
+    title: "Mon Portfolio — React + Vite + Tailwind",
+    period: "2026",
+    description: "Portfolio développeur personnel conçu avec React 19, Vite 6 et Tailwind CSS v4. Design terminal dark/light, screenshots live via mShots, formulaire de contact avec envoi email SMTP, responsive mobile-first. Déployé sur Vercel.",
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS v4", "Nodemailer"],
+    githubUrl: "https://github.com/akaletekoffilevis/my-sweet-portfolio",
+    liveUrl: "https://akaletekoffilevis.vercel.app"
+  },
+  {
+    id: "minichat-realtime",
+    title: "Discutons — Chat Temps-Réel",
+    period: "2026",
+    description: "Application de chat temps-réel avec React et Socket.io. Fonctionnalités : messagerie instantanée sans création de compte, envoi de stickers, messages audio, partage de fichiers, interface moderne et responsive.",
+    techStack: ["React", "Socket.io", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/akaletekoffilevis/minichat-realtime",
+    liveUrl: "https://discutons.vercel.app"
+  },
+  {
+    id: "nextdev-blazor",
+    title: "NextDev Blazor App",
+    period: "2025",
+    description: "Application Blazor WebAssembly .NET 9 — site vitrine pour le groupe Dan Kassawoua (MSA Niger — NextDev). Affiche les membres de l'équipe avec profils détaillés, routage Blazor, données JSON statiques, design responsive.",
+    techStack: ["C#", ".NET 9", "Blazor WebAssembly", "HTML", "CSS"],
+    githubUrl: "https://github.com/akaletekoffilevis/nextdevblazor-app",
+    demoUrl: "http://dankassawa.runasp.net",
+    liveUrl: "http://dankassawa.runasp.net"
   },
   {
     id: "scaffolder-cli",
@@ -144,7 +183,34 @@ export const PROJECTS_DATA: Project[] = [
     description: "CLI universel écrit en C# .NET 9 avec System.CommandLine pour générer des projets dans plus de 20 langages via 40+ commandes. Compilé en binaire natif AOT (12MB) multi-plateforme. Dispose d'une intégration IA (OpenAI, Claude, Gemini) pour suggérer des architectures, de plugins extensibles, et de commandes pour Docker, CI/CD et déploiement.",
     techStack: ["C#", ".NET 9", "System.CommandLine", "Native AOT", "OpenAI/Claude API"],
     githubUrl: "https://github.com/akaletekoffilevis/Scaffolder-CLI",
-    demoUrl: "https://scaffolder-cli.vercel.app"
+    demoUrl: "https://scaffolder-cli.vercel.app",
+    liveUrl: "https://scaffolder-cli.vercel.app"
+  },
+  {
+    id: "hair-salon-tp",
+    title: "Hair Salon — TP Intégration Web",
+    period: "2026",
+    description: "Petit projet de TP : site vitrine responsive pour salon de coiffure. Intégration HTML/CSS avec design moderne et responsive, déployé sur GitHub Pages.",
+    techStack: ["HTML", "CSS"],
+    githubUrl: "https://github.com/akaletekoffilevis/hair-salon-tp",
+    liveUrl: "https://akaletekoffilevis.github.io/hair-salon-tp/"
+  },
+  {
+    id: "lumin-site-test",
+    title: "Lumin — TP Présentation",
+    period: "2026",
+    description: "Petit projet de TP : site de présentation déployé sur GitHub Pages. Design responsive avec animations.",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/akaletekoffilevis/lumin-site-test",
+    liveUrl: "https://akaletekoffilevis.github.io/lumin-site-test/"
+  },
+  {
+    id: "dotnetniger",
+    title: "DotnetNiger — Plateforme Communautaire .NET",
+    period: "2026",
+    description: "Plateforme open-source microservices pour la communauté .NET Niger. Architecture modulaire avec API Gateway Ocelot pour le routage, l'authentification JWT et le rate-limiting. Services Identity (OpenIddict/OAuth2) pour l'authentification multi-tenant et Community pour les posts, événements, ressources et profils membres. Déploiement conteneurisé avec Docker.",
+    techStack: ["C#", ".NET 9", "Ocelot API Gateway", "OpenIddict", "Entity Framework Core", "SQLite", "Docker"],
+    githubUrl: "https://github.com/akaletekoffilevis/DotnetNiger"
   },
   {
     id: "todos-api",
@@ -163,29 +229,12 @@ export const PROJECTS_DATA: Project[] = [
     githubUrl: "https://github.com/akaletekoffilevis/studentconsolemanager"
   },
   {
-    id: "nextdev-blazor",
-    title: "NextDev Blazor App",
-    period: "2025",
-    description: "Application Blazor WebAssembly .NET 9 — site vitrine pour le groupe Dan Kassawoua (MSA Niger — NextDev). Affiche les membres de l'équipe avec profils détaillés, routage Blazor, données JSON statiques, design responsive.",
-    techStack: ["C#", ".NET 9", "Blazor WebAssembly", "HTML", "CSS"],
-    githubUrl: "https://github.com/akaletekoffilevis/nextdevblazor-app",
-    demoUrl: "http://dankassawa.runasp.net"
-  },
-  {
     id: "scholl-api",
     title: "SchollApi — API de gestion scolaire",
     period: "2025",
     description: "API REST avec ASP.NET Core 9 pour la gestion des cours scolaires. Opérations CRUD complètes avec Entity Framework Core et base SQLite.",
     techStack: ["C#", ".NET 9", "ASP.NET Core", "Entity Framework Core", "SQLite"],
     githubUrl: "https://github.com/akaletekoffilevis/SchollApi"
-  },
-  {
-    id: "dotnetniger",
-    title: "DotnetNiger — Plateforme Communautaire .NET",
-    period: "2026",
-    description: "Plateforme open-source microservices pour la communauté .NET Niger. Architecture modulaire avec API Gateway Ocelot pour le routage, l'authentification JWT et le rate-limiting. Services Identity (OpenIddict/OAuth2) pour l'authentification multi-tenant et Community pour les posts, événements, ressources et profils membres. Déploiement conteneurisé avec Docker.",
-    techStack: ["C#", ".NET 9", "Ocelot API Gateway", "OpenIddict", "Entity Framework Core", "SQLite", "Docker"],
-    githubUrl: "https://github.com/akaletekoffilevis/DotnetNiger"
   },
   {
     id: "smart-downloader",
@@ -204,15 +253,6 @@ export const PROJECTS_DATA: Project[] = [
     githubUrl: "https://github.com/akaletekoffilevis/challenge-dotnet-niger"
   },
   {
-    id: "minichat-realtime",
-    title: "MiniChat — Chat Temps-Réel",
-    period: "2026",
-    description: "Application de chat temps-réel avec React et Socket.io. Fonctionnalités : messagerie instantanée sans création de compte, envoi de stickers, messages audio, partage de fichiers, interface moderne et responsive.",
-    techStack: ["React", "Socket.io", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/akaletekoffilevis/minichat-realtime",
-    demoUrl: "https://sayhello-vert.vercel.app"
-  },
-  {
     id: "mytodosapp",
     title: "MyTodosApp — Gestion de Tâches ASP.NET Core",
     period: "2026",
@@ -229,12 +269,11 @@ export const PROJECTS_DATA: Project[] = [
     githubUrl: "https://github.com/akaletekoffilevis/nextdevapi"
   },
   {
-    id: "scaffold-docs",
-    title: "Scaffolder Docs — Site de Documentation",
+    id: "homebrew-scaffolder",
+    title: "Homebrew Tap — Scaffolder",
     period: "2026",
-    description: "Site de documentation officiel pour Scaffolder-CLI, construit avec React 19 et TypeScript. Présente la documentation complète du CLI, les guides d'installation, les exemples d'utilisation et l'API. Design moderne et responsive, déployé sur Vercel.",
-    techStack: ["React", "TypeScript", "Vite"],
-    githubUrl: "https://github.com/akaletekoffilevis/scaffold-docs",
-    demoUrl: "https://scaffold-docs.vercel.app"
+    description: "Formulaire Homebrew pour installer Scaffolder-CLI via le gestionnaire de paquets macOS. Permet l'installation via 'brew install akaletekoffilevis/scaffolder/scaffolder'.",
+    techStack: ["Ruby", "Homebrew"],
+    githubUrl: "https://github.com/akaletekoffilevis/homebrew-scaffolder"
   }
 ];

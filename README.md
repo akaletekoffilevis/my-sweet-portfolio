@@ -1,6 +1,6 @@
-# Portfolio - Koffi Levis Akalete
+# Portfolio — Koffi Lévis Akalete
 
-Portfolio professionnel pour développeur backend. Site statique avec formulaire de contact et envoi d'emails.
+Portfolio professionnel — Ambassadeur 10000 CODEURS, Développeur Backend Junior.
 
 ## Technologies
 
@@ -14,13 +14,16 @@ Portfolio professionnel pour développeur backend. Site statique avec formulaire
 
 ## Fonctionnalites
 
-- Presentation personnelle
-- Grille de competences interactive
-- Liste de projets avec liens GitHub
+- Presentation personnelle avec avatar et bio
+- Grille de competences interactive avec filtres
+- Liste de 18 projets avec liens GitHub et liens live
 - Formulaire de contact avec envoi d'email
 - Telechargement du CV (PDF)
+- Certificat Foundational C# Microsoft (freeCodeCamp)
 - Contact direct via WhatsApp
-- CV consultable et imprimable
+- Menu drawer mobile plein ecran
+- Design responsive avec coins carres
+- Dark theme terminal
 
 ## Developpement
 
@@ -54,9 +57,9 @@ src/
   types.ts        # Interfaces TypeScript
   index.css       # Styles Tailwind + theme sombre
 api/
-  contact.ts      # Fonction serverless Vercel pour l'envoi d'emails
+  messages.ts     # Fonction serverless Vercel pour l'envoi d'emails
 public/
-  cv-koffi-levis.pdf
+  cv_koffi_levis_akalete.pdf
   images/
 ```
 

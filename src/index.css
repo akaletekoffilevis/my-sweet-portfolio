@@ -21,6 +21,7 @@
   --color-app-accent-dark: var(--accent-dark);
 }
 
+/* ═══ DARK THEME (default) ═══ */
 :root {
   --bg-main: #0b1121;
   --bg-card: #111827;
@@ -39,10 +40,30 @@
   --accent-dark: #fbbf24;
 }
 
+/* ═══ LIGHT THEME ═══ */
+[data-theme="light"] {
+  --bg-main: #f0eeeb;
+  --bg-card: #f7f5f2;
+  --bg-card-sec: #e8e5e0;
+  --bg-darker: #ddd9d3;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-sec: rgba(0, 0, 0, 0.12);
+  --border-strong: rgba(0, 0, 0, 0.2);
+  --text-main: #2c2c2c;
+  --text-white: #1a1a1a;
+  --text-muted: rgba(0, 0, 0, 0.45);
+  --text-body: rgba(0, 0, 0, 0.72);
+  --text-soft: rgba(0, 0, 0, 0.52);
+  --accent: #b45309;
+  --accent-light: rgba(180, 83, 9, 0.08);
+  --accent-dark: #92400e;
+}
+
 body {
   font-family: var(--font-mono);
   background-color: var(--bg-main);
   color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .section-title {

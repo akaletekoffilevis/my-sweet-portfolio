@@ -15,4 +15,6 @@ export interface Project {
   techStack: string[];
   githubUrl?: string;
   demoUrl?: string;
+  liveUrl?: string;
+  screenshot?: string;
 }

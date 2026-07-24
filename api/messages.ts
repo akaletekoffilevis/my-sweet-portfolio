@@ -1,6 +1,153 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import nodemailer from "nodemailer";
 
+function buildEmailHtml(name: string, email: string, subject: string, whatsapp: string, message: string): string {
+  const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#0b1121;font-family:'Courier New','Courier',monospace;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0b1121;padding:40px 16px;">
+    <tr><td align="center">
+      <table width="620" cellpadding="0" cellspacing="0" style="max-width:620px;width:100%;">
+
+        <!-- ═══ HEADER ═══ -->
+        <tr>
+          <td style="padding-bottom:24px;">
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <p style="margin:0;color:#f59e0b;font-size:20px;font-weight:bold;font-family:'Courier New',monospace;">
+                    &gt; Koffi L&amp;eacute;vis Akalete
+                  </p>
+                  <p style="margin:4px 0 0 0;color:rgba(255,255,255,0.55);font-size:11px;font-family:'Courier New',monospace;">
+                    Ambassadeur 10000 CODEURS | D&amp;eacute;veloppeur Backend Junior
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ═══ TERMINAL WINDOW ═══ -->
+        <tr>
+          <td style="background:#111827;border:1px solid rgba(255,255,255,0.06);overflow:hidden;">
+            <!-- Title bar -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#020617;border-bottom:1px solid rgba(255,255,255,0.06);">
+              <tr>
+                <td style="padding:10px 16px;">
+                  <table cellpadding="0" cellspacing="0"><tr>
+                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(239,68,68,0.6);"></span></td>
+                    <td style="width:6px;"></td>
+                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(234,179,8,0.6);"></span></td>
+                    <td style="width:6px;"></td>
+                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(34,197,94,0.6);"></span></td>
+                    <td style="padding-left:14px;color:rgba(255,255,255,0.55);font-size:12px;font-family:'Courier New',monospace;">contact-form.sh</td>
+                  </tr></table>
+                </td>
+                <td align="right" style="padding-right:16px;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
+                  ${date}
+                </td>
+              </tr>
+            </table>
+
+            <!-- Content body -->
+            <table width="100%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="padding:28px 28px 20px 28px;">
+                  <!-- Title -->
+                  <p style="margin:0 0 4px 0;color:#f59e0b;font-size:15px;font-weight:bold;font-family:'Courier New',monospace;">
+                    // Nouveau Message Portfolio
+                  </p>
+                  <p style="margin:0 0 24px 0;color:rgba(255,255,255,0.5);font-size:11px;font-family:'Courier New',monospace;">
+                    Message re&amp;ccedil;u depuis le formulaire de contact.
+                  </p>
+
+                  <!-- Separator -->
+                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr><td style="border-top:1px solid rgba(255,255,255,0.06);font-size:0;line-height:0;">&nbsp;</td></tr>
+                  </table>
+
+                  <!-- Data fields -->
+                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
+                    <tr>
+                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;width:110px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <span style="color:#f59e0b;">$</span> Nom
+                      </td>
+                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        ${name}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <span style="color:#f59e0b;">$</span> Email
+                      </td>
+                      <td style="padding:9px 0 9px 12px;color:#f59e0b;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <a href="mailto:${email}" style="color:#f59e0b;text-decoration:none;">${email}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <span style="color:#f59e0b;">$</span> WhatsApp
+                      </td>
+                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        ${whatsapp || "Non renseigné"}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        <span style="color:#f59e0b;">$</span> Sujet
+                      </td>
+                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
+                        ${subject || "Sans sujet"}
+                      </td>
+                    </tr>
+                  </table>
+
+                  <!-- Message label -->
+                  <p style="margin:0 0 8px 0;color:rgba(255,255,255,0.45);font-size:11px;font-family:'Courier New',monospace;">
+                    <span style="color:#f59e0b;">$</span> cat message.md
+                  </p>
+
+                  <!-- Message block -->
+                  <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${message}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Footer bar -->
+            <table width="100%" cellpadding="0" cellspacing="0" style="background:#020617;border-top:1px solid rgba(255,255,255,0.06);">
+              <tr>
+                <td style="padding:12px 28px;">
+                  <p style="margin:0;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
+                    <span style="color:rgba(34,197,94,0.6);">●</span> envoy&amp;eacute; via portfolio &mdash; ${date}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ═══ FOOTER ═══ -->
+        <tr>
+          <td style="padding-top:20px;">
+            <p style="margin:0;color:rgba(255,255,255,0.25);font-size:10px;text-align:center;font-family:'Courier New',monospace;">
+              Portfolio de Koffi L&amp;eacute;vis Akalete &mdash; Niamey, Niger
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
+}
+
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
   if (req.method !== "POST") {
     res.statusCode = 405;
@@ -44,19 +191,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
             replyTo: email,
             subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
             text: `Message de ${name} (${email}):\n\nSujet: ${subject}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
-            html: `
-              <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:20px;">
-                <h2 style="color:#f59e0b;">Nouveau Message Portfolio</h2>
-                <p>Message de contact depuis votre portfolio.</p>
-                <table style="width:100%;border-collapse:collapse;margin:20px 0;">
-                  <tr><td style="padding:10px;font-weight:bold;">Nom:</td><td style="padding:10px;">${name}</td></tr>
-                  <tr><td style="padding:10px;font-weight:bold;">Email:</td><td style="padding:10px;">${email}</td></tr>
-                  <tr><td style="padding:10px;font-weight:bold;">WhatsApp:</td><td style="padding:10px;">${whatsapp || "Non renseigné"}</td></tr>
-                  <tr><td style="padding:10px;font-weight:bold;">Sujet:</td><td style="padding:10px;">${subject || "Sans sujet"}</td></tr>
-                </table>
-                <div style="background:#f1f5f9;padding:15px;border-left:4px solid #f59e0b;">${message}</div>
-              </div>
-            `
+            html: buildEmailHtml(name, email, subject || "", whatsapp || "", message)
           });
           emailSent = true;
           emailStatusDetail = "Sent successfully via Gmail SMTP.";
