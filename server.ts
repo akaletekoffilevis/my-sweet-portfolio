@@ -21,10 +21,10 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
               <tr>
                 <td>
                   <p style="margin:0;color:#f59e0b;font-size:20px;font-weight:bold;font-family:'Courier New',monospace;">
-                    &gt; Koffi L&amp;eacute;vis Akalete
+                    &gt; Koffi Lévis Akalete
                   </p>
                   <p style="margin:4px 0 0 0;color:rgba(255,255,255,0.55);font-size:11px;font-family:'Courier New',monospace;">
-                    Ambassadeur 10000 CODEURS | D&amp;eacute;veloppeur Backend Junior
+                    Ambassadeur 10000 CODEURS | Développeur Backend Junior
                   </p>
                 </td>
               </tr>
