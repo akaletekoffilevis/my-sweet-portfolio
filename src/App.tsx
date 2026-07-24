@@ -6,6 +6,7 @@ import ServicesSection from "./components/ServicesSection";
 import SkillsSection from "./components/SkillsSection";
 import ContactAndResume from "./components/ContactAndResume";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import { PortfolioProvider } from "./context/PortfolioContext";
 
 function AppContent() {
@@ -45,6 +46,7 @@ function AppContent() {
         </main>
 
         <Footer />
+        <ScrollToTop />
       </div>
 
     </div>

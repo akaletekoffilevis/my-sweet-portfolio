@@ -187,6 +187,15 @@ export const PROJECTS_DATA: Project[] = [
     liveUrl: "https://scaffolder-cli.vercel.app"
   },
   {
+    id: "yt-downloader-docs",
+    title: "YT Downloader — Site de Documentation",
+    period: "2026",
+    description: "Site de documentation officielle pour YT Downloader, application de bureau pour télécharger des vidéos YouTube. Présente les fonctionnalités (file d'attente, choix de qualité, thème clair/sombre, bilingue FR/EN), les téléchargements multi-plateformes (Windows, Linux, macOS) et les captures d'écran. Déployé sur Vercel.",
+    techStack: ["HTML", "CSS", "JavaScript"],
+    githubUrl: "https://github.com/akaletekoffilevis/youtube-downloader",
+    liveUrl: "https://yt-downloader-docs.vercel.app/"
+  },
+  {
     id: "hair-salon-tp",
     title: "Hair Salon — TP Intégration Web",
     period: "2026",
@@ -206,11 +215,11 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "dotnetniger",
-    title: "DotnetNiger — Plateforme Communautaire .NET",
+    title: "DotnetNiger — API Communautaire .NET",
     period: "2026",
-    description: "Plateforme open-source microservices pour la communauté .NET Niger. Architecture modulaire avec API Gateway Ocelot pour le routage, l'authentification JWT et le rate-limiting. Services Identity (OpenIddict/OAuth2) pour l'authentification multi-tenant et Community pour les posts, événements, ressources et profils membres. Déploiement conteneurisé avec Docker.",
-    techStack: ["C#", ".NET 9", "Ocelot API Gateway", "OpenIddict", "Entity Framework Core", "SQLite", "Docker"],
-    githubUrl: "https://github.com/akaletekoffilevis/DotnetNiger"
+    description: "API ASP.NET Core 9 pour la plateforme communautaire des développeurs .NET au Niger. Développement de l'API REST avec authentification OpenIddict (OAuth2/OIDC), gestion des membres, posts, événements et ressources. SQL Server avec Entity Framework Core. Projet open-source collaboratif avec DelaliAbel.",
+    techStack: ["C#", ".NET 9", "ASP.NET Core", "OpenIddict", "Entity Framework Core", "SQL Server"],
+    githubUrl: "https://github.com/DelaliAbel/DotnetNiger"
   },
   {
     id: "todos-api",
