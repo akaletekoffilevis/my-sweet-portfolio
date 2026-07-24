@@ -4,7 +4,7 @@ export const JOHN_DOE_PROFILE = {
   name: "Koffi Lévis Akalete",
   title: "Ambassadeur 10000 CODEURS | Développeur Backend Junior",
   location: "Niamey, Niger / Télétravail possible",
-  bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger). En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET 9, Blazor, SQL Server, PostgreSQL, Docker, Git, React.",
+  bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger). En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET, Blazor, SQL Server, PostgreSQL, Docker, Git, React.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
   phone: "+227 91 53 52 20",
   socials: {
@@ -42,7 +42,7 @@ export const SKILLS_DATA: Skill[] = [
     name: "Python",
     category: "languages",
     level: 65,
-    experienceYears: 1.5,
+    experienceYears: 1,
     icon: "SquareTerminal",
     description: "Scripts, automatisation, GTK3, formation pédagogique."
   },
@@ -58,7 +58,7 @@ export const SKILLS_DATA: Skill[] = [
     name: "PHP",
     category: "languages",
     level: 55,
-    experienceYears: 0.5,
+    experienceYears: 1,
     icon: "Terminal",
     description: "POO, MVC, interactions avec bases de données, développement web backend."
   },
@@ -98,7 +98,7 @@ export const SKILLS_DATA: Skill[] = [
     name: "React",
     category: "frameworks",
     level: 55,
-    experienceYears: 1.5,
+    experienceYears: 0.5,
     icon: "Terminal",
     description: "Sites interactifs, Socket.io, Vite, Tailwind CSS."
   },
