@@ -4,7 +4,7 @@ import { Github, ExternalLink, Folder, Globe } from "lucide-react";
 
 function SitePreview({ liveUrl, title }: { liveUrl: string; title: string }) {
   const [imgError, setImgError] = useState(false);
-  const screenshotUrl = `https://s0.wp.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=800&h=500`;
+  const screenshotUrl = `https://s0.wp.com/mshots/v1/${encodeURIComponent(liveUrl)}?w=800&h=510`;
 
   return (
     <div className="mb-4 border border-app-border-subtle overflow-hidden group/preview">
