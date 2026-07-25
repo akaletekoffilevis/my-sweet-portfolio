@@ -155,7 +155,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Portfolio développeur personnel conçu avec React 19, Vite 6 et Tailwind CSS v4. Design terminal dark/light, screenshots live via mShots, formulaire de contact avec envoi email SMTP, responsive mobile-first. Déployé sur Vercel.",
     techStack: ["React", "TypeScript", "Vite", "Tailwind CSS v4", "Nodemailer"],
     githubUrl: "https://github.com/akaletekoffilevis/my-sweet-portfolio",
-    liveUrl: "https://akaletekoffilevis.vercel.ap"
+    liveUrl: "https://akaletekoffilevis.vercel.app"
   },
   {
     id: "minichat-realtime",
