@@ -4,7 +4,7 @@ export const JOHN_DOE_PROFILE = {
   name: "Koffi Lévis Akalete",
   title: "Ambassadeur 10000 CODEURS | Développeur Backend Junior",
   location: "Niamey, Niger / Télétravail possible",
-  bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger). En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET, Blazor, SQL Server, PostgreSQL, Docker, Git, React.",
+  bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger), Des Sites Web, Appli Mobile et Logiciel Sur Mesure. En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET, Blazor, SQL Server, Docker, Git, React.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
   phone: "+227 91 53 52 20",
   socials: {
@@ -217,8 +217,8 @@ export const PROJECTS_DATA: Project[] = [
     id: "dotnetniger",
     title: "DotnetNiger — API Communautaire .NET",
     period: "2026",
-    description: "API ASP.NET Core 9 pour la plateforme communautaire des développeurs .NET au Niger. Développement de l'API REST avec authentification OpenIddict (OAuth2/OIDC), gestion des membres, posts, événements et ressources. SQL Server avec Entity Framework Core. Projet open-source collaboratif avec DelaliAbel.",
-    techStack: ["C#", ".NET 9", "ASP.NET Core", "OpenIddict", "Entity Framework Core", "SQL Server"],
+    description: "API ASP.NET Core 9 pour la plateforme communautaire des développeurs .NET au Niger. Développement de l'API REST avec authentification , gestion des membres, posts, événements et ressources. SQL Server avec Entity Framework Core. Projet open-source collaboratif avec La Communauter DotnetNiger.",
+    techStack: ["C#", ".NET 9", "ASP.NET Core", "ASP.NET Identity", "Entity Framework Core", "SQL Server"],
     githubUrl: "https://github.com/DelaliAbel/DotnetNiger"
   },
   {

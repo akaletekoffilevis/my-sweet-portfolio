@@ -4,8 +4,18 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import nodemailer from "nodemailer";
 
-function buildEmailHtml(name: string, email: string, subject: string, whatsapp: string, message: string): string {
-  const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
+function buildEmailHtml(
+  name: string,
+  email: string,
+  subject: string,
+  whatsapp: string,
+  message: string,
+): string {
+  const date = new Date().toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
   return `<!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -13,24 +23,6 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#0b1121;padding:40px 16px;">
     <tr><td align="center">
       <table width="620" cellpadding="0" cellspacing="0" style="max-width:620px;width:100%;">
-
-        <!-- HEADER -->
-        <tr>
-          <td style="padding-bottom:24px;">
-            <table width="100%" cellpadding="0" cellspacing="0">
-              <tr>
-                <td>
-                  <p style="margin:0;color:#f59e0b;font-size:20px;font-weight:bold;font-family:'Courier New',monospace;">
-                    &gt; Koffi Lévis Akalete
-                  </p>
-                  <p style="margin:4px 0 0 0;color:rgba(255,255,255,0.55);font-size:11px;font-family:'Courier New',monospace;">
-                    Ambassadeur 10000 CODEURS | Développeur Backend Junior
-                  </p>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
 
         <!-- TERMINAL WINDOW -->
         <tr>
@@ -62,7 +54,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                     // Nouveau Message Portfolio
                   </p>
                   <p style="margin:0 0 24px 0;color:rgba(255,255,255,0.5);font-size:11px;font-family:'Courier New',monospace;">
-                    Message re&amp;ccedil;u depuis le formulaire de contact.
+                    Message recceuil depuis le formulaire de contact.
                   </p>
 
                   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
@@ -122,7 +114,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
               <tr>
                 <td style="padding:12px 28px;">
                   <p style="margin:0;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
-                    <span style="color:rgba(34,197,94,0.6);">●</span> envoy&amp;eacute; via portfolio &mdash; ${date}
+                    <span style="color:rgba(34,197,94,0.6);">●</span> envoyee via portfolio &mdash; ${date}
                   </p>
                 </td>
               </tr>
@@ -134,7 +126,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
         <tr>
           <td style="padding-top:20px;">
             <p style="margin:0;color:rgba(255,255,255,0.25);font-size:10px;text-align:center;font-family:'Courier New',monospace;">
-              Portfolio de Koffi L&amp;eacute;vis Akalete &mdash; Niamey, Niger
+              Portfolio de Koffi Levis Akalete &mdash; Niamey, Niger
             </p>
           </td>
         </tr>
@@ -156,7 +148,9 @@ async function startServer() {
     try {
       const { name, email, subject, message, whatsapp } = req.body;
       if (!name || !email || !message) {
-        return res.status(400).json({ success: false, error: "Champs requis manquants." });
+        return res
+          .status(400)
+          .json({ success: false, error: "Champs requis manquants." });
       }
 
       let emailSent = false;
@@ -174,7 +168,7 @@ async function startServer() {
             secure: false,
             auth: { user: gmailUser, pass: cleanPass },
             connectionTimeout: 10000,
-            greetingTimeout: 10000
+            gretingTimeout: 10000,
           });
 
           const mailOptions = {
@@ -183,19 +177,28 @@ async function startServer() {
             replyTo: email,
             subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
             text: `Nouveau message de contact recu de ${name} (${email}):\n\nSujet: ${subject}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
-            html: buildEmailHtml(name, email, subject || "", whatsapp || "", message)
+            html: buildEmailHtml(
+              name,
+              email,
+              subject || "",
+              whatsapp || "",
+              message,
+            ),
           };
 
           await transporter.sendMail(mailOptions);
           emailSent = true;
           emailStatusDetail = "Sent successfully via Gmail SMTP.";
-          console.log(`Email forwarded to koffilevis21@gmail.com from ${email}`);
+          console.log(
+            `Email forwarded to koffilevis21@gmail.com from ${email}`,
+          );
         } catch (mailErr: any) {
           console.error("SMTP failed:", mailErr);
           emailStatusDetail = `Email failed: ${mailErr.message}`;
         }
       } else {
-        emailStatusDetail = "GMAIL_APP_PASSWORD not configured. Message logged.";
+        emailStatusDetail =
+          "GMAIL_APP_PASSWORD not configured. Message logged.";
       }
 
       res.status(201).json({
@@ -205,11 +208,12 @@ async function startServer() {
         emailStatusDetail,
         data: {
           id: "msg-" + Math.floor(Math.random() * 899999 + 100000),
-          name, email,
+          name,
+          email,
           subject: subject || "Sans sujet",
           message,
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       });
     } catch (err: any) {
       res.status(500).json({ success: false, error: err.message });
@@ -235,6 +239,6 @@ async function startServer() {
   });
 }
 
-startServer().catch(err => {
+startServer().catch((err) => {
   console.error("Failed to start server:", err);
 });
