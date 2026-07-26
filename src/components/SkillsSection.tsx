@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { motion } from "motion/react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { Code2, Database, Layers, Terminal, Boxes, Layout, Zap, GitBranch, SquareTerminal } from "lucide-react";
 
@@ -52,7 +53,14 @@ export default function SkillsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {filtered.map((skill, idx) => (
-            <div key={idx} className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, delay: (idx % 3) * 0.07 }}
+              className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300"
+            >
               <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
                 <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
                 <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
@@ -80,7 +88,7 @@ export default function SkillsSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

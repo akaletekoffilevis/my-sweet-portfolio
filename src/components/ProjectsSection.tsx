@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { Github, ExternalLink, Folder, Globe } from "lucide-react";
 
@@ -54,8 +55,15 @@ export default function ProjectsSection() {
         <p className="section-subtitle mb-6 sm:mb-10">Réalisations et études de cas</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-          {projects.map((project) => (
-            <div key={project.id} className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300 flex flex-col">
+          {projects.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, delay: (idx % 2) * 0.1 }}
+              className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300 flex flex-col"
+            >
               <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
                 <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
                 <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
@@ -95,7 +103,7 @@ export default function ProjectsSection() {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
