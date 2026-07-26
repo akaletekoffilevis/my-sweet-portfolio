@@ -1,51 +1,10 @@
 import { Terminal } from "lucide-react";
-
-const services = [
-  {
-    title: "APIs REST sur mesure",
-    desc: "Développement d'APIs avec ASP.NET Core 9 : JWT, Minimal APIs, documentation Swagger, Entity Framework Core, validation, isolation utilisateur.",
-    tech: "C# / .NET 9",
-  },
-  {
-    title: "Applications Blazor / PWA",
-    desc: "Applications web interactives en Blazor WebAssembly, PWA hors-ligne, MudBlazor, recherche plein texte, IndexedDB, génération d'images côté client.",
-    tech: "Blazor .NET 9",
-  },
-  {
-    title: "Outils CLI & Console",
-    desc: "Générateurs de projets, applications console de gestion, System.CommandLine, compilation Native AOT, exécutables multi-plateforme.",
-    tech: "C# / .NET 9",
-  },
-  {
-    title: "Bases de données",
-    desc: "Conception de schémas, migrations Entity Framework Core, requêtes SQL, persistance avec SQLite, SQL Server et MySQL.",
-    tech: "SQL / EF Core",
-  },
-  {
-    title: "Maintenance & évolution",
-    desc: "Reprise de projets .NET existants, refactoring, mise à jour vers .NET 9, ajout de tests, amélioration des performances.",
-    tech: "C# / .NET",
-  },
-  {
-    title: "Déploiement & CI/CD",
-    desc: "Configuration Docker, docker-compose, pipelines GitHub Actions, déploiement sur Vercel, hébergement d'APIs et sites statiques.",
-    tech: "Docker / GitHub Actions",
-  },
-  {
-    title: "Sites web & Applications React",
-    desc: "Développement de sites vitrines, landing pages, applications interactives avec React, HTML5, CSS3, Tailwind CSS, intégration d'APIs.",
-    tech: "React / HTML / CSS / JS",
-  },
-  {
-    title: "Applications mobiles",
-    desc: "Développement d'applications mobiles avec React Native (cross-platform) et C#/.NET MAUI (native), interfaces modernes et connexion aux APIs.",
-    tech: "React Native / C# MAUI",
-  },
-];
+import { usePortfolio } from "../context/PortfolioContext";
 
 export default function ServicesSection() {
+  const { services } = usePortfolio();
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle" id="services-section">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle scroll-mt-20" id="services-section">
       <div className="mx-auto max-w-screen-2xl">
         <h2 className="section-title mb-2">Services</h2>
         <p className="section-subtitle mb-6 sm:mb-10">Ce que je peux faire pour vous</p>

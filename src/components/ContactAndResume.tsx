@@ -22,26 +22,37 @@ export default function ContactAndResume() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "", whatsapp: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [formTimestamp] = useState(() => Date.now());
+  const [honeypot, setHoneypot] = useState("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     setIsSubmitting(true);
-    await addMessage({
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject || "Sans Objet",
-      message: formData.message,
-      whatsapp: formData.whatsapp
-    });
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, _hp: honeypot, _ts: formTimestamp })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", subject: "", message: "", whatsapp: "" });
+        setTimeout(() => setSubmitSuccess(false), 6000);
+      } else {
+        setSubmitError(data.error || "Une erreur est survenue. Réessayez.");
+      }
+    } catch {
+      setSubmitError("Erreur réseau. Vérifiez votre connexion et réessayez.");
+    }
     setIsSubmitting(false);
-    setSubmitSuccess(true);
-    setFormData({ name: "", email: "", subject: "", message: "", whatsapp: "" });
-    setTimeout(() => setSubmitSuccess(false), 6000);
   };
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle relative overflow-hidden" id="contact-resume-section">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle relative overflow-hidden scroll-mt-20" id="contact-resume-section">
       <div className="absolute inset-0 pointer-events-none select-none opacity-[0.03]">
         <div className="absolute top-20 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01010010 01000101 01000001 01000100 01011001</div>
         <div className="absolute bottom-20 right-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>00100100 01001111 01001011 01000101</div>
@@ -110,7 +121,21 @@ export default function ContactAndResume() {
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                {submitError && (
+                  <div className="bg-red-900/15 border border-red-800/30 p-3 sm:p-4 mb-4 sm:mb-6 flex items-start gap-2 sm:gap-3 animate-fade-in">
+                    <span className="text-red-400 font-mono text-sm shrink-0 mt-0.5">!</span>
+                    <div>
+                      <p className="text-xs sm:text-sm font-mono font-medium text-red-300">$ echo "Erreur : {submitError}"</p>
+                      <p className="text-[10px] sm:text-xs font-mono text-red-400/60 mt-0.5"># Veuillez réessayer.</p>
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 relative">
+                  <div className="absolute opacity-0 pointer-events-none h-0 overflow-hidden" aria-hidden="true">
+                    <label htmlFor="_hp">Ne pas remplir</label>
+                    <input id="_hp" type="text" name="_hp" tabIndex={-1} autoComplete="off" value={honeypot} onChange={e => setHoneypot(e.target.value)} />
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
@@ -214,24 +239,6 @@ export default function ContactAndResume() {
                     <span>{profile.socials.email}</span>
                   </span>
                 </div>
-
-                <div className="border-t border-app-border-subtle pt-4">
-                  <p className="text-[10px] sm:text-xs font-mono text-app-text-muted mb-3">
-                    <span className="text-app-accent">$</span> cat certifications.md
-                  </p>
-                  <a
-                    href="https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-3 border border-app-border-subtle hover:border-app-accent/30 hover:bg-app-accent/5 transition-all"
-                  >
-                    <FileText className="h-4 w-4 text-app-accent shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-xs font-mono text-app-text-white truncate">Foundational C# with Microsoft</p>
-                      <p className="text-[10px] font-mono text-app-text-muted">freeCodeCamp — Certificat vérifié</p>
-                    </div>
-                  </a>
-                </div>
               </div>
             </div>
 
@@ -254,7 +261,7 @@ export default function ContactAndResume() {
                         target={link.href.startsWith("mailto") ? undefined : "_blank"}
                         rel="noreferrer"
                         className="flex items-center gap-2 p-3 border border-app-border-subtle text-app-text-muted hover:border-app-accent hover:text-app-accent hover:bg-app-accent/5 transition-all duration-200"
-                        title={link.label}
+                        aria-label={link.label}
                       >
                         <Icon className="h-4 w-4" />
                         <span className="text-xs font-mono">{link.label}</span>

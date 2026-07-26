@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
-import { JOHN_DOE_PROFILE, SKILLS_DATA, PROJECTS_DATA } from "../data";
-import { Skill, Project } from "../types";
+import { PROFILE_DATA, SKILLS_DATA, PROJECTS_DATA, SERVICES_DATA } from "../data";
+import { Skill, Project, Service } from "../types";
 
 export interface ProfileData {
   name: string;
@@ -9,6 +9,7 @@ export interface ProfileData {
   bio: string;
   phone?: string;
   avatarUrl: string;
+  certUrl?: string;
   socials: {
     github: string;
     linkedin: string;
@@ -26,15 +27,17 @@ interface PortfolioContextType {
   profile: ProfileData;
   skills: Skill[];
   projects: Project[];
+  services: Service[];
   addMessage: (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => Promise<any>;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
-  const profile = JOHN_DOE_PROFILE;
+  const profile = PROFILE_DATA;
   const skills = SKILLS_DATA;
   const projects = PROJECTS_DATA;
+  const services = SERVICES_DATA;
 
   const addMessage = async (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => {
     try {
@@ -47,8 +50,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       if (data.success && data.data) {
         return data.data;
       }
-    } catch (err) {
-      console.error("API message send failed:", err);
+    } catch {
+      // silent
     }
   };
 
@@ -58,6 +61,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         profile,
         skills,
         projects,
+        services,
         addMessage,
       }}
     >

@@ -168,7 +168,7 @@ async function startServer() {
             secure: false,
             auth: { user: gmailUser, pass: cleanPass },
             connectionTimeout: 10000,
-            gretingTimeout: 10000,
+            greetingTimeout: 10000,
           });
 
           const mailOptions = {

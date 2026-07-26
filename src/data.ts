@@ -1,8 +1,8 @@
-import { Skill, Project } from "./types";
+import { Skill, Project, Service } from "./types";
 
-export const JOHN_DOE_PROFILE = {
+export const PROFILE_DATA = {
   name: "Koffi Lévis Akalete",
-  title: "Ambassadeur 10000 CODEURS | Développeur Backend Junior",
+  title: "Ambassadeur 10000 CODEURS | Développeur Full Stack Junior",
   location: "Niamey, Niger / Télétravail possible",
   bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger), Des Sites Web, Appli Mobile et Logiciel Sur Mesure. En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET, Blazor, SQL Server, Docker, Git, React.",
   avatarUrl: "/images/koffi_avatar_1780568229358.png",
@@ -285,4 +285,47 @@ export const PROJECTS_DATA: Project[] = [
     techStack: ["Ruby", "Homebrew"],
     githubUrl: "https://github.com/akaletekoffilevis/homebrew-scaffolder"
   }
+];
+
+export const SERVICES_DATA: Service[] = [
+  {
+    title: "APIs REST sur mesure",
+    desc: "Développement d'APIs avec ASP.NET Core 9 : JWT, Minimal APIs, documentation Swagger, Entity Framework Core, validation, isolation utilisateur.",
+    tech: "C# / .NET 9",
+  },
+  {
+    title: "Applications Blazor / PWA",
+    desc: "Applications web interactives en Blazor WebAssembly, PWA hors-ligne, MudBlazor, recherche plein texte, IndexedDB, génération d'images côté client.",
+    tech: "Blazor .NET 9",
+  },
+  {
+    title: "Outils CLI & Console",
+    desc: "Générateurs de projets, applications console de gestion, System.CommandLine, compilation Native AOT, exécutables multi-plateforme.",
+    tech: "C# / .NET 9",
+  },
+  {
+    title: "Bases de données",
+    desc: "Conception de schémas, migrations Entity Framework Core, requêtes SQL, persistance avec SQLite, SQL Server et MySQL.",
+    tech: "SQL / EF Core",
+  },
+  {
+    title: "Maintenance & évolution",
+    desc: "Reprise de projets .NET existants, refactoring, mise à jour vers .NET 9, ajout de tests, amélioration des performances.",
+    tech: "C# / .NET",
+  },
+  {
+    title: "Déploiement & CI/CD",
+    desc: "Configuration Docker, docker-compose, pipelines GitHub Actions, déploiement sur Vercel, hébergement d'APIs et sites statiques.",
+    tech: "Docker / GitHub Actions",
+  },
+  {
+    title: "Sites web & Applications React",
+    desc: "Développement de sites vitrines, landing pages, applications interactives avec React, HTML5, CSS3, Tailwind CSS, intégration d'APIs.",
+    tech: "React / HTML / CSS / JS",
+  },
+  {
+    title: "Applications mobiles",
+    desc: "Développement d'applications mobiles avec React Native (cross-platform) et C#/.NET MAUI (native), interfaces modernes et connexion aux APIs.",
+    tech: "React Native / C# MAUI",
+  },
 ];

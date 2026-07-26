@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { useTheme } from "../hooks/useTheme";
 import { Menu, X, Terminal, Sun, Moon } from "lucide-react";
@@ -18,10 +18,34 @@ export default function Header() {
   const { isDark, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
+    if (isMenuOpen && menuRef.current) {
+      const firstLink = menuRef.current.querySelector("a") as HTMLElement;
+      firstLink?.focus();
+    }
     return () => { document.body.style.overflow = ""; };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab" || !menuRef.current) return;
+      const focusable = menuRef.current.querySelectorAll<HTMLElement>("a, button");
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isMenuOpen]);
 
   useEffect(() => {
@@ -93,7 +117,7 @@ export default function Header() {
       </header>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg transition-colors duration-300">
+        <div ref={menuRef} className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg transition-colors duration-300">
           <div className="flex items-center justify-between p-4 border-b border-app-border-subtle">
             <span className="text-sm font-mono text-app-text-muted">[menu] $</span>
             <div className="flex items-center gap-2">

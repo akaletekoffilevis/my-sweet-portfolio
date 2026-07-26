@@ -48,7 +48,7 @@ export default function ProjectsSection() {
   const { projects } = usePortfolio();
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle" id="projects-section">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle scroll-mt-20" id="projects-section">
       <div className="mx-auto max-w-screen-2xl">
         <h2 className="section-title mb-2">Projets</h2>
         <p className="section-subtitle mb-6 sm:mb-10">Réalisations et études de cas</p>

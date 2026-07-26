@@ -1,7 +1,21 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import nodemailer from "nodemailer";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function buildEmailHtml(name: string, email: string, subject: string, whatsapp: string, message: string): string {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeWhatsapp = escapeHtml(whatsapp);
+  const safeMessage = escapeHtml(message);
   const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -21,7 +35,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                     &gt; Koffi L&amp;eacute;vis Akalete
                   </p>
                   <p style="margin:4px 0 0 0;color:rgba(255,255,255,0.55);font-size:11px;font-family:'Courier New',monospace;">
-                    Ambassadeur 10000 CODEURS | D&amp;eacute;veloppeur Backend Junior
+                    Ambassadeur 10000 CODEURS | D&amp;eacute;veloppeur Full Stack Junior
                   </p>
                 </td>
               </tr>
@@ -75,7 +89,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                         <span style="color:#f59e0b;">$</span> Nom
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${name}
+                        ${safeName}
                       </td>
                     </tr>
                     <tr>
@@ -83,7 +97,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                         <span style="color:#f59e0b;">$</span> Email
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f59e0b;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <a href="mailto:${email}" style="color:#f59e0b;text-decoration:none;">${email}</a>
+                        <a href="mailto:${safeEmail}" style="color:#f59e0b;text-decoration:none;">${safeEmail}</a>
                       </td>
                     </tr>
                     <tr>
@@ -91,7 +105,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                         <span style="color:#f59e0b;">$</span> WhatsApp
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${whatsapp || "Non renseigné"}
+                        ${safeWhatsapp || "Non renseigné"}
                       </td>
                     </tr>
                     <tr>
@@ -99,7 +113,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                         <span style="color:#f59e0b;">$</span> Sujet
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${subject || "Sans sujet"}
+                        ${safeSubject || "Sans sujet"}
                       </td>
                     </tr>
                   </table>
@@ -112,7 +126,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
                   <!-- Message block -->
                   <table width="100%" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${message}</td>
+                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${safeMessage}</td>
                     </tr>
                   </table>
                 </td>
@@ -160,7 +174,22 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   req.on("data", (chunk) => { body += chunk; });
   req.on("end", async () => {
     try {
-      const { name, email, subject, message, whatsapp } = JSON.parse(body);
+      const { name, email, subject, message, whatsapp, _hp, _ts } = JSON.parse(body);
+
+      if (_hp) {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ success: true, message: "Message envoyé avec succès." }));
+        return;
+      }
+
+      if (_ts && Date.now() - Number(_ts) < 3000) {
+        res.statusCode = 429;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ success: false, error: "Trop rapide. Veuillez réessayer." }));
+        return;
+      }
+
       if (!name || !email || !message) {
         res.statusCode = 400;
         res.setHeader("Content-Type", "application/json");
@@ -186,11 +215,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           });
 
           await transporter.sendMail({
-            from: `"${name} (Contact Portfolio)" <${gmailUser}>`,
+            from: `"${safeName} (Contact Portfolio)" <${gmailUser}>`,
             to: "koffilevis21@gmail.com",
-            replyTo: email,
-            subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
-            text: `Message de ${name} (${email}):\n\nSujet: ${subject}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
+            replyTo: safeEmail,
+            subject: `Portfolio: ${safeSubject || "Nouveau message de contact"}`,
+            text: `Message de ${safeName} (${safeEmail}):\n\nSujet: ${safeSubject}\nWhatsApp: ${safeWhatsapp || "Non renseigné"}\n\nMessage:\n${safeMessage}`,
             html: buildEmailHtml(name, email, subject || "", whatsapp || "", message)
           });
           emailSent = true;

@@ -13,13 +13,14 @@ function AppContent() {
 
   return (
     <div className="relative">
-      <div id="app-viewport" className="min-h-screen bg-app-bg text-app-text-main flex flex-col font-sans selection:bg-app-text-white/20 selection:text-app-text-white scroll-smooth pb-0 transition-colors duration-300 print:hidden">
+      <a href="#bio-section" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-app-accent focus:text-white focus:px-4 focus:py-2 focus:font-mono focus:text-sm">Aller au contenu</a>
+      <div id="app-viewport" className="min-h-screen bg-app-bg text-app-text-main flex flex-col font-sans scroll-smooth pb-0 transition-colors duration-300 print:hidden">
         <Header />
 
         <main className="flex-grow relative">
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-app-accent/3 blur-3xl"></div>
-            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,var(--grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-line)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
           </div>
 
           <div className="relative z-10">

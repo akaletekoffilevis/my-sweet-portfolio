@@ -1,6 +1,6 @@
 # Portfolio — Koffi Lévis Akalete
 
-Portfolio professionnel — Ambassadeur 10000 CODEURS, Développeur Backend Junior.
+Portfolio professionnel — Ambassadeur 10000 CODEURS, Développeur Full Stack Junior.
 
 ## Technologies
 

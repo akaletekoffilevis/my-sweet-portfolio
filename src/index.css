@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-app-bg: var(--bg-main);
   --color-app-card: var(--bg-card);
@@ -38,6 +37,7 @@
   --accent: #f59e0b;
   --accent-light: rgba(245, 158, 11, 0.1);
   --accent-dark: #fbbf24;
+  --grid-line: rgba(255, 255, 255, 0.02);
 }
 
 /* ═══ LIGHT THEME ═══ */
@@ -46,17 +46,18 @@
   --bg-card: #f7f5f2;
   --bg-card-sec: #e8e5e0;
   --bg-darker: #ddd9d3;
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-sec: rgba(0, 0, 0, 0.12);
-  --border-strong: rgba(0, 0, 0, 0.2);
-  --text-main: #2c2c2c;
-  --text-white: #1a1a1a;
-  --text-muted: rgba(0, 0, 0, 0.45);
-  --text-body: rgba(0, 0, 0, 0.72);
-  --text-soft: rgba(0, 0, 0, 0.52);
-  --accent: #b45309;
-  --accent-light: rgba(180, 83, 9, 0.08);
-  --accent-dark: #92400e;
+  --border-subtle: rgba(0, 0, 0, 0.1);
+  --border-sec: rgba(0, 0, 0, 0.16);
+  --border-strong: rgba(0, 0, 0, 0.25);
+  --text-main: #1f1f1f;
+  --text-white: #111111;
+  --text-muted: rgba(0, 0, 0, 0.55);
+  --text-body: rgba(0, 0, 0, 0.82);
+  --text-soft: rgba(0, 0, 0, 0.62);
+  --accent: #7c2d12;
+  --accent-light: rgba(124, 45, 18, 0.14);
+  --accent-dark: #6b2108;
+  --grid-line: rgba(0, 0, 0, 0.04);
 }
 
 body {
@@ -92,8 +93,11 @@ body {
   animation: fade-in 0.3s ease-out;
 }
 
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
 @media print {
   @page { size: A4; margin: 0; }
-  #app-viewport, .fixed, button, footer { display: none !important; }
-  #print-cv-target { display: flex !important; flex-direction: column !important; position: fixed; left: 0; top: 0; width: 210mm; height: 297mm; padding: 16mm; background: white; color: #0f172a; z-index: 9999; }
 }

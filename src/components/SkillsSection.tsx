@@ -15,10 +15,10 @@ const iconMap: Record<string, ReactNode> = {
 };
 
 const categories = [
-  { id: "all", label: "all" },
-  { id: "languages", label: "languages" },
+  { id: "all", label: "tout" },
+  { id: "languages", label: "langages" },
   { id: "frameworks", label: "frameworks" },
-  { id: "databases", label: "databases" },
+  { id: "databases", label: "bases de données" },
   { id: "devops", label: "devops" },
 ];
 
@@ -29,7 +29,7 @@ export default function SkillsSection() {
   const filtered = skills.filter(s => activeTab === "all" || s.category === activeTab);
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle" id="skills-section">
+    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle scroll-mt-20" id="skills-section">
       <div className="mx-auto max-w-screen-2xl">
         <h2 className="section-title mb-2">Compétences</h2>
         <p className="section-subtitle mb-6 sm:mb-8">Technologies et outils maîtrisés</p>
@@ -75,7 +75,7 @@ export default function SkillsSection() {
                     <span>level</span>
                     <span>{skill.level}%</span>
                   </div>
-                  <div className="h-1 sm:h-1.5 bg-app-border-subtle overflow-hidden">
+                  <div className="h-1 sm:h-1.5 bg-app-border-subtle overflow-hidden" role="progressbar" aria-valuenow={skill.level} aria-valuemin={0} aria-valuemax={100} aria-label={`${skill.name} — niveau ${skill.level}%`}>
                     <div className="h-full bg-app-accent transition-all" style={{ width: `${skill.level}%` }} />
                   </div>
                 </div>

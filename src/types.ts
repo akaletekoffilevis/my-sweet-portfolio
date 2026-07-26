@@ -14,7 +14,11 @@ export interface Project {
   description: string;
   techStack: string[];
   githubUrl?: string;
-  demoUrl?: string;
   liveUrl?: string;
-  screenshot?: string;
+}
+
+export interface Service {
+  title: string;
+  desc: string;
+  tech: string;
 }
