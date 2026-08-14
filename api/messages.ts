@@ -174,7 +174,24 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   req.on("data", (chunk) => { body += chunk; });
   req.on("end", async () => {
     try {
-      const { name, email, subject, message, whatsapp, _hp, _ts } = JSON.parse(body);
+      let parsed: Record<string, unknown>;
+      try {
+        parsed = JSON.parse(body);
+      } catch {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ success: false, error: "Requête JSON invalide." }));
+        return;
+      }
+      const { name, email, subject, message, whatsapp, _hp, _ts } = parsed as {
+        name: string;
+        email: string;
+        subject: string;
+        message: string;
+        whatsapp?: string;
+        _hp?: string;
+        _ts?: string;
+      };
 
       if (_hp) {
         res.statusCode = 200;

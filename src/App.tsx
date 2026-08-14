@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, MotionConfig } from "motion/react";
 import Header from "./components/Header";
 import BioSection from "./components/BioSection";
 import ProjectsSection from "./components/ProjectsSection";
@@ -62,7 +62,9 @@ function AppContent() {
 export default function App() {
   return (
     <PortfolioProvider>
-      <AppContent />
+      <MotionConfig reducedMotion="user">
+        <AppContent />
+      </MotionConfig>
     </PortfolioProvider>
   );
 }

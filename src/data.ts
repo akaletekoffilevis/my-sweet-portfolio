@@ -5,7 +5,7 @@ export const PROFILE_DATA = {
   title: "Ambassadeur 10000 CODEURS | Développeur Full Stack Junior",
   location: "Niamey, Niger / Télétravail possible",
   bio: "Étudiant en Mathématiques-Informatique à l'Université Abdou Moumouni de Niamey. Ambassadeur 10000 CODEURS — formation aux Soft Skills et éthique professionnelle pour transformer l'écosystème numérique africain. Spécialisé .NET (ASP.NET Core, Blazor, MAUI), je conçois des APIs REST performantes, sécurisées (JWT) et documentées (Swagger), Des Sites Web, Appli Mobile et Logiciel Sur Mesure. En formation Flutter/Firebase via le FlutterFireSummerCamp. Stack : C#, .NET, Blazor, SQL Server, Docker, Git, React.",
-  avatarUrl: "/images/koffi_avatar_1780568229358.png",
+  avatarUrl: "/images/koffi_avatar_1780568229358.webp",
   phone: "+227 91 53 52 20",
   socials: {
     github: "https://github.com/akaletekoffilevis",
@@ -17,7 +17,7 @@ export const PROFILE_DATA = {
   metrics: [
     { label: "Projets", value: "15+", desc: "APIs, Web, Mobile, CLI, Desktop" },
     { label: "Formation", value: "Licence (En cours)", desc: "Math-Info — Université Abdou Moumouni" },
-    { label: "Certification", value: "Microsoft", desc: "Foundational C# — freeCodeCamp" }
+    { label: "Certifications", value: "5", desc: "Microsoft, Flutter, .NET, web" }
   ]
 };
 
@@ -136,7 +136,6 @@ export const SKILLS_DATA: Skill[] = [
   }
 ];
 
-// Projects with liveUrl are sorted first
 export const PROJECTS_DATA: Project[] = [
   {
     id: "bible-pwa",
@@ -294,7 +293,7 @@ export const CERTS_DATA: Certification[] = [
     title: "Foundational C# with Microsoft",
     date: "Janvier 2026",
     kind: "image",
-    file: "/images/Certificat FreecodeCamp.png",
+    file: "/images/Certificat FreecodeCamp.webp",
     url: "https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft"
   },
   {

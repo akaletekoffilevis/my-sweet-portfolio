@@ -21,7 +21,7 @@ export default function BioSection() {
                 </div>
                 <img
                   src={profile.avatarUrl}
-                  alt={`Portrait de ${profile.name}, développeur backend basé à Niamey`}
+                  alt={`Portrait de ${profile.name}, développeur Full Stack basé à Niamey`}
                   className="w-full aspect-square object-cover"
                 />
               </div>

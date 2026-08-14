@@ -4,6 +4,15 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import nodemailer from "nodemailer";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function buildEmailHtml(
   name: string,
   email: string,
@@ -11,6 +20,11 @@ function buildEmailHtml(
   whatsapp: string,
   message: string,
 ): string {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeWhatsapp = escapeHtml(whatsapp);
+  const safeMessage = escapeHtml(message);
   const date = new Date().toLocaleDateString("fr-FR", {
     day: "2-digit",
     month: "long",
@@ -54,7 +68,7 @@ function buildEmailHtml(
                     // Nouveau Message Portfolio
                   </p>
                   <p style="margin:0 0 24px 0;color:rgba(255,255,255,0.5);font-size:11px;font-family:'Courier New',monospace;">
-                    Message recceuil depuis le formulaire de contact.
+                    Message recu depuis le formulaire de contact.
                   </p>
 
                   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
@@ -67,7 +81,7 @@ function buildEmailHtml(
                         <span style="color:#f59e0b;">$</span> Nom
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${name}
+                        ${safeName}
                       </td>
                     </tr>
                     <tr>
@@ -75,7 +89,7 @@ function buildEmailHtml(
                         <span style="color:#f59e0b;">$</span> Email
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f59e0b;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <a href="mailto:${email}" style="color:#f59e0b;text-decoration:none;">${email}</a>
+                        <a href="mailto:${safeEmail}" style="color:#f59e0b;text-decoration:none;">${safeEmail}</a>
                       </td>
                     </tr>
                     <tr>
@@ -83,7 +97,7 @@ function buildEmailHtml(
                         <span style="color:#f59e0b;">$</span> WhatsApp
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${whatsapp || "Non renseigné"}
+                        ${safeWhatsapp || "Non renseigné"}
                       </td>
                     </tr>
                     <tr>
@@ -91,7 +105,7 @@ function buildEmailHtml(
                         <span style="color:#f59e0b;">$</span> Sujet
                       </td>
                       <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${subject || "Sans sujet"}
+                        ${safeSubject || "Sans sujet"}
                       </td>
                     </tr>
                   </table>
@@ -102,7 +116,7 @@ function buildEmailHtml(
 
                   <table width="100%" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${message}</td>
+                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${safeMessage}</td>
                     </tr>
                   </table>
                 </td>
@@ -114,7 +128,7 @@ function buildEmailHtml(
               <tr>
                 <td style="padding:12px 28px;">
                   <p style="margin:0;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
-                    <span style="color:rgba(34,197,94,0.6);">●</span> envoyee via portfolio &mdash; ${date}
+                    <span style="color:rgba(34,197,94,0.6);">●</span> envoyé via portfolio &mdash; ${date}
                   </p>
                 </td>
               </tr>
@@ -146,7 +160,16 @@ async function startServer() {
 
   app.post("/api/messages", async (req, res) => {
     try {
-      const { name, email, subject, message, whatsapp } = req.body;
+      const { name, email, subject, message, whatsapp, _hp, _ts } = req.body;
+
+      if (_hp) {
+        return res.status(200).json({ success: true, message: "Message envoyé avec succès." });
+      }
+
+      if (_ts && Date.now() - Number(_ts) < 3000) {
+        return res.status(429).json({ success: false, error: "Trop rapide. Veuillez réessayer." });
+      }
+
       if (!name || !email || !message) {
         return res
           .status(400)
@@ -172,11 +195,11 @@ async function startServer() {
           });
 
           const mailOptions = {
-            from: `"${name} (Contact Portfolio)" <${gmailUser}>`,
+            from: `"${escapeHtml(name)} (Contact Portfolio)" <${gmailUser}>`,
             to: "koffilevis21@gmail.com",
-            replyTo: email,
-            subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
-            text: `Nouveau message de contact recu de ${name} (${email}):\n\nSujet: ${subject}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
+            replyTo: escapeHtml(email),
+            subject: `Portfolio: ${escapeHtml(subject) || "Nouveau message de contact"}`,
+            text: `Nouveau message de contact reçu de ${escapeHtml(name)} (${escapeHtml(email)}):\n\nSujet: ${escapeHtml(subject)}\nWhatsApp: ${escapeHtml(whatsapp) || "Non renseigné"}\n\nMessage:\n${escapeHtml(message)}`,
             html: buildEmailHtml(
               name,
               email,
