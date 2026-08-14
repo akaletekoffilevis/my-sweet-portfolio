@@ -52,12 +52,7 @@ export default function ContactAndResume() {
   };
 
   return (
-    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle relative overflow-hidden scroll-mt-20" id="contact-resume-section">
-      <div className="absolute inset-0 pointer-events-none select-none opacity-[0.03]">
-        <div className="absolute top-20 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01010010 01000101 01000001 01000100 01011001</div>
-        <div className="absolute bottom-20 right-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>00100100 01001111 01001011 01000101</div>
-      </div>
-
+    <section className="py-16 sm:py-20 px-4 sm:px-6 border-b border-app-border-subtle relative scroll-mt-20" id="contact-resume-section">
       <div className="mx-auto max-w-screen-2xl relative">
         <h2 className="section-title mb-2">Contact & CV</h2>
         <p className="section-subtitle mb-6 sm:mb-10">N'hésitez pas à me contacter</p>
@@ -68,11 +63,8 @@ export default function ContactAndResume() {
           <div className="space-y-6">
             {/* CV Download */}
             <div className="bg-app-bg border border-app-border-subtle overflow-hidden">
-              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2 h-2 bg-red-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">resume.pdf</span>
+              <div className="px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
+                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">Curriculum Vitae</span>
               </div>
               <a href="/cv_koffi_levis_akalete.pdf" download
                 className="group flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 p-4 sm:p-5 hover:bg-app-accent/5 transition-colors"
@@ -80,8 +72,8 @@ export default function ContactAndResume() {
                 <div className="flex items-center gap-3 min-w-0 w-full sm:w-auto">
                   <FileText className="h-8 w-8 text-app-accent shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-sm font-mono text-app-text-white group-hover:text-app-accent transition-colors truncate">$ <span className="font-semibold">./download-cv.sh</span></p>
-                    <p className="text-xs font-mono text-app-text-muted mt-0.5"># Curriculum Vitae — Format PDF</p>
+                    <p className="text-sm font-semibold text-app-text-white group-hover:text-app-accent transition-colors">Télécharger mon CV</p>
+                    <p className="text-xs text-app-text-muted mt-0.5">Format PDF</p>
                   </div>
                 </div>
                 <span className="flex items-center gap-1.5 px-4 py-2 bg-app-accent/10 border border-app-accent/20 text-xs sm:text-sm font-mono text-app-accent hover:bg-app-accent/20 transition shrink-0 self-end sm:self-auto">
@@ -93,21 +85,16 @@ export default function ContactAndResume() {
 
             {/* Contact Form */}
             <div className="bg-app-bg border border-app-border-subtle overflow-hidden">
-              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2 h-2 bg-red-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">contact-form.sh</span>
+              <div className="px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
+                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">Formulaire de contact</span>
               </div>
 
               <div className="p-4 sm:p-6">
                 <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-app-border-subtle/50">
                   <Terminal className="h-4 w-4 sm:h-5 sm:w-5 text-app-accent shrink-0" />
                   <div>
-                    <h3 className="text-xs sm:text-sm font-mono font-semibold text-app-text-white">
-                      <span className="text-app-text-muted">root@portfolio</span>:<span className="text-app-accent">~</span>$ ./send-message
-                    </h3>
-                    <p className="text-[10px] sm:text-xs font-mono text-app-text-muted mt-0.5"># Je vous répondrai dans les plus brefs délais</p>
+                    <h3 className="text-sm font-semibold text-app-text-white">Envoyez-moi un message</h3>
+                    <p className="text-xs text-app-text-muted mt-0.5">Je vous répondrai dans les plus brefs délais</p>
                   </div>
                 </div>
 
@@ -138,8 +125,8 @@ export default function ContactAndResume() {
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
-                        <span className="text-app-accent">$</span> NAME <span className="text-app-accent">*</span>
+                      <label className="block text-xs sm:text-sm font-semibold text-app-text-white mb-1">
+                        NOM <span className="text-app-accent">*</span>
                       </label>
                       <input type="text" required value={formData.name}
                         onChange={e => setFormData({...formData, name: e.target.value})}
@@ -147,8 +134,8 @@ export default function ContactAndResume() {
                         placeholder="Votre nom" />
                     </div>
                     <div>
-                      <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
-                        <span className="text-app-accent">$</span> EMAIL <span className="text-app-accent">*</span>
+                      <label className="block text-xs sm:text-sm font-semibold text-app-text-white mb-1">
+                        EMAIL <span className="text-app-accent">*</span>
                       </label>
                       <input type="email" required value={formData.email}
                         onChange={e => setFormData({...formData, email: e.target.value})}
@@ -157,8 +144,8 @@ export default function ContactAndResume() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
-                      <span className="text-app-accent">$</span> WHATSAPP <span className="text-app-text-muted/50">(optionnel)</span>
+                    <label className="block text-xs sm:text-sm font-semibold text-app-text-white mb-1">
+                      WHATSAPP <span className="text-app-text-muted/50">(optionnel)</span>
                     </label>
                     <input type="tel" value={formData.whatsapp}
                       onChange={e => setFormData({...formData, whatsapp: e.target.value})}
@@ -166,8 +153,8 @@ export default function ContactAndResume() {
                       placeholder="+227 XX XX XX XX" />
                   </div>
                   <div>
-                    <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
-                      <span className="text-app-accent">$</span> SUBJECT
+                    <label className="block text-xs sm:text-sm font-semibold text-app-text-white mb-1">
+                      SUJET
                     </label>
                     <select value={formData.subject}
                       onChange={e => setFormData({...formData, subject: e.target.value})}
@@ -192,8 +179,8 @@ export default function ContactAndResume() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs sm:text-sm font-mono text-app-text-muted mb-1">
-                      <span className="text-app-accent">$</span> MESSAGE <span className="text-app-accent">*</span>
+                    <label className="block text-xs sm:text-sm font-semibold text-app-text-white mb-1">
+                      MESSAGE <span className="text-app-accent">*</span>
                     </label>
                     <textarea required rows={4} value={formData.message}
                       onChange={e => setFormData({...formData, message: e.target.value})}
@@ -207,7 +194,7 @@ export default function ContactAndResume() {
                     ) : (
                       <Send className="h-4 w-4" />
                     )}
-                    <span className="text-app-text-muted">$</span> {isSubmitting ? "./send --processing" : "./send --execute"}
+                    {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                   </button>
                 </form>
               </div>
@@ -219,13 +206,10 @@ export default function ContactAndResume() {
             {/* Contact Info */}
             <div className="bg-app-bg border border-app-border-subtle overflow-hidden">
               <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2 h-2 bg-red-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">contact-info</span>
+                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">Coordonnées</span>
               </div>
               <div className="p-4 sm:p-6 space-y-4">
-                <div className="space-y-3 text-xs sm:text-sm font-mono text-app-text-muted">
+                <div className="space-y-3 text-xs sm:text-sm text-app-text-muted">
                   <span className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-app-accent/60 shrink-0" />
                     <span>{profile.location}</span>
@@ -245,10 +229,7 @@ export default function ContactAndResume() {
             {/* Social Links */}
             <div className="bg-app-bg border border-app-border-subtle overflow-hidden">
               <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-2 h-2 bg-red-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-2 h-2 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">social-links</span>
+                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">Réseaux sociaux</span>
               </div>
               <div className="p-4 sm:p-6">
                 <div className="grid grid-cols-2 gap-2 sm:gap-3">

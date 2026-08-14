@@ -4,6 +4,7 @@ import BioSection from "./components/BioSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ServicesSection from "./components/ServicesSection";
 import SkillsSection from "./components/SkillsSection";
+import CertificationsSection from "./components/CertificationsSection";
 import ContactAndResume from "./components/ContactAndResume";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -38,6 +39,10 @@ function AppContent() {
 
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
               <SkillsSection />
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
+              <CertificationsSection />
             </motion.div>
 
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>

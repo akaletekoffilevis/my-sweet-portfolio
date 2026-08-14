@@ -215,11 +215,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           });
 
           await transporter.sendMail({
-            from: `"${safeName} (Contact Portfolio)" <${gmailUser}>`,
+            from: `"${escapeHtml(name)} (Contact Portfolio)" <${gmailUser}>`,
             to: "koffilevis21@gmail.com",
-            replyTo: safeEmail,
-            subject: `Portfolio: ${safeSubject || "Nouveau message de contact"}`,
-            text: `Message de ${safeName} (${safeEmail}):\n\nSujet: ${safeSubject}\nWhatsApp: ${safeWhatsapp || "Non renseigné"}\n\nMessage:\n${safeMessage}`,
+            replyTo: escapeHtml(email),
+            subject: `Portfolio: ${escapeHtml(subject) || "Nouveau message de contact"}`,
+            text: `Message de ${escapeHtml(name)} (${escapeHtml(email)}):\n\nSujet: ${escapeHtml(subject)}\nWhatsApp: ${escapeHtml(whatsapp) || "Non renseigné"}\n\nMessage:\n${escapeHtml(message)}`,
             html: buildEmailHtml(name, email, subject || "", whatsapp || "", message)
           });
           emailSent = true;

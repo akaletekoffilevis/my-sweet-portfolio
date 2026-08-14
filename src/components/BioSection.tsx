@@ -6,12 +6,7 @@ export default function BioSection() {
   const { profile } = usePortfolio();
 
   return (
-    <section className="pt-16 sm:pt-20 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 border-b border-app-border-subtle relative overflow-hidden scroll-mt-20" id="bio-section">
-      <div className="absolute inset-0 pointer-events-none select-none opacity-[0.025]">
-        <div className="absolute top-10 left-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01101111 01110000 01110100 01101001 01101111 01101110 01110011</div>
-        <div className="absolute bottom-10 right-10 text-[10px] font-mono text-app-accent leading-relaxed" style={{ writingMode: "vertical-rl" }}>01101001 01101110 01101001 01110100</div>
-      </div>
-
+    <section className="pt-16 sm:pt-20 md:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 border-b border-app-border-subtle relative scroll-mt-20" id="bio-section">
       <div className="mx-auto max-w-screen-2xl relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
@@ -79,7 +74,7 @@ export default function BioSection() {
                   <span className="text-xs font-mono text-app-accent">$</span>
                   <h2 className="text-xs sm:text-sm font-mono font-semibold text-app-text-white">cat about.md</h2>
                 </div>
-                <p className="text-xs sm:text-sm font-mono text-app-text-body leading-relaxed">{profile.bio}</p>
+                <p className="text-sm leading-relaxed text-app-text-body">{profile.bio}</p>
               </div>
             </motion.div>
 
@@ -88,49 +83,10 @@ export default function BioSection() {
                 <div key={idx} className="bg-app-bg border border-app-border-subtle p-3 sm:p-5 text-center">
                   <div className="text-sm sm:text-lg font-bold font-mono text-app-accent">{m.value}</div>
                   <div className="text-[10px] sm:text-xs font-mono text-app-text-muted mt-1 uppercase tracking-wider">{m.label}</div>
-                  <div className="hidden sm:block text-xs font-mono text-app-text-soft mt-0.5">{m.desc}</div>
+                  <div className="hidden sm:block text-xs text-app-text-soft mt-0.5">{m.desc}</div>
                 </div>
               ))}
             </motion.div>
-
-            {profile.certUrl && (
-              <a href={profile.certUrl} target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat freeCodeCamp"
-                className="block bg-app-bg border border-app-border-subtle overflow-hidden hover:border-app-accent/30 transition-all group">
-                <div className="flex items-center gap-1.5 px-3 py-2 bg-app-darker border-b border-app-border-subtle">
-                  <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
-                  <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
-                  <span className="w-1.5 h-1.5 bg-green-500/60" aria-hidden="true" />
-                  <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">certificat-freecodecamp.png</span>
-                </div>
-                <img
-                  src="/images/Certificat FreecodeCamp.png"
-                  alt="Certificat freeCodeCamp — Foundational C# with Microsoft"
-                  className="w-full object-cover max-h-48 sm:max-h-56"
-                  loading="lazy"
-                />
-                <div className="p-3 sm:p-4 border-t border-app-border-subtle">
-                  <p className="text-[11px] sm:text-xs font-mono font-semibold text-app-text-white">Foundational C# with Microsoft</p>
-                  <p className="text-[10px] sm:text-xs font-mono text-app-text-muted">freeCodeCamp — <span className="text-app-accent group-hover:underline">Voir certificat &rarr;</span></p>
-                </div>
-              </a>
-            )}
-
-            <a href="/images/Certificat Passport Numeric 10000Codeurs.pdf" target="_blank" rel="noopener noreferrer"
-              className="block bg-app-bg border border-app-border-subtle overflow-hidden hover:border-app-accent/30 transition-all group">
-              <div className="flex items-center gap-1.5 px-3 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">attestation-10000codeurs.pdf</span>
-              </div>
-              <div className="p-4 sm:p-5 flex items-center gap-3">
-                <span className="w-10 h-10 bg-app-accent/10 flex items-center justify-center text-app-accent font-mono font-bold text-[10px] shrink-0 border border-app-accent/20">10K</span>
-                <div className="min-w-0">
-                  <p className="text-[11px] sm:text-xs font-mono font-semibold text-app-text-white truncate">Passport Numérique — 10000 CODEURS</p>
-                  <p className="text-[10px] sm:text-xs font-mono text-app-text-muted">Attestation Ambassadeur — <span className="text-app-accent group-hover:underline">Voir PDF &rarr;</span></p>
-                </div>
-              </div>
-            </a>
           </div>
 
         </div>

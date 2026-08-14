@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
-import { PROFILE_DATA, SKILLS_DATA, PROJECTS_DATA, SERVICES_DATA } from "../data";
-import { Skill, Project, Service } from "../types";
+import { PROFILE_DATA, SKILLS_DATA, PROJECTS_DATA, SERVICES_DATA, CERTS_DATA } from "../data";
+import { Skill, Project, Service, Certification } from "../types";
 
 export interface ProfileData {
   name: string;
@@ -28,6 +28,7 @@ interface PortfolioContextType {
   skills: Skill[];
   projects: Project[];
   services: Service[];
+  certifications: Certification[];
   addMessage: (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => Promise<any>;
 }
 
@@ -38,6 +39,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const skills = SKILLS_DATA;
   const projects = PROJECTS_DATA;
   const services = SERVICES_DATA;
+  const certifications = CERTS_DATA;
 
   const addMessage = async (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => {
     try {
@@ -62,6 +64,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         skills,
         projects,
         services,
+        certifications,
         addMessage,
       }}
     >

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --color-app-bg: var(--bg-main);
   --color-app-card: var(--bg-card);
@@ -22,46 +22,46 @@
 
 /* ═══ DARK THEME (default) ═══ */
 :root {
-  --bg-main: #0b1121;
-  --bg-card: #111827;
-  --bg-card-sec: #1e293b;
-  --bg-darker: #020617;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-sec: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-sec: #273548;
+  --bg-darker: #0b1220;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-sec: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.24);
   --text-main: #e2e8f0;
   --text-white: #f8fafc;
-  --text-muted: rgba(255, 255, 255, 0.55);
-  --text-body: rgba(255, 255, 255, 0.8);
-  --text-soft: rgba(255, 255, 255, 0.6);
-  --accent: #f59e0b;
-  --accent-light: rgba(245, 158, 11, 0.1);
-  --accent-dark: #fbbf24;
-  --grid-line: rgba(255, 255, 255, 0.02);
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-body: rgba(255, 255, 255, 0.85);
+  --text-soft: rgba(255, 255, 255, 0.65);
+  --accent: #fbbf24;
+  --accent-light: rgba(251, 191, 36, 0.12);
+  --accent-dark: #f59e0b;
+  --grid-line: rgba(255, 255, 255, 0.03);
 }
 
 /* ═══ LIGHT THEME ═══ */
 [data-theme="light"] {
-  --bg-main: #f0eeeb;
-  --bg-card: #f7f5f2;
-  --bg-card-sec: #e8e5e0;
-  --bg-darker: #ddd9d3;
-  --border-subtle: rgba(0, 0, 0, 0.1);
-  --border-sec: rgba(0, 0, 0, 0.16);
-  --border-strong: rgba(0, 0, 0, 0.25);
-  --text-main: #1f1f1f;
-  --text-white: #111111;
-  --text-muted: rgba(0, 0, 0, 0.55);
-  --text-body: rgba(0, 0, 0, 0.82);
-  --text-soft: rgba(0, 0, 0, 0.62);
-  --accent: #7c2d12;
-  --accent-light: rgba(124, 45, 18, 0.14);
-  --accent-dark: #6b2108;
-  --grid-line: rgba(0, 0, 0, 0.04);
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-sec: #f1f5f9;
+  --bg-darker: #e2e8f0;
+  --border-subtle: rgba(15, 23, 42, 0.1);
+  --border-sec: rgba(15, 23, 42, 0.16);
+  --border-strong: rgba(15, 23, 42, 0.26);
+  --text-main: #1e293b;
+  --text-white: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.58);
+  --text-body: rgba(15, 23, 42, 0.82);
+  --text-soft: rgba(15, 23, 42, 0.68);
+  --accent: #b45309;
+  --accent-light: rgba(180, 83, 9, 0.1);
+  --accent-dark: #92400e;
+  --grid-line: rgba(15, 23, 42, 0.04);
 }
 
 body {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;

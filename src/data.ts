@@ -1,4 +1,4 @@
-import { Skill, Project, Service } from "./types";
+import { Skill, Project, Service, Certification } from "./types";
 
 export const PROFILE_DATA = {
   name: "Koffi Lévis Akalete",
@@ -284,6 +284,50 @@ export const PROJECTS_DATA: Project[] = [
     description: "Formulaire Homebrew pour installer Scaffolder-CLI via le gestionnaire de paquets macOS. Permet l'installation via 'brew install akaletekoffilevis/scaffolder/scaffolder'.",
     techStack: ["Ruby", "Homebrew"],
     githubUrl: "https://github.com/akaletekoffilevis/homebrew-scaffolder"
+  }
+];
+
+export const CERTS_DATA: Certification[] = [
+  {
+    id: "freecodecamp-csharp",
+    issuer: "freeCodeCamp / Microsoft",
+    title: "Foundational C# with Microsoft",
+    date: "Janvier 2026",
+    kind: "image",
+    file: "/images/Certificat FreecodeCamp.png",
+    url: "https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft"
+  },
+  {
+    id: "nextflutter",
+    issuer: "NextFlutter",
+    title: "Dart Avancé — Certification Flutter Developer",
+    date: "27 Juillet 2026",
+    kind: "image",
+    file: "/images/certificat-nextflutter.png"
+  },
+  {
+    id: "gabera",
+    issuer: "Gabera Foundation",
+    title: "Certificat de Participation — .NET, Intelligence Artificielle & Robotique",
+    date: "3 - 7 Août 2026",
+    kind: "image",
+    file: "/images/attestation-gabera.jpeg"
+  },
+  {
+    id: "mille-codeurs",
+    issuer: "10000 CODEURS",
+    title: "Passeport Numérique",
+    date: "28 Mars 2026",
+    kind: "pdf",
+    file: "/images/certificat-10000codeurs.pdf"
+  },
+  {
+    id: "simplilearn",
+    issuer: "Simplilearn",
+    title: "Boost your Web Development Career: Introduction to C#",
+    date: "13 Août 2026",
+    kind: "pdf",
+    file: "/images/certificat-simplilearn.pdf"
   }
 ];
 

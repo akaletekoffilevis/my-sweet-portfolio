@@ -61,12 +61,6 @@ export default function SkillsSection() {
               transition={{ duration: 0.35, delay: (idx % 3) * 0.07 }}
               className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300"
             >
-              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-green-500/60" aria-hidden="true" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-1.5">{skill.name.toLowerCase().replace(/\s+/g, "-")}.conf</span>
-              </div>
               <div className="p-4 sm:p-5">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="p-1.5 bg-app-accent/10 text-app-accent">
@@ -77,7 +71,7 @@ export default function SkillsSection() {
                     <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">{skill.experienceYears} an(s)</span>
                   </div>
                 </div>
-                <p className="text-[11px] sm:text-sm font-mono text-app-text-soft leading-relaxed">{skill.description}</p>
+                <p className="text-[11px] sm:text-sm text-app-text-soft leading-relaxed">{skill.description}</p>
                 <div className="mt-3">
                   <div className="flex justify-between text-[10px] sm:text-xs font-mono text-app-text-muted mb-1">
                     <span>level</span>

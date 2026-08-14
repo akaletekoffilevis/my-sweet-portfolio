@@ -64,17 +64,14 @@ export default function ProjectsSection() {
               transition={{ duration: 0.4, delay: (idx % 2) * 0.1 }}
               className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300 flex flex-col"
             >
-              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-green-500/60" aria-hidden="true" />
-                <Folder className="h-3 w-3 text-app-accent ml-1.5" />
+              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 border-b border-app-border-subtle">
+                <Folder className="h-3 w-3 text-app-accent" />
                 <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">{project.id}/</span>
                 <span className="text-[10px] sm:text-xs font-mono text-app-text-muted ml-auto">{project.period}</span>
               </div>
               <div className="p-4 sm:p-5 flex flex-col flex-1">
                 <h3 className="text-sm sm:text-base font-mono font-semibold text-app-text-white mb-2">{project.title}</h3>
-                <p className="text-[11px] sm:text-xs font-mono text-app-text-body leading-relaxed mb-3 line-clamp-4">{project.description}</p>
+                <p className="text-[11px] sm:text-sm text-app-text-body leading-relaxed mb-3 line-clamp-4">{project.description}</p>
 
                 {project.liveUrl && (
                   <SitePreview liveUrl={project.liveUrl} title={project.title} />

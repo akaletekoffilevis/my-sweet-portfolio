@@ -1,4 +1,3 @@
-import { Terminal } from "lucide-react";
 import { motion } from "motion/react";
 import { usePortfolio } from "../context/PortfolioContext";
 
@@ -20,19 +19,12 @@ export default function ServicesSection() {
               transition={{ duration: 0.35, delay: (idx % 3) * 0.07 }}
               className="bg-app-bg border border-app-border-subtle hover:border-app-accent/20 transition-all duration-300"
             >
-              <div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 bg-app-darker border-b border-app-border-subtle">
-                <span className="w-1.5 h-1.5 bg-red-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-yellow-500/60" aria-hidden="true" />
-                <span className="w-1.5 h-1.5 bg-green-500/60" aria-hidden="true" />
-                <Terminal className="h-3 w-3 text-app-accent ml-1.5" />
-                <span className="text-[10px] sm:text-xs font-mono text-app-text-muted">service-{idx + 1}</span>
-              </div>
               <div className="p-4 sm:p-5">
                 <div className="text-[10px] sm:text-xs font-mono text-app-accent mb-2 sm:mb-3 tracking-wider uppercase">
-                  <span className="text-app-text-muted">$ </span>{svc.tech}
+                  {svc.tech}
                 </div>
                 <h3 className="text-xs sm:text-sm font-mono font-semibold text-app-text-white mb-2">{svc.title}</h3>
-                <p className="text-[11px] sm:text-sm font-mono text-app-text-soft leading-relaxed">{svc.desc}</p>
+                <p className="text-[11px] sm:text-sm text-app-text-soft leading-relaxed">{svc.desc}</p>
               </div>
             </motion.div>
           ))}
