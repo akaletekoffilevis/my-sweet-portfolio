@@ -5,20 +5,21 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-app-darker border-t border-app-border-subtle py-8 sm:py-10 px-4 sm:px-6" id="portfolio-footer">
-      <div className="mx-auto max-w-screen-2xl">
+    <footer className="border-t-2 border-app-rule py-8 sm:py-10 print:hidden" id="portfolio-footer">
+      <div className="wrap">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs sm:text-sm text-app-text-muted">
-            &copy; {currentYear} {profile.name} — Tous droits réservés.
+          <p className="folio order-3 md:order-1">
+            &copy; {currentYear} {profile.name}
           </p>
-          <div className="flex items-center gap-4 sm:gap-5 text-xs sm:text-sm font-mono">
-            <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label={`GitHub de ${profile.name}`} className="text-app-text-muted hover:text-app-accent transition">
+          <p className="folio order-1 md:order-2 tabular-nums">13.5127° N, 2.1128° E — Niamey</p>
+          <div className="flex items-center gap-5 order-2 md:order-3">
+            <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label={`GitHub de ${profile.name}`} className="folio hover:text-app-accent transition-colors">
               github
             </a>
-            <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`LinkedIn de ${profile.name}`} className="text-app-text-muted hover:text-app-accent transition">
+            <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`LinkedIn de ${profile.name}`} className="folio hover:text-app-accent transition-colors">
               linkedin
             </a>
-            <a href={`mailto:${profile.socials.email}`} aria-label={`Envoyer un email à ${profile.name}`} className="text-app-text-muted hover:text-app-accent transition">
+            <a href={`mailto:${profile.socials.email}`} aria-label={`Envoyer un email à ${profile.name}`} className="folio hover:text-app-accent transition-colors">
               email
             </a>
           </div>

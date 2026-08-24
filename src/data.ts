@@ -139,6 +139,7 @@ export const SKILLS_DATA: Skill[] = [
 export const PROJECTS_DATA: Project[] = [
   {
     id: "bible-pwa",
+    category: "web",
     title: "Bible Louis Segond — PWA Blazor",
     period: "2025 - En cours",
     description: "Application PWA complète développée en Blazor WebAssembly .NET 9 avec MudBlazor 8.x. Elle embarque les 66 livres de la Bible avec chargement paresseux, recherche plein texte avec index inversé (modes AND/OR/exact), lecture audio verset par verset (Web Speech API), génération d'images de versets (Canvas API, 12 palettes), export PDF par chapitre, quiz biblique, suivi de progression, plans de lecture sur 1 an, et thème sombre/clair. Entièrement fonctionnelle hors-ligne grâce au service worker PWA.",
@@ -149,6 +150,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "portfolio",
+    category: "web",
     title: "Mon Portfolio — React + Vite + Tailwind",
     period: "2026",
     description: "Portfolio développeur personnel conçu avec React 19, Vite 6 et Tailwind CSS v4. Design terminal dark/light, screenshots live via mShots, formulaire de contact avec envoi email SMTP, responsive mobile-first. Déployé sur Vercel.",
@@ -158,6 +160,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "minichat-realtime",
+    category: "web",
     title: "Discutons — Chat Temps-Réel",
     period: "2026",
     description: "Application de chat temps-réel avec React et Socket.io. Fonctionnalités : messagerie instantanée sans création de compte, envoi de stickers, messages audio, partage de fichiers, interface moderne et responsive.",
@@ -167,6 +170,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "nextdev-blazor",
+    category: "web",
     title: "NextDev Blazor App",
     period: "2025",
     description: "Application Blazor WebAssembly .NET 9 — site vitrine pour le groupe Dan Kassawoua (MSA Niger — NextDev). Affiche les membres de l'équipe avec profils détaillés, routage Blazor, données JSON statiques, design responsive.",
@@ -177,6 +181,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "scaffolder-cli",
+    category: "outils",
     title: "Scaffolder CLI",
     period: "2025 - En cours",
     description: "CLI universel écrit en C# .NET 9 avec System.CommandLine pour générer des projets dans plus de 20 langages via 40+ commandes. Compilé en binaire natif AOT (12MB) multi-plateforme. Dispose d'une intégration IA (OpenAI, Claude, Gemini) pour suggérer des architectures, de plugins extensibles, et de commandes pour Docker, CI/CD et déploiement.",
@@ -187,6 +192,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "yt-downloader-docs",
+    category: "web",
     title: "YT Downloader — Site de Documentation",
     period: "2026",
     description: "Site de documentation officielle pour YT Downloader, application de bureau pour télécharger des vidéos YouTube. Présente les fonctionnalités (file d'attente, choix de qualité, thème clair/sombre, bilingue FR/EN), les téléchargements multi-plateformes (Windows, Linux, macOS) et les captures d'écran. Déployé sur Vercel.",
@@ -196,6 +202,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "hair-salon-tp",
+    category: "web",
     title: "Hair Salon — TP Intégration Web",
     period: "2026",
     description: "Petit projet de TP : site vitrine responsive pour salon de coiffure. Intégration HTML/CSS avec design moderne et responsive, déployé sur GitHub Pages.",
@@ -205,6 +212,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "lumin-site-test",
+    category: "web",
     title: "Lumin — TP Présentation",
     period: "2026",
     description: "Petit projet de TP : site de présentation déployé sur GitHub Pages. Design responsive avec animations.",
@@ -214,6 +222,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "dotnetniger",
+    category: "api",
     title: "DotnetNiger — API Communautaire .NET",
     period: "2026",
     description: "API ASP.NET Core 9 pour la plateforme communautaire des développeurs .NET au Niger. Développement de l'API REST avec authentification , gestion des membres, posts, événements et ressources. SQL Server avec Entity Framework Core. Projet open-source collaboratif avec La Communauter DotnetNiger.",
@@ -222,6 +231,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "todos-api",
+    category: "api",
     title: "Todos API — API REST sécurisée",
     period: "2025",
     description: "API REST robuste avec ASP.NET Core 9 et Entity Framework Core. Implémente l'authentification JWT avec enregistrement et connexion utilisateurs, isolation des données par utilisateur via les claims JWT, hash PBKDF2 (100K itérations) pour les mots de passe, CRUD complet pour les tâches, et documentation Swagger interactive.",
@@ -230,6 +240,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "student-console-manager",
+    category: "outils",
     title: "Student Console Manager",
     period: "2025",
     description: "Application console en C# .NET 9 permettant la gestion CRUD complète d'un registre d'étudiants avec persistance JSON. Fonctionnalités : ajout, modification, listage, suppression, recherche par numéro d'étudiant, suppression protégée par mot de passe.",
@@ -238,6 +249,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "scholl-api",
+    category: "api",
     title: "SchollApi — API de gestion scolaire",
     period: "2025",
     description: "API REST avec ASP.NET Core 9 pour la gestion des cours scolaires. Opérations CRUD complètes avec Entity Framework Core et base SQLite.",
@@ -246,6 +258,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "smart-downloader",
+    category: "desktop",
     title: "SmartDownloader — Téléchargeur YouTube Desktop",
     period: "2026",
     description: "Application desktop Python avec interface GTK3 pour télécharger des vidéos et playlists YouTube via yt-dlp. Interface dark moderne, sélection de qualité (4K, 1080p, 720p, MP3), détection automatique des médias, suivi de progression en temps réel, téléchargement par lots et annulation.",
@@ -254,6 +267,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "challenge-dotnet-niger",
+    category: "desktop",
     title: "Challenge .NET Niger — Hébergement & Infrastructure",
     period: "2026",
     description: "Projet de déploiement d'infrastructure complète pour le Challenge NextDev. Mise en place d'un serveur Ubuntu avec DNS BIND9, DHCP, Apache2 en reverse proxy, et déploiement d'applications .NET 9 (Razor Pages + Minimal API) avec base SQLite. Scripts d'automatisation et documentation complète.",
@@ -262,6 +276,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "mytodosapp",
+    category: "web",
     title: "MyTodosApp — Gestion de Tâches ASP.NET Core",
     period: "2026",
     description: "Application web de gestion de tâches moderne avec ASP.NET Core 9 et Entity Framework Core. CRUD complet, tri intelligent par date de création, validation serveur, design responsive Bootstrap 5, base SQLite persistante.",
@@ -270,6 +285,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "nextdev-api",
+    category: "api",
     title: "NextDev API — Minimal API .NET 9",
     period: "2026",
     description: "API Minimal ASP.NET Core 9 pour la gestion des membres de l'équipe DANKASSAWA. Endpoints CRUD complets, documentation Swagger interactive, base SQLite avec Entity Framework Core. Architecture RESTful légère et performante.",
@@ -278,6 +294,7 @@ export const PROJECTS_DATA: Project[] = [
   },
   {
     id: "homebrew-scaffolder",
+    category: "outils",
     title: "Homebrew Tap — Scaffolder",
     period: "2026",
     description: "Formulaire Homebrew pour installer Scaffolder-CLI via le gestionnaire de paquets macOS. Permet l'installation via 'brew install akaletekoffilevis/scaffolder/scaffolder'.",
@@ -333,41 +350,49 @@ export const CERTS_DATA: Certification[] = [
 export const SERVICES_DATA: Service[] = [
   {
     title: "APIs REST sur mesure",
+    icon: "Server",
     desc: "Développement d'APIs avec ASP.NET Core 9 : JWT, Minimal APIs, documentation Swagger, Entity Framework Core, validation, isolation utilisateur.",
     tech: "C# / .NET 9",
   },
   {
     title: "Applications Blazor / PWA",
+    icon: "Globe",
     desc: "Applications web interactives en Blazor WebAssembly, PWA hors-ligne, MudBlazor, recherche plein texte, IndexedDB, génération d'images côté client.",
     tech: "Blazor .NET 9",
   },
   {
     title: "Outils CLI & Console",
+    icon: "SquareTerminal",
     desc: "Générateurs de projets, applications console de gestion, System.CommandLine, compilation Native AOT, exécutables multi-plateforme.",
     tech: "C# / .NET 9",
   },
   {
     title: "Bases de données",
+    icon: "Database",
     desc: "Conception de schémas, migrations Entity Framework Core, requêtes SQL, persistance avec SQLite, SQL Server et MySQL.",
     tech: "SQL / EF Core",
   },
   {
     title: "Maintenance & évolution",
+    icon: "Wrench",
     desc: "Reprise de projets .NET existants, refactoring, mise à jour vers .NET 9, ajout de tests, amélioration des performances.",
     tech: "C# / .NET",
   },
   {
     title: "Déploiement & CI/CD",
+    icon: "Rocket",
     desc: "Configuration Docker, docker-compose, pipelines GitHub Actions, déploiement sur Vercel, hébergement d'APIs et sites statiques.",
     tech: "Docker / GitHub Actions",
   },
   {
     title: "Sites web & Applications React",
+    icon: "PanelTop",
     desc: "Développement de sites vitrines, landing pages, applications interactives avec React, HTML5, CSS3, Tailwind CSS, intégration d'APIs.",
     tech: "React / HTML / CSS / JS",
   },
   {
     title: "Applications mobiles",
+    icon: "Smartphone",
     desc: "Développement d'applications mobiles avec React Native (cross-platform) et C#/.NET MAUI (native), interfaces modernes et connexion aux APIs.",
     tech: "React Native / C# MAUI",
   },

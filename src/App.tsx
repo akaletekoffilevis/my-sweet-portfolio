@@ -9,8 +9,10 @@ import ContactAndResume from "./components/ContactAndResume";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { PortfolioProvider } from "./context/PortfolioContext";
+import { useOpticalAlign } from "./hooks/useOpticalAlign";
 
 function AppContent() {
+  useOpticalAlign();
 
   return (
     <div className="relative">
@@ -19,42 +21,20 @@ function AppContent() {
         <Header />
 
         <main className="flex-grow relative">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-app-accent/3 blur-3xl"></div>
-            <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(to_right,var(--grid-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-line)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-          </div>
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <BioSection />
+          </motion.div>
 
-          <div className="relative z-10">
-            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <BioSection />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: 0.1 }}>
-              <ProjectsSection />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5, delay: 0.1 }}>
-              <ServicesSection />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
-              <SkillsSection />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
-              <CertificationsSection />
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}>
-              <ContactAndResume />
-            </motion.div>
-          </div>
+          <ProjectsSection />
+          <ServicesSection />
+          <SkillsSection />
+          <CertificationsSection />
+          <ContactAndResume />
         </main>
 
         <Footer />
         <ScrollToTop />
       </div>
-
     </div>
   );
 }

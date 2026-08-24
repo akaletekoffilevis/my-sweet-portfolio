@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { usePortfolio } from "../context/PortfolioContext";
 import { useTheme } from "../hooks/useTheme";
-import { Menu, X, Terminal, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 const NAV_LINKS = [
-  { href: "#bio-section", label: "accueil" },
-  { href: "#projects-section", label: "projets" },
-  { href: "#services-section", label: "services" },
-  { href: "#skills-section", label: "compétences" },
-  { href: "#certifications-section", label: "certifications" },
-  { href: "#contact-resume-section", label: "contact" },
+  { href: "#bio-section", label: "Accueil" },
+  { href: "#projects-section", label: "Projets" },
+  { href: "#services-section", label: "Services" },
+  { href: "#skills-section", label: "Compétences" },
+  { href: "#certifications-section", label: "Certifications" },
+  { href: "#contact-resume-section", label: "Contact" },
 ];
 
 const SECTION_IDS = NAV_LINKS.map(l => l.href.slice(1));
@@ -19,6 +19,7 @@ export default function Header() {
   const { isDark, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -50,6 +51,13 @@ export default function Header() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
     const observers: IntersectionObserver[] = [];
     for (const id of SECTION_IDS) {
       const el = document.getElementById(id);
@@ -66,32 +74,39 @@ export default function Header() {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
+  const initials = profile.name.split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("");
+
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-app-border-subtle bg-app-bg/95 backdrop-blur-md px-4 sm:px-6 py-4 transition-colors duration-300">
-        <div className="mx-auto flex max-w-screen-2xl items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <Terminal className="h-5 w-5 text-app-accent hidden sm:block" />
-            <div className="flex flex-col">
-              <span className="font-mono text-sm sm:text-base font-semibold text-app-text-white">
-                <span className="text-app-text-muted hidden sm:inline">$ </span>
-                {profile.name}
-              </span>
-              <span className="text-[10px] sm:text-xs font-mono text-app-text-muted leading-tight">{profile.title}</span>
-            </div>
-          </div>
+      <header className={`sticky top-0 z-40 w-full bg-app-bg/90 backdrop-blur-md transition-colors duration-300 ${scrolled ? "border-b border-app-hairline" : "border-b border-transparent"}`}>
+        <div className="wrap flex items-center justify-between py-4">
+          <a href="#bio-section" className="flex items-center gap-3 group">
+            <span className="w-8 h-8 flex items-center justify-center bg-app-accent text-app-bg font-mono text-[13px] font-bold tracking-tight shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5">
+              {initials}
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className="text-sm font-semibold text-app-text-white tracking-tight">{profile.name}</span>
+              <span className="folio hidden sm:block">Développeur Full Stack</span>
+            </span>
+          </a>
 
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-6" aria-label="Navigation principale">
             {NAV_LINKS.map((link) => {
               const isActive = activeSection === link.href.slice(1);
               return (
                 <a key={link.href} href={link.href}
-                  className={`px-3 py-1.5 text-sm font-mono transition ${
+                  aria-current={isActive ? "true" : undefined}
+                  className={`relative pb-1 text-[13px] font-medium tracking-wide transition-colors ${
                     isActive
-                      ? "text-app-accent bg-app-accent/10"
-                      : "text-app-text-muted hover:text-app-accent hover:bg-app-accent/5"
-                  }`}>
-                  <span className="text-app-accent/50">$ </span>{link.label}
+                      ? "text-app-text-white"
+                      : "text-app-text-muted hover:text-app-text-white"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute left-0 -bottom-0.5 h-[2px] bg-app-accent transition-all duration-300 ${isActive ? "w-full" : "w-0"}`}
+                    aria-hidden="true"
+                  />
                 </a>
               );
             })}
@@ -100,7 +115,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="p-2 border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent transition cursor-pointer"
+              className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
               aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
             >
               {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -108,8 +123,9 @@ export default function Header() {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent transition cursor-pointer ${isMenuOpen ? "fixed top-4 right-4 z-[60]" : ""}`}
+              className={`md:hidden p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer ${isMenuOpen ? "fixed top-4 right-4 z-[60] bg-app-bg" : ""}`}
               aria-label="Menu"
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -119,41 +135,44 @@ export default function Header() {
 
       {isMenuOpen && (
         <div ref={menuRef} className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg transition-colors duration-300">
-          <div className="flex items-center justify-between p-4 border-b border-app-border-subtle">
-            <span className="text-sm font-mono text-app-text-muted">[menu] $</span>
+          <div className="wrap flex items-center justify-between py-4 border-b border-app-hairline">
+            <span className="kicker">Navigation</span>
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleTheme}
-                className="p-2 border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent hover:bg-app-accent/10 transition cursor-pointer"
+                className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
                 aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
               >
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
               <button
                 onClick={() => setIsMenuOpen(false)}
-                className="p-2 border border-app-border-subtle text-app-text-soft hover:text-app-accent hover:border-app-accent hover:bg-app-accent/10 transition cursor-pointer"
+                className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
                 aria-label="Fermer"
               >
                 <X className="h-6 w-6" />
               </button>
             </div>
           </div>
-          <div className="flex-1 flex flex-col items-center justify-center gap-10">
-            {NAV_LINKS.map((link) => {
+          <nav className="flex-1 flex flex-col items-start justify-center wrap gap-7" aria-label="Navigation mobile">
+            {NAV_LINKS.map((link, i) => {
               const isActive = activeSection === link.href.slice(1);
               return (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-xl font-mono transition flex items-center gap-2 ${
-                    isActive ? "text-app-accent" : "text-app-text-white hover:text-app-accent"
+                  className={`text-2xl font-semibold tracking-tight transition flex items-baseline gap-3 ${
+                    isActive ? "text-app-accent" : "text-app-text-white"
                   }`}
                 >
-                  <span className="text-app-text-muted text-sm">$</span> {link.label}
+                  <span className="font-mono text-xs text-app-text-muted tabular-nums">0{i + 1}</span> {link.label}
                 </a>
               );
             })}
+          </nav>
+          <div className="wrap py-6 border-t border-app-hairline">
+            <span className="folio">{profile.location}</span>
           </div>
         </div>
       )}

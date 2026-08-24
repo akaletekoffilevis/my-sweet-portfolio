@@ -20,10 +20,10 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.25 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-50 p-3 bg-app-accent/20 border border-app-accent/40 text-app-accent hover:bg-app-accent/30 hover:border-app-accent transition-colors duration-300 backdrop-blur-sm cursor-pointer"
+          className="fixed bottom-6 right-6 z-50 p-3 bg-app-bg border border-app-border-sec text-app-text-muted hover:text-app-accent hover:border-app-accent transition-colors duration-300 cursor-pointer"
           aria-label="Retour en haut"
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-4 w-4" />
         </motion.button>
       )}
     </AnimatePresence>
