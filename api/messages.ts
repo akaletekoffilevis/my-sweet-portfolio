@@ -23,7 +23,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
   const row = (label: string, value: string, isLink = false) => `
                     <tr>
                       <td style="padding:11px 0;width:110px;vertical-align:top;color:#6e6e74;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-family:${MONO};border-bottom:1px solid #ececea;">${label}</td>
-                      <td style="padding:11px 0 11px 16px;color:#26262b;font-size:14px;font-family:${SANS};border-bottom:1px solid #ececea;">${isLink ? `<a href="${value}" style="color:#b45309;text-decoration:none;">${value}</a>` : value}</td>
+                      <td style="padding:11px 0 11px 16px;color:#26262b;font-size:14px;font-family:${SANS};border-bottom:1px solid #ececea;">${isLink ? `<a href="mailto:${value}" style="color:#b45309;text-decoration:none;">${value}</a>` : value}</td>
                     </tr>`;
   return `<!DOCTYPE html>
 <html lang="fr">
@@ -49,7 +49,7 @@ function buildEmailHtml(name: string, email: string, subject: string, whatsapp: 
           <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">01 &mdash; Exp&eacute;diteur</p>
         </td></tr>
         <tr><td style="padding:0 32px;">
-          <table width="100%" cellpadding="0" cellspacing="0">${row("Nom", safeName)}${row("Email", `mailto:${safeEmail}`, true)}${row("WhatsApp", safeWhatsapp || "Non renseign&eacute;")}${row("Sujet", safeSubject || "Sans sujet")}</table>
+          <table width="100%" cellpadding="0" cellspacing="0">${row("Nom", safeName)}${row("Email", safeEmail, true)}${row("WhatsApp", safeWhatsapp || "Non renseign&eacute;")}${row("Sujet", safeSubject || "Sans sujet")}</table>
         </td></tr>
         <tr><td style="padding:24px 32px 8px;">
           <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">02 &mdash; Message</p>
