@@ -13,138 +13,63 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
-function buildEmailHtml(
-  name: string,
-  email: string,
-  subject: string,
-  whatsapp: string,
-  message: string,
-): string {
+function buildEmailHtml(name: string, email: string, subject: string, whatsapp: string, message: string): string {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeSubject = escapeHtml(subject);
   const safeWhatsapp = escapeHtml(whatsapp);
   const safeMessage = escapeHtml(message);
-  const date = new Date().toLocaleDateString("fr-FR", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+  const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
+  const year = new Date().getFullYear();
+  const MONO = "'Courier New','Courier',monospace";
+  const SANS = "Helvetica,Arial,sans-serif";
+  const row = (label: string, value: string, isLink = false) => `
+                    <tr>
+                      <td style="padding:11px 0;width:110px;vertical-align:top;color:#6e6e74;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-family:${MONO};border-bottom:1px solid #ececea;">${label}</td>
+                      <td style="padding:11px 0 11px 16px;color:#26262b;font-size:14px;font-family:${SANS};border-bottom:1px solid #ececea;">${isLink ? `<a href="${value}" style="color:#b45309;text-decoration:none;">${value}</a>` : value}</td>
+                    </tr>`;
   return `<!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#0b1121;font-family:'Courier New','Courier',monospace;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0b1121;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#f0f0ed;font-family:${SANS};">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0ed;padding:40px 16px;">
     <tr><td align="center">
-      <table width="620" cellpadding="0" cellspacing="0" style="max-width:620px;width:100%;">
-
-        <!-- TERMINAL WINDOW -->
-        <tr>
-          <td style="background:#111827;border:1px solid rgba(255,255,255,0.06);overflow:hidden;">
-            <!-- Title bar -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#020617;border-bottom:1px solid rgba(255,255,255,0.06);">
-              <tr>
-                <td style="padding:10px 16px;">
-                  <table cellpadding="0" cellspacing="0"><tr>
-                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(239,68,68,0.6);"></span></td>
-                    <td style="width:6px;"></td>
-                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(234,179,8,0.6);"></span></td>
-                    <td style="width:6px;"></td>
-                    <td><span style="display:inline-block;width:10px;height:10px;background:rgba(34,197,94,0.6);"></span></td>
-                    <td style="padding-left:14px;color:rgba(255,255,255,0.55);font-size:12px;font-family:'Courier New',monospace;">contact-form.sh</td>
-                  </tr></table>
-                </td>
-                <td align="right" style="padding-right:16px;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
-                  ${date}
-                </td>
-              </tr>
-            </table>
-
-            <!-- Content body -->
-            <table width="100%" cellpadding="0" cellspacing="0">
-              <tr>
-                <td style="padding:28px 28px 20px 28px;">
-                  <p style="margin:0 0 4px 0;color:#f59e0b;font-size:15px;font-weight:bold;font-family:'Courier New',monospace;">
-                    // Nouveau Message Portfolio
-                  </p>
-                  <p style="margin:0 0 24px 0;color:rgba(255,255,255,0.5);font-size:11px;font-family:'Courier New',monospace;">
-                    Message recu depuis le formulaire de contact.
-                  </p>
-
-                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr><td style="border-top:1px solid rgba(255,255,255,0.06);font-size:0;line-height:0;">&nbsp;</td></tr>
-                  </table>
-
-                  <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:20px;">
-                    <tr>
-                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;width:110px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <span style="color:#f59e0b;">$</span> Nom
-                      </td>
-                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${safeName}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <span style="color:#f59e0b;">$</span> Email
-                      </td>
-                      <td style="padding:9px 0 9px 12px;color:#f59e0b;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <a href="mailto:${safeEmail}" style="color:#f59e0b;text-decoration:none;">${safeEmail}</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <span style="color:#f59e0b;">$</span> WhatsApp
-                      </td>
-                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${safeWhatsapp || "Non renseigné"}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="padding:9px 0;color:rgba(255,255,255,0.45);font-size:11px;vertical-align:top;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        <span style="color:#f59e0b;">$</span> Sujet
-                      </td>
-                      <td style="padding:9px 0 9px 12px;color:#f8fafc;font-size:12px;font-family:'Courier New',monospace;border-bottom:1px solid rgba(255,255,255,0.04);">
-                        ${safeSubject || "Sans sujet"}
-                      </td>
-                    </tr>
-                  </table>
-
-                  <p style="margin:0 0 8px 0;color:rgba(255,255,255,0.45);font-size:11px;font-family:'Courier New',monospace;">
-                    <span style="color:#f59e0b;">$</span> cat message.md
-                  </p>
-
-                  <table width="100%" cellpadding="0" cellspacing="0">
-                    <tr>
-                      <td style="padding:18px;background:#020617;border-left:3px solid #f59e0b;color:#e2e8f0;font-size:12px;line-height:1.7;white-space:pre-wrap;font-family:'Courier New',monospace;">${safeMessage}</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-
-            <!-- Footer bar -->
-            <table width="100%" cellpadding="0" cellspacing="0" style="background:#020617;border-top:1px solid rgba(255,255,255,0.06);">
-              <tr>
-                <td style="padding:12px 28px;">
-                  <p style="margin:0;color:rgba(255,255,255,0.3);font-size:10px;font-family:'Courier New',monospace;">
-                    <span style="color:rgba(34,197,94,0.6);">●</span> envoyé via portfolio &mdash; ${date}
-                  </p>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- FOOTER -->
-        <tr>
-          <td style="padding-top:20px;">
-            <p style="margin:0;color:rgba(255,255,255,0.25);font-size:10px;text-align:center;font-family:'Courier New',monospace;">
-              Portfolio de Koffi Levis Akalete &mdash; Niamey, Niger
-            </p>
-          </td>
-        </tr>
-
+      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #e4e4df;">
+        <tr><td style="height:6px;background:#f59e0b;font-size:0;line-height:0;">&nbsp;</td></tr>
+        <tr><td style="padding:30px 32px 22px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <p style="margin:0;color:#6e6e74;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">Nouveau message &mdash; Portfolio</p>
+                <p style="margin:8px 0 0;color:#111114;font-size:24px;font-weight:bold;letter-spacing:-0.5px;line-height:1.2;">${safeName}</p>
+              </td>
+              <td align="right" valign="top" style="color:#8a8a86;font-size:11px;font-family:${MONO};white-space:nowrap;">${date}</td>
+            </tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:0 32px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="border-top:3px solid #111114;font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>
+        <tr><td style="padding:26px 32px 6px;">
+          <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">01 &mdash; Exp&eacute;diteur</p>
+        </td></tr>
+        <tr><td style="padding:0 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0">${row("Nom", safeName)}${row("Email", `mailto:${safeEmail}`, true)}${row("WhatsApp", safeWhatsapp || "Non renseign&eacute;")}${row("Sujet", safeSubject || "Sans sujet")}</table>
+        </td></tr>
+        <tr><td style="padding:24px 32px 8px;">
+          <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">02 &mdash; Message</p>
+        </td></tr>
+        <tr><td style="padding:0 32px;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr><td style="background:#f7f7f4;border-left:3px solid #f59e0b;padding:18px 20px;color:#26262b;font-size:14px;line-height:1.8;white-space:pre-wrap;font-family:${SANS};">${safeMessage}</td></tr>
+          </table>
+        </td></tr>
+        <tr><td style="padding:26px 32px 30px;">
+          <a href="mailto:${safeEmail}?subject=Re:%20${encodeURIComponent(subject || "Votre message")}" style="display:inline-block;background:#f59e0b;color:#111114;font-weight:bold;font-size:13px;letter-spacing:0.5px;padding:13px 28px;text-decoration:none;font-family:${SANS};">R&eacute;pondre &agrave; ${safeName}</a>
+          <p style="margin:12px 0 0;color:#8a8a86;font-size:11px;font-family:${MONO};">Ou r&eacute;pondez directement &agrave; cet email.</p>
+        </td></tr>
+        <tr><td style="border-top:1px solid #e4e4df;padding:18px 32px;">
+          <p style="margin:0;color:#6e6e74;font-size:10px;letter-spacing:1px;font-family:${MONO};">&copy; ${year} Koffi L&eacute;vis Akalete &mdash; Niamey, Niger</p>
+          <p style="margin:4px 0 0;color:#8a8a86;font-size:10px;letter-spacing:1px;font-family:${MONO};">13.5127&deg; N, 2.1128&deg; E &middot; akaletekoffilevis.vercel.app</p>
+        </td></tr>
       </table>
     </td></tr>
   </table>
