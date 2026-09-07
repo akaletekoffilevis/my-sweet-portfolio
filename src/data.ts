@@ -336,26 +336,6 @@ export const PROJECTS_DATA: Project[] = [
     description: "Application Flutter multi-écrans sur le thème de la cuisine : liste de recettes avec recherche, filtrage par catégorie et suppression (appui long + confirmation), écran de détail avec ingrédients et étapes, formulaire d'ajout validé sur 4 champs et réglages avec bascule thème clair/sombre sauvegardée (SharedPreferences). Responsive : liste sur mobile, grille sur tablette.",
     techStack: ["Flutter", "Dart", "SharedPreferences"],
     githubUrl: "https://github.com/akaletekoffilevis/recettes_app"
-  },
-  {
-    id: "yt-downloader-landing",
-    category: "web",
-    title: "YT Downloader — Landing Page",
-    period: "2026",
-    description: "Landing page bilingue FR/EN pour YouTube Downloader, l'application de téléchargement de vidéos. Présente les pages Fonctionnalités, Téléchargement et FAQ, avec un formulaire de contact alimenté par Nodemailer. Design responsive et déployé sur Vercel.",
-    techStack: ["HTML", "CSS", "JavaScript", "Nodemailer"],
-    githubUrl: "https://github.com/akaletekoffilevis/ytdownloader-landing",
-    liveUrl: "https://ytdownloader-gamma-two.vercel.app"
-  },
-  {
-    id: "scaffold-docs",
-    category: "web",
-    title: "Scaffolder — Site de Documentation",
-    period: "2026",
-    description: "Site de documentation du CLI Scaffolder : référence des 40+ commandes de génération de projets, guide d'installation et intégration IA. Construit en TypeScript avec build statique dans dist/, déployé sur Vercel.",
-    techStack: ["TypeScript", "HTML", "CSS"],
-    githubUrl: "https://github.com/akaletekoffilevis/scaffold-docs",
-    liveUrl: "https://scaffold-docs.vercel.app"
   }
 ];
 
