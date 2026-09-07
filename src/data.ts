@@ -496,9 +496,9 @@ export const SERVICES_DATA: Service[] = [
     tech: "Flutter Test / xUnit",
   },
   {
-    title: "Formation & accompagnement",
+    title: "Formation & initiation au codage",
     icon: "GraduationCap",
-    desc: "Accompagnement et montée en compétence de vos équipes : formations pratiques sur .NET, Blazor, Flutter et Dart, revue de code et bonnes pratiques d'architecture.",
-    tech: "Mentorat / Soft Skills",
+    desc: "Initiation au développement web pour débutants : HTML, CSS et bases du codage (logique algorithmique, Git, méthodologie projet). Accompagnement pas à pas et pédagogie adaptée au public débutant.",
+    tech: "HTML / CSS / Initiation",
   },
 ];
