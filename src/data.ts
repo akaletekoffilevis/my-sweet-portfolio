@@ -17,7 +17,7 @@ export const PROFILE_DATA = {
   metrics: [
     { label: "Projets", value: "20+", desc: "APIs, Web, Mobile, CLI, Desktop" },
     { label: "Formation", value: "Licence (En cours)", desc: "Math-Info — Université Abdou Moumouni" },
-    { label: "Certifications", value: "8", desc: "Microsoft, Flutter, .NET, web" }
+    { label: "Certifications", value: "9", desc: "Microsoft, Flutter, .NET, web" }
   ]
 };
 
@@ -406,6 +406,15 @@ export const CERTS_DATA: Certification[] = [
     url: "https://nextflutter.com/certifications/verify/NF-2026-AC344062"
   },
   {
+    id: "nextflutter-tests",
+    issuer: "NextFlutter",
+    title: "Tests en Flutter — Certification Flutter Developer",
+    date: "5 Septembre 2026",
+    kind: "image",
+    file: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fnextflutter.com%2Fcertifications%2Fverify%2FNF-2026-C2140A80?w=800&h=510",
+    url: "https://nextflutter.com/certifications/verify/NF-2026-C2140A80"
+  },
+  {
     id: "gabera",
     issuer: "Gabera Foundation",
     title: "Certificat de Participation — .NET, Intelligence Artificielle & Robotique",
@@ -433,51 +442,63 @@ export const CERTS_DATA: Certification[] = [
 
 export const SERVICES_DATA: Service[] = [
   {
-    title: "APIs REST sur mesure",
+    title: "Développement d'APIs REST",
     icon: "Server",
-    desc: "Développement d'APIs avec ASP.NET Core 9 : JWT, Minimal APIs, documentation Swagger, Entity Framework Core, validation, isolation utilisateur.",
+    desc: "Conception et construction d'APIs REST performantes et sécurisées avec ASP.NET Core 9 : authentification JWT, validation des données, documentation interactive Swagger et isolation des données par utilisateur.",
     tech: "C# / .NET 9",
   },
   {
-    title: "Applications Blazor / PWA",
+    title: "Applications web & PWA",
     icon: "Globe",
-    desc: "Applications web interactives en Blazor WebAssembly, PWA hors-ligne, MudBlazor, recherche plein texte, IndexedDB, génération d'images côté client.",
+    desc: "Développement d'applications web interactives en Blazor WebAssembly : fonctionnement hors-ligne, recherche plein texte, stockage local IndexedDB, composants MudBlazor et thème sombre/clair.",
     tech: "Blazor .NET 9",
   },
   {
-    title: "Outils CLI & Console",
+    title: "Applications mobiles Flutter",
+    icon: "Smartphone",
+    desc: "Création d'applications iOS et Android avec Flutter et Dart : state management Riverpod, cache local Hive, appels réseau aux APIs et mode hors-ligne, avec une architecture Clean, testable et maintenable.",
+    tech: "Flutter / Dart / Riverpod",
+  },
+  {
+    title: "Outils CLI & Automatisation",
     icon: "SquareTerminal",
-    desc: "Générateurs de projets, applications console de gestion, System.CommandLine, compilation Native AOT, exécutables multi-plateforme.",
+    desc: "Développement d'outils en ligne de commande pour automatiser vos workflows : générateurs de projets, scripts de gestion, compilation native AOT et exécutables multi-plateformes.",
     tech: "C# / .NET 9",
   },
   {
     title: "Bases de données",
     icon: "Database",
-    desc: "Conception de schémas, migrations Entity Framework Core, requêtes SQL, persistance avec SQLite, SQL Server et MySQL.",
+    desc: "Conception et optimisation de bases de données : modélisation des schémas, migrations Entity Framework Core, requêtes SQL performantes et persistance fiable avec SQLite, SQL Server et MySQL.",
     tech: "SQL / EF Core",
+  },
+  {
+    title: "Sites web & interfaces React",
+    icon: "PanelTop",
+    desc: "Création de sites vitrines, landing pages et applications interactives : intégration responsive, Tailwind CSS, composants React, connexion à des APIs et déploiement statique.",
+    tech: "React / HTML / CSS",
   },
   {
     title: "Maintenance & évolution",
     icon: "Wrench",
-    desc: "Reprise de projets .NET existants, refactoring, mise à jour vers .NET 9, ajout de tests, amélioration des performances.",
+    desc: "Reprise et modernisation de vos projets : refactoring, montée de version vers .NET 9, correction de bugs, ajout de tests et amélioration des performances et de la sécurité.",
     tech: "C# / .NET",
   },
   {
     title: "Déploiement & CI/CD",
     icon: "Rocket",
-    desc: "Configuration Docker, docker-compose, pipelines GitHub Actions, déploiement sur Vercel, hébergement d'APIs et sites statiques.",
+    desc: "Mise en production automatisée et fiable : conteneurisation Docker, pipelines GitHub Actions, hébergement sur Vercel ou vos serveurs, supervision des déploiements.",
     tech: "Docker / GitHub Actions",
   },
   {
-    title: "Sites web & Applications React",
-    icon: "PanelTop",
-    desc: "Développement de sites vitrines, landing pages, applications interactives avec React, HTML5, CSS3, Tailwind CSS, intégration d'APIs.",
-    tech: "React / HTML / CSS / JS",
+    title: "Tests & qualité logicielle",
+    icon: "FlaskConical",
+    desc: "Mise en place de stratégies de test pour fiabiliser vos applications : tests unitaires et de repository (mocktail), ainsi que d'intégration sur Flutter, Dart et .NET.",
+    tech: "Flutter Test / xUnit",
   },
   {
-    title: "Applications mobiles",
-    icon: "Smartphone",
-    desc: "Développement d'applications mobiles avec React Native (cross-platform) et C#/.NET MAUI (native), interfaces modernes et connexion aux APIs.",
-    tech: "React Native / C# MAUI",
+    title: "Formation & accompagnement",
+    icon: "GraduationCap",
+    desc: "Accompagnement et montée en compétence de vos équipes : formations pratiques sur .NET, Blazor, Flutter et Dart, revue de code et bonnes pratiques d'architecture.",
+    tech: "Mentorat / Soft Skills",
   },
 ];

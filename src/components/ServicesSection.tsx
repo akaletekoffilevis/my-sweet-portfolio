@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { usePortfolio } from "../context/PortfolioContext";
 import {
-  Server, Globe, SquareTerminal, Database, Wrench, Rocket, PanelTop, Smartphone,
+  Server, Globe, SquareTerminal, Database, Wrench, Rocket, PanelTop, Smartphone, FlaskConical, GraduationCap,
 } from "lucide-react";
 import SectionHead from "./SectionHead";
 
@@ -14,6 +14,8 @@ const iconMap: Record<string, typeof Server> = {
   Rocket,
   PanelTop,
   Smartphone,
+  FlaskConical,
+  GraduationCap,
 };
 
 export default function ServicesSection() {
