@@ -498,7 +498,7 @@ export const SERVICES_DATA: Service[] = [
   {
     title: "Formation & initiation au codage",
     icon: "GraduationCap",
-    desc: "Initiation au développement web pour débutants : HTML, CSS et bases du codage (logique algorithmique, Git, méthodologie projet). Accompagnement pas à pas et pédagogie adaptée au public débutant.",
-    tech: "HTML / CSS / Initiation",
+    desc: "Initiation au développement pour débutants : HTML, CSS, bases du codage (logique algorithmique, Git, méthodologie projet), C# et .NET. Accompagnement pas à pas et pédagogie adaptée au public débutant.",
+    tech: "HTML / CSS / C# / .NET",
   },
 ];
