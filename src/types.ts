@@ -7,7 +7,7 @@ export interface Skill {
   description: string;
 }
 
-export type ProjectCategory = "web" | "api" | "outils" | "desktop";
+export type ProjectCategory = "web" | "api" | "outils" | "desktop" | "mobile";
 
 export interface Project {
   id: string;

@@ -8,6 +8,7 @@ import type { Project, ProjectCategory } from "../types";
 const FILTERS: { id: ProjectCategory | "all"; label: string }[] = [
   { id: "all", label: "Tout" },
   { id: "web", label: "Web & PWA" },
+  { id: "mobile", label: "Mobile" },
   { id: "api", label: "APIs" },
   { id: "outils", label: "Outils & CLI" },
   { id: "desktop", label: "Desktop & Infra" },

@@ -15,9 +15,9 @@ export const PROFILE_DATA = {
   },
   certUrl: "https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft",
   metrics: [
-    { label: "Projets", value: "15+", desc: "APIs, Web, Mobile, CLI, Desktop" },
+    { label: "Projets", value: "20+", desc: "APIs, Web, Mobile, CLI, Desktop" },
     { label: "Formation", value: "Licence (En cours)", desc: "Math-Info — Université Abdou Moumouni" },
-    { label: "Certifications", value: "5", desc: "Microsoft, Flutter, .NET, web" }
+    { label: "Certifications", value: "8", desc: "Microsoft, Flutter, .NET, web" }
   ]
 };
 
@@ -300,6 +300,62 @@ export const PROJECTS_DATA: Project[] = [
     description: "Formulaire Homebrew pour installer Scaffolder-CLI via le gestionnaire de paquets macOS. Permet l'installation via 'brew install akaletekoffilevis/scaffolder/scaffolder'.",
     techStack: ["Ruby", "Homebrew"],
     githubUrl: "https://github.com/akaletekoffilevis/homebrew-scaffolder"
+  },
+  {
+    id: "ecommerce-connected",
+    category: "mobile",
+    title: "E-commerce Connected — Flutter + DummyJSON",
+    period: "2026",
+    description: "Application mobile e-commerce Flutter connectée à une API réelle (DummyJSON) suivant une architecture Clean. Authentification JWT avec refresh token automatique, cache local Hive (produits, catégories, panier), mode hors-ligne avec bascule automatique sur le cache via le suivi réseau (Connectivity), Repository Pattern (interface domaine + implémentation data), gestion d'erreurs centralisée et 3 tests de repository avec mocktail.",
+    techStack: ["Flutter", "Dart", "Clean Architecture", "Riverpod", "Hive", "Dio", "JWT"],
+    githubUrl: "https://github.com/akaletekoffilevis/ecommerce-connected"
+  },
+  {
+    id: "ecommerce-app",
+    category: "mobile",
+    title: "E-commerce App — Flutter + Riverpod",
+    period: "2026",
+    description: "Application mobile e-commerce complète avec Riverpod comme unique solution de state management (7+ providers). Catalogue produits en grille responsive, panier avec gestion des quantités et total, favoris persistés (SharedPreferences), filtrage par catégorie, tri et recherche texte, profil utilisateur éditable, navigation à 4 onglets avec badge panier et animations.",
+    techStack: ["Flutter", "Dart", "Riverpod", "SharedPreferences"],
+    githubUrl: "https://github.com/akaletekoffilevis/ecommerce_app"
+  },
+  {
+    id: "whatsapp-clone",
+    category: "mobile",
+    title: "WhatsApp Clone — Interface Flutter",
+    period: "2026",
+    description: "Clone de l'interface de WhatsApp réalisé avec Flutter. Reproduction fidèle des écrans et de la navigation de l'application de messagerie : liste de discussions, Vue des onglets, jusqu'aux éléments d'interface caractéristiques. Projet d'apprentissage dédié à la maîtrise du layout Flutter et du design d'applications mobiles.",
+    techStack: ["Flutter", "Dart"],
+    githubUrl: "https://github.com/akaletekoffilevis/whatsapp_clone"
+  },
+  {
+    id: "recettes-app",
+    category: "mobile",
+    title: "Recettes App — Flutter",
+    period: "2026",
+    description: "Application Flutter multi-écrans sur le thème de la cuisine : liste de recettes avec recherche, filtrage par catégorie et suppression (appui long + confirmation), écran de détail avec ingrédients et étapes, formulaire d'ajout validé sur 4 champs et réglages avec bascule thème clair/sombre sauvegardée (SharedPreferences). Responsive : liste sur mobile, grille sur tablette.",
+    techStack: ["Flutter", "Dart", "SharedPreferences"],
+    githubUrl: "https://github.com/akaletekoffilevis/recettes_app"
+  },
+  {
+    id: "yt-downloader-landing",
+    category: "web",
+    title: "YT Downloader — Landing Page",
+    period: "2026",
+    description: "Landing page bilingue FR/EN pour YouTube Downloader, l'application de téléchargement de vidéos. Présente les pages Fonctionnalités, Téléchargement et FAQ, avec un formulaire de contact alimenté par Nodemailer. Design responsive et déployé sur Vercel.",
+    techStack: ["HTML", "CSS", "JavaScript", "Nodemailer"],
+    githubUrl: "https://github.com/akaletekoffilevis/ytdownloader-landing",
+    liveUrl: "https://ytdownloader-gamma-two.vercel.app"
+  },
+  {
+    id: "scaffold-docs",
+    category: "web",
+    title: "Scaffolder — Site de Documentation",
+    period: "2026",
+    description: "Site de documentation du CLI Scaffolder : référence des 40+ commandes de génération de projets, guide d'installation et intégration IA. Construit en TypeScript avec build statique dans dist/, déployé sur Vercel.",
+    techStack: ["TypeScript", "HTML", "CSS"],
+    githubUrl: "https://github.com/akaletekoffilevis/scaffold-docs",
+    liveUrl: "https://scaffold-docs.vercel.app"
   }
 ];
 
@@ -319,7 +375,35 @@ export const CERTS_DATA: Certification[] = [
     title: "Dart Avancé — Certification Flutter Developer",
     date: "27 Juillet 2026",
     kind: "image",
-    file: "/images/certificat-nextflutter.png"
+    file: "/images/certificat-nextflutter.png",
+    url: "https://nextflutter.com/certifications/verify/NF-2026-4481DECA"
+  },
+  {
+    id: "nextflutter-routing",
+    issuer: "NextFlutter",
+    title: "Navigation et Routing — Certification Flutter Developer",
+    date: "11 Août 2026",
+    kind: "image",
+    file: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fnextflutter.com%2Fcertifications%2Fverify%2FNF-2026-8369F553?w=800&h=510",
+    url: "https://nextflutter.com/certifications/verify/NF-2026-8369F553"
+  },
+  {
+    id: "nextflutter-riverpod",
+    issuer: "NextFlutter",
+    title: "State Management avec Riverpod — Certification Flutter Developer",
+    date: "19 Août 2026",
+    kind: "image",
+    file: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fnextflutter.com%2Fcertifications%2Fverify%2FNF-2026-4454D89B?w=800&h=510",
+    url: "https://nextflutter.com/certifications/verify/NF-2026-4454D89B"
+  },
+  {
+    id: "nextflutter-api",
+    issuer: "NextFlutter",
+    title: "Appels Réseau et APIs — Certification Flutter Developer",
+    date: "19 Août 2026",
+    kind: "image",
+    file: "https://s0.wp.com/mshots/v1/https%3A%2F%2Fnextflutter.com%2Fcertifications%2Fverify%2FNF-2026-AC344062?w=800&h=510",
+    url: "https://nextflutter.com/certifications/verify/NF-2026-AC344062"
   },
   {
     id: "gabera",
