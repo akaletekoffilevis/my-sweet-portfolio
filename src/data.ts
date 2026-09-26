@@ -407,7 +407,7 @@ export const CERTS_DATA: Certification[] = [
     issuer: "E-LEARNING POUR TOUS",
     title: "CERTIFICAT DE FORMATION - Développement Web et Mobile",
     date: "25 Septembre 2026",
-    kind: "image",
+    kind: "pdf",
     file: "/images/certificat_developpement_web_mgcconsulting.pdf"
   },
   {
