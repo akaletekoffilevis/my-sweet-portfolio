@@ -423,6 +423,14 @@ export const CERTS_DATA: Certification[] = [
     file: "/images/attestation-gabera.jpeg"
   },
   {
+    id: "Développement Web et Mobile",
+    issuer: "E-LEARNING POUR TOUS",
+    title: "CERTIFICAT DE FORMATION - Développement Web et Mobile",
+    date: "25 Septembre 2026",
+    kind: "image",
+    file: "/images/certificat_developpement_web_mgcconsulting.pdf"
+  },
+  {
     id: "mille-codeurs",
     issuer: "10000 CODEURS",
     title: "Passeport Numérique",
