@@ -158,17 +158,7 @@ export const PROJECTS_DATA: Project[] = [
     githubUrl: "https://github.com/akaletekoffilevis/my-sweet-portfolio",
     liveUrl: "https://akaletekoffilevis.vercel.app"
   },
-  {
-    id: "minichat-realtime",
-    category: "web",
-    title: "Discutons — Chat Temps-Réel",
-    period: "2026",
-    description: "Application de chat temps-réel avec React et Socket.io. Fonctionnalités : messagerie instantanée sans création de compte, envoi de stickers, messages audio, partage de fichiers, interface moderne et responsive.",
-    techStack: ["React", "Socket.io", "CSS", "JavaScript"],
-    githubUrl: "https://github.com/akaletekoffilevis/minichat-realtime",
-    liveUrl: "https://discutons.vercel.app"
-  },
-  {
+{
     id: "nextdev-blazor",
     category: "web",
     title: "NextDev Blazor App",
