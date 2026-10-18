@@ -165,8 +165,6 @@ export const PROJECTS_DATA: Project[] = [
     liveUrl: "https://bibeli.vercel.app"
   },
   {
-  },
-  {
     id: "nextdev-blazor",
     category: "web",
     title: "NextDev Blazor App",
