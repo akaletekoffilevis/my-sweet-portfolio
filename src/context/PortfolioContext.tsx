@@ -1,6 +1,8 @@
 import React, { createContext, useContext } from "react";
-import { PROFILE_DATA, SKILLS_DATA, PROJECTS_DATA, SERVICES_DATA, CERTS_DATA } from "../data";
-import { Skill, Project, Service, Certification } from "../types";
+import * as DATA_FR from "../data";
+import * as DATA_EN from "../data.en";
+import { useLang } from "../i18n";
+import { Skill, Project, Service, Certification, TimelineEntry, MethodStep, SoftSkill } from "../types";
 
 export interface ProfileData {
   name: string;
@@ -29,17 +31,25 @@ interface PortfolioContextType {
   projects: Project[];
   services: Service[];
   certifications: Certification[];
+  timeline: TimelineEntry[];
+  method: MethodStep[];
+  softSkills: SoftSkill[];
   addMessage: (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => Promise<any>;
 }
 
 const PortfolioContext = createContext<PortfolioContextType | undefined>(undefined);
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
-  const profile = PROFILE_DATA;
-  const skills = SKILLS_DATA;
-  const projects = PROJECTS_DATA;
-  const services = SERVICES_DATA;
-  const certifications = CERTS_DATA;
+  const { lang } = useLang();
+  const data = lang === "fr" ? DATA_FR : DATA_EN;
+  const profile = data.PROFILE_DATA;
+  const skills = data.SKILLS_DATA;
+  const projects = data.PROJECTS_DATA;
+  const services = data.SERVICES_DATA;
+  const certifications = data.CERTS_DATA;
+  const timeline = data.TIMELINE_DATA;
+  const method = data.METHOD_DATA;
+  const softSkills = data.SOFT_SKILLS_DATA;
 
   const addMessage = async (msg: { name: string; email: string; subject: string; message: string; whatsapp?: string }) => {
     try {
@@ -65,6 +75,9 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         projects,
         services,
         certifications,
+        timeline,
+        method,
+        softSkills,
         addMessage,
       }}
     >

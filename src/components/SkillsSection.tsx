@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { usePortfolio } from "../context/PortfolioContext";
+import { useT, tpl } from "../i18n";
 import {
   FileCode2, Database, Terminal, Braces, Code2, SquareTerminal, Layout,
   Layers, Zap, Atom, Container, GitBranch, Boxes,
@@ -18,6 +19,8 @@ const iconMap: Record<string, ReactNode> = {
   ".NET / ASP.NET Core": <Layers className="h-4 w-4" />,
   Blazor: <Zap className="h-4 w-4" />,
   React: <Atom className="h-4 w-4" />,
+  "Next.js": <Atom className="h-4 w-4" />,
+  Firebase: <Database className="h-4 w-4" />,
   "SQLite / EF Core": <Database className="h-4 w-4" />,
   MySQL: <Database className="h-4 w-4" />,
   "Git / GitHub": <GitBranch className="h-4 w-4" />,
@@ -26,33 +29,27 @@ const iconMap: Record<string, ReactNode> = {
 
 const fallbackIcons = [FileCode2, Database, Layers];
 
-const categories = [
-  { id: "all", label: "Tout" },
-  { id: "languages", label: "Langages" },
-  { id: "frameworks", label: "Frameworks" },
-  { id: "databases", label: "Bases de données" },
-  { id: "devops", label: "DevOps" },
-];
-
-const CATEGORY_LABELS: Record<string, string> = {
-  languages: "langage",
-  frameworks: "framework",
-  databases: "database",
-  devops: "devops",
-};
-
 export default function SkillsSection() {
   const { skills } = usePortfolio();
+  const t = useT();
   const [activeTab, setActiveTab] = useState("all");
+
+  const categories = [
+    { id: "all", label: t.skills.all },
+    { id: "languages", label: t.skills.languages },
+    { id: "frameworks", label: t.skills.frameworks },
+    { id: "databases", label: t.skills.databases },
+    { id: "devops", label: t.skills.devops },
+  ];
 
   const filtered = skills.filter(s => activeTab === "all" || s.category === activeTab);
 
   return (
     <section className="py-20 sm:py-28 border-b border-app-hairline scroll-mt-20 relative" id="skills-section">
       <div className="wrap relative">
-        <SectionHead num="03" title="Compétences" meta={`${skills.length} technologies`} />
+        <SectionHead num="03" title={t.nav.skills} meta={tpl(t.skills.meta, { n: skills.length })} />
 
-        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-10 sm:mb-12" role="tablist" aria-label="Filtrer les compétences par catégorie">
+        <div className="flex flex-wrap gap-x-5 gap-y-2 mb-10 sm:mb-12" role="tablist" aria-label={t.skills.filterAria}>
           {categories.map(cat => {
             const isActive = activeTab === cat.id;
             const count = cat.id === "all" ? skills.length : skills.filter(s => s.category === cat.id).length;
@@ -95,7 +92,7 @@ export default function SkillsSection() {
                     </span>
                     <div>
                       <h3 className="text-[15px] font-semibold tracking-tight text-app-text-white leading-tight">{skill.name}</h3>
-                      <span className="folio block mt-0.5">{CATEGORY_LABELS[skill.category]} · {skill.experienceYears} an(s)</span>
+                      <span className="folio block mt-0.5">{t.skills.catLabels[skill.category as keyof typeof t.skills.catLabels] ?? skill.category} · {skill.experienceYears} {t.skills.years}</span>
                     </div>
                   </div>
                   <span className="font-mono text-sm font-semibold text-app-text-white tabular-nums">{skill.level}<span className="text-app-text-muted text-xs">%</span></span>
@@ -109,7 +106,7 @@ export default function SkillsSection() {
                   aria-valuenow={skill.level}
                   aria-valuemin={0}
                   aria-valuemax={100}
-                  aria-label={`${skill.name} — niveau ${skill.level}%`}
+                  aria-label={tpl(t.skills.progressAria, { name: skill.name, level: skill.level })}
                 >
                   <motion.div
                     className="h-full bg-app-accent"

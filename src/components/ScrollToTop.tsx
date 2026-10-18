@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowUp } from "lucide-react";
+import { useT } from "../i18n";
 
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
@@ -21,7 +23,7 @@ export default function ScrollToTop() {
           transition={{ duration: 0.25 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-6 right-6 z-50 p-3 bg-app-bg border border-app-border-sec text-app-text-muted hover:text-app-accent hover:border-app-accent transition-colors duration-300 cursor-pointer"
-          aria-label="Retour en haut"
+          aria-label={t.scrollToTop}
         >
           <ArrowUp className="h-4 w-4" />
         </motion.button>

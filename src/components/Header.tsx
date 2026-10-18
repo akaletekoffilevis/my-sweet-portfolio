@@ -1,26 +1,60 @@
 import { useState, useEffect, useRef } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { usePortfolio } from "../context/PortfolioContext";
 import { useTheme } from "../hooks/useTheme";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { useLang, useT, type Lang } from "../i18n";
+import { Menu, X, Sun, Moon, Globe, ChevronDown } from "lucide-react";
 
-const NAV_LINKS = [
-  { href: "#bio-section", label: "Accueil" },
-  { href: "#projects-section", label: "Projets" },
-  { href: "#services-section", label: "Services" },
-  { href: "#skills-section", label: "Compétences" },
-  { href: "#certifications-section", label: "Certifications" },
-  { href: "#contact-resume-section", label: "Contact" },
-];
+/** Cible tactile ≥ 44px + anneau de focus visible (accessibilité). */
+const FOCUS =
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-app-accent";
 
-const SECTION_IDS = NAV_LINKS.map(l => l.href.slice(1));
+const BTN =
+  "flex items-center justify-center min-h-12 min-w-12 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer " +
+  FOCUS;
+
+/** Sélecteur de langue FR / EN (détection navigateur à l'entrée, persistance localStorage). */
+function LangSelect({ className = "" }: { className?: string }) {
+  const { lang, setLang } = useLang();
+  const t = useT();
+  return (
+    <div
+      className={`relative flex items-center border border-app-hairline bg-app-bg text-app-text-muted hover:text-app-accent hover:border-app-accent transition-colors ${FOCUS} ${className}`}
+    >
+      <Globe className="pointer-events-none absolute left-3 h-5 w-5" aria-hidden="true" />
+      <select
+        value={lang}
+        onChange={(e) => setLang(e.target.value as Lang)}
+        aria-label={t.langLabel}
+        className={`appearance-none bg-transparent min-h-12 pl-11 pr-10 font-mono text-sm font-medium uppercase tracking-wider cursor-pointer focus:outline-none ${FOCUS}`}
+      >
+        <option value="fr" className="bg-app-bg text-app-text-main">
+          FR
+        </option>
+        <option value="en" className="bg-app-bg text-app-text-main">
+          EN
+        </option>
+      </select>
+      <ChevronDown className="pointer-events-none absolute right-2 h-4 w-4" aria-hidden="true" />
+    </div>
+  );
+}
 
 export default function Header() {
   const { profile } = usePortfolio();
   const { isDark, toggleTheme } = useTheme();
+  const t = useT();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const NAV_LINKS = [
+    { to: "/", label: t.nav.home, end: true },
+    { to: "/projets", label: t.nav.projects },
+    { to: "/a-propos", label: t.nav.about },
+    { to: "/services", label: t.nav.services },
+    { to: "/contact", label: t.nav.contact },
+  ];
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
@@ -28,14 +62,16 @@ export default function Header() {
       const firstLink = menuRef.current.querySelector("a") as HTMLElement;
       firstLink?.focus();
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   useEffect(() => {
     if (!isMenuOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "Tab" || !menuRef.current) return;
-      const focusable = menuRef.current.querySelectorAll<HTMLElement>("a, button");
+      const focusable = menuRef.current.querySelectorAll<HTMLElement>("a, button, select");
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
@@ -57,120 +93,141 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = [];
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (!el) continue;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
-      );
-      observer.observe(el);
-      observers.push(observer);
-    }
-    return () => observers.forEach(o => o.disconnect());
-  }, []);
-
-  const initials = profile.name.split(" ").filter(Boolean).slice(0, 2).map(w => w[0]).join("");
+  const initials = profile.name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("");
 
   return (
     <>
-      <header className={`sticky top-0 z-40 w-full bg-app-bg/90 backdrop-blur-md transition-colors duration-300 ${scrolled ? "border-b border-app-hairline" : "border-b border-transparent"}`}>
-        <div className="wrap flex items-center justify-between py-4">
-          <a href="#bio-section" className="flex items-center gap-3 group">
-            <span className="w-8 h-8 flex items-center justify-center bg-app-accent text-app-bg font-mono text-[13px] font-bold tracking-tight shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5">
+      <header
+        className={`sticky top-0 z-40 w-full bg-app-bg/95 backdrop-blur-md transition-colors duration-300 ${
+          scrolled ? "border-b border-app-hairline" : "border-b border-transparent"
+        }`}
+      >
+        <div className="wrap flex items-center justify-between gap-4 py-4 sm:py-5">
+          <Link
+            to="/"
+            className="flex items-center gap-3 group shrink-0"
+            aria-label={`${profile.name} — ${t.nav.home}`}
+          >
+            <span className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center bg-app-accent text-app-bg font-mono text-[15px] font-bold tracking-tight shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5">
               {initials}
             </span>
             <span className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold text-app-text-white tracking-tight">{profile.name}</span>
-              <span className="folio hidden sm:block">Développeur Full Stack</span>
+              <span className="text-[15px] sm:text-base font-semibold text-app-text-white tracking-tight">
+                {profile.name}
+              </span>
+              <span className="folio hidden sm:block">{t.nav.role}</span>
             </span>
-          </a>
+          </Link>
 
-          <nav className="hidden md:flex items-center gap-6" aria-label="Navigation principale">
-            {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a key={link.href} href={link.href}
-                  aria-current={isActive ? "true" : undefined}
-                  className={`relative pb-1 text-[13px] font-medium tracking-wide transition-colors ${
-                    isActive
-                      ? "text-app-text-white"
-                      : "text-app-text-muted hover:text-app-text-white"
-                  }`}
-                >
-                  {link.label}
-                  <span
-                    className={`absolute left-0 -bottom-0.5 h-[2px] bg-app-accent transition-all duration-300 ${isActive ? "w-full" : "w-0"}`}
-                    aria-hidden="true"
-                  />
-                </a>
-              );
-            })}
+          <nav
+            className="hidden md:flex items-center gap-7 lg:gap-9"
+            aria-label={t.nav.mainAria}
+          >
+            {NAV_LINKS.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                className={({ isActive }) =>
+                  `relative inline-block py-1.5 text-[15px] font-medium tracking-wide transition-colors ${FOCUS} ${
+                    isActive ? "text-app-text-white" : "text-app-text-muted hover:text-app-text-white"
+                  }`
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    <span
+                      className={`absolute left-0 -bottom-0.5 h-[3px] bg-app-accent transition-all duration-300 ${
+                        isActive ? "w-full" : "w-0"
+                      }`}
+                      aria-hidden="true"
+                    />
+                  </>
+                )}
+              </NavLink>
+            ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <LangSelect className="hidden sm:flex" />
+
             <button
               onClick={toggleTheme}
-              className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
-              aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
+              className={BTN}
+              aria-label={isDark ? t.theme.light : t.theme.dark}
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer ${isMenuOpen ? "fixed top-4 right-4 z-[60] bg-app-bg" : ""}`}
-              aria-label="Menu"
+              className={`${BTN} md:hidden ${isMenuOpen ? "fixed top-4 right-4 z-[60] bg-app-bg" : ""}`}
+              aria-label={isMenuOpen ? t.nav.close : t.nav.menu}
               aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </header>
 
       {isMenuOpen && (
-        <div ref={menuRef} className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg transition-colors duration-300">
+        <div
+          ref={menuRef}
+          id="mobile-nav"
+          className="fixed inset-0 z-50 md:hidden flex flex-col bg-app-bg transition-colors duration-300"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t.nav.mobileAria}
+        >
           <div className="wrap flex items-center justify-between py-4 border-b border-app-hairline">
-            <span className="kicker">Navigation</span>
+            <span className="kicker">{t.nav.navigation}</span>
             <div className="flex items-center gap-2">
+              <LangSelect />
               <button
                 onClick={toggleTheme}
-                className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
-                aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
+                className={BTN}
+                aria-label={isDark ? t.theme.light : t.theme.dark}
               >
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="p-2 border border-app-hairline text-app-text-muted hover:text-app-accent hover:border-app-accent transition cursor-pointer"
-                aria-label="Fermer"
-              >
+              <button onClick={() => setIsMenuOpen(false)} className={BTN} aria-label={t.nav.close}>
                 <X className="h-6 w-6" />
               </button>
             </div>
           </div>
-          <nav className="flex-1 flex flex-col items-start justify-center wrap gap-7" aria-label="Navigation mobile">
-            {NAV_LINKS.map((link, i) => {
-              const isActive = activeSection === link.href.slice(1);
-              return (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`text-2xl font-semibold tracking-tight transition flex items-baseline gap-3 ${
+
+          <nav
+            className="flex-1 flex flex-col items-start justify-center wrap gap-6 sm:gap-8"
+            aria-label={t.nav.mobileAria}
+          >
+            {NAV_LINKS.map((link, i) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.end}
+                onClick={() => setIsMenuOpen(false)}
+                className={({ isActive }) =>
+                  `relative text-3xl sm:text-4xl font-semibold tracking-tight transition flex items-baseline gap-4 py-1 ${FOCUS} ${
                     isActive ? "text-app-accent" : "text-app-text-white"
-                  }`}
-                >
-                  <span className="font-mono text-xs text-app-text-muted tabular-nums">0{i + 1}</span> {link.label}
-                </a>
-              );
-            })}
+                  }`
+                }
+              >
+                <span className="font-mono text-sm text-app-text-muted tabular-nums">
+                  0{i + 1}
+                </span>
+                {link.label}
+              </NavLink>
+            ))}
           </nav>
+
           <div className="wrap py-6 border-t border-app-hairline">
             <span className="folio">{profile.location}</span>
           </div>

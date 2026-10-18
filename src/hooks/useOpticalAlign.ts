@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useOpticalAlign() {
+export function useOpticalAlign(dep?: unknown) {
   useEffect(() => {
     let raf = 0;
     let cancelled = false;
@@ -46,5 +46,5 @@ export function useOpticalAlign() {
       clearTimeout(t);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [dep]);
 }

@@ -37,3 +37,23 @@ export interface Certification {
   file: string;
   url?: string;
 }
+
+export interface TimelineEntry {
+  period: string;
+  title: string;
+  desc: string;
+  tags: string[];
+  current?: boolean;
+}
+
+export interface MethodStep {
+  step: string;
+  title: string;
+  desc: string;
+}
+
+export interface SoftSkill {
+  icon: string;
+  title: string;
+  desc: string;
+}

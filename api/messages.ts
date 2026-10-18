@@ -13,59 +13,47 @@ function escapeHtml(str: string): string {
 function buildEmailHtml(name: string, email: string, subject: string, whatsapp: string, message: string): string {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
-  const safeSubject = escapeHtml(subject);
+  const safeSubject = escapeHtml(subject || "Sans sujet");
   const safeWhatsapp = escapeHtml(whatsapp);
   const safeMessage = escapeHtml(message);
   const date = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
   const year = new Date().getFullYear();
   const MONO = "'Courier New','Courier',monospace";
   const SANS = "Helvetica,Arial,sans-serif";
-  const row = (label: string, value: string, isLink = false) => `
-                    <tr>
-                      <td style="padding:11px 0;width:110px;vertical-align:top;color:#6e6e74;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-family:${MONO};border-bottom:1px solid #ececea;">${label}</td>
-                      <td style="padding:11px 0 11px 16px;color:#26262b;font-size:14px;font-family:${SANS};border-bottom:1px solid #ececea;">${isLink ? `<a href="mailto:${value}" style="color:#b45309;text-decoration:none;">${value}</a>` : value}</td>
-                    </tr>`;
   return `<!DOCTYPE html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background:#f0f0ed;font-family:${SANS};">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0f0ed;padding:40px 16px;">
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:${SANS};-webkit-font-smoothing:antialiased;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:32px 16px;">
     <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #e4e4df;">
-        <tr><td style="height:6px;background:#f59e0b;font-size:0;line-height:0;">&nbsp;</td></tr>
-        <tr><td style="padding:30px 32px 22px;">
-          <table width="100%" cellpadding="0" cellspacing="0">
+      <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #e4e4e7;">
+        <tr><td style="height:4px;background:#0ea5e9;font-size:0;line-height:0;">&nbsp;</td></tr>
+        <tr><td style="padding:24px 28px 0;">
+          <p style="margin:0;color:#71717a;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-family:${MONO};">Portfolio &middot; Nouveau message</p>
+          <p style="margin:16px 0 0;color:#09090b;font-size:22px;font-weight:bold;letter-spacing:-0.02em;line-height:1.25;">${safeName}</p>
+          <p style="margin:4px 0 0;color:#71717a;font-size:14px;">${safeSubject}</p>
+        </td></tr>
+        <tr><td style="padding:20px 28px 0;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #e4e4e7;">
             <tr>
-              <td>
-                <p style="margin:0;color:#6e6e74;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">Nouveau message &mdash; Portfolio</p>
-                <p style="margin:8px 0 0;color:#111114;font-size:24px;font-weight:bold;letter-spacing:-0.5px;line-height:1.2;">${safeName}</p>
-              </td>
-              <td align="right" valign="top" style="color:#8a8a86;font-size:11px;font-family:${MONO};white-space:nowrap;">${date}</td>
+              <td style="padding:10px 0;color:#71717a;font-size:13px;border-bottom:1px solid #f4f4f5;width:110px;">Email</td>
+              <td style="padding:10px 0;font-size:13px;border-bottom:1px solid #f4f4f5;"><a href="mailto:${safeEmail}" style="color:#0284c7;text-decoration:none;">${safeEmail}</a></td>
             </tr>
+            ${safeWhatsapp ? `<tr>
+              <td style="padding:10px 0;color:#71717a;font-size:13px;border-bottom:1px solid #f4f4f5;">WhatsApp</td>
+              <td style="padding:10px 0;font-size:13px;border-bottom:1px solid #f4f4f5;color:#18181b;">${safeWhatsapp}</td>
+            </tr>` : ""}
           </table>
         </td></tr>
-        <tr><td style="padding:0 32px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td style="border-top:3px solid #111114;font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>
-        <tr><td style="padding:26px 32px 6px;">
-          <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">01 &mdash; Exp&eacute;diteur</p>
+        <tr><td style="padding:22px 28px 0;">
+          <p style="margin:0;color:#71717a;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-family:${MONO};">Message</p>
+          <p style="margin:10px 0 0;padding:16px 18px;background:#fafafa;border-left:2px solid #d4d4d8;color:#27272a;font-size:14px;line-height:1.7;white-space:pre-wrap;">${safeMessage}</p>
         </td></tr>
-        <tr><td style="padding:0 32px;">
-          <table width="100%" cellpadding="0" cellspacing="0">${row("Nom", safeName)}${row("Email", safeEmail, true)}${row("WhatsApp", safeWhatsapp || "Non renseign&eacute;")}${row("Sujet", safeSubject || "Sans sujet")}</table>
+        <tr><td style="padding:22px 28px 26px;">
+          <a href="mailto:${safeEmail}?subject=Re:%20${encodeURIComponent(subject || "Votre message")}" style="display:inline-block;background:#0ea5e9;color:#ffffff;font-weight:bold;font-size:13px;padding:12px 24px;text-decoration:none;">R&eacute;pondre</a>
         </td></tr>
-        <tr><td style="padding:24px 32px 8px;">
-          <p style="margin:0;color:#b45309;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-family:${MONO};">02 &mdash; Message</p>
-        </td></tr>
-        <tr><td style="padding:0 32px;">
-          <table width="100%" cellpadding="0" cellspacing="0">
-            <tr><td style="background:#f7f7f4;border-left:3px solid #f59e0b;padding:18px 20px;color:#26262b;font-size:14px;line-height:1.8;white-space:pre-wrap;font-family:${SANS};">${safeMessage}</td></tr>
-          </table>
-        </td></tr>
-        <tr><td style="padding:26px 32px 30px;">
-          <a href="mailto:${safeEmail}?subject=Re:%20${encodeURIComponent(subject || "Votre message")}" style="display:inline-block;background:#f59e0b;color:#111114;font-weight:bold;font-size:13px;letter-spacing:0.5px;padding:13px 28px;text-decoration:none;font-family:${SANS};">R&eacute;pondre &agrave; ${safeName}</a>
-          <p style="margin:12px 0 0;color:#8a8a86;font-size:11px;font-family:${MONO};">Ou r&eacute;pondez directement &agrave; cet email.</p>
-        </td></tr>
-        <tr><td style="border-top:1px solid #e4e4df;padding:18px 32px;">
-          <p style="margin:0;color:#6e6e74;font-size:10px;letter-spacing:1px;font-family:${MONO};">&copy; ${year} Koffi L&eacute;vis Akalete &mdash; Niamey, Niger</p>
-          <p style="margin:4px 0 0;color:#8a8a86;font-size:10px;letter-spacing:1px;font-family:${MONO};">13.5127&deg; N, 2.1128&deg; E &middot; akaletekoffilevis.vercel.app</p>
+        <tr><td style="border-top:1px solid #e4e4e7;padding:16px 28px;">
+          <p style="margin:0;color:#a1a1aa;font-size:11px;font-family:${MONO};">&copy; ${year} Koffi L&eacute;vis Akalete &middot; Niamey, Niger &middot; re&ccedil;u le ${date}</p>
         </td></tr>
       </table>
     </td></tr>
@@ -144,11 +132,11 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
           });
 
           await transporter.sendMail({
-            from: `"${escapeHtml(name)} (Contact Portfolio)" <${gmailUser}>`,
+            from: `"${name.replace(/["\r\n]/g, "")} (Contact Portfolio)" <${gmailUser}>`,
             to: "koffilevis21@gmail.com",
-            replyTo: escapeHtml(email),
-            subject: `Portfolio: ${escapeHtml(subject) || "Nouveau message de contact"}`,
-            text: `Message de ${escapeHtml(name)} (${escapeHtml(email)}):\n\nSujet: ${escapeHtml(subject)}\nWhatsApp: ${escapeHtml(whatsapp) || "Non renseigné"}\n\nMessage:\n${escapeHtml(message)}`,
+            replyTo: email,
+            subject: `Portfolio: ${subject || "Nouveau message de contact"}`,
+            text: `Message de ${name} (${email}):\n\nSujet: ${subject || "Sans sujet"}\nWhatsApp: ${whatsapp || "Non renseigné"}\n\nMessage:\n${message}`,
             html: buildEmailHtml(name, email, subject || "", whatsapp || "", message)
           });
           emailSent = true;

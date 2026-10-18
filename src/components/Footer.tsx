@@ -1,7 +1,9 @@
 import { usePortfolio } from "../context/PortfolioContext";
+import { useT, tpl } from "../i18n";
 
 export default function Footer() {
   const { profile } = usePortfolio();
+  const t = useT();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -13,13 +15,13 @@ export default function Footer() {
           </p>
           <p className="folio order-1 md:order-2 tabular-nums">13.5127° N, 2.1128° E — Niamey</p>
           <div className="flex items-center gap-5 order-2 md:order-3">
-            <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label={`GitHub de ${profile.name}`} className="folio hover:text-app-accent transition-colors">
+            <a href={profile.socials.github} target="_blank" rel="noreferrer" aria-label={tpl(t.footer.githubAria, { name: profile.name })} className="folio hover:text-app-accent transition-colors">
               github
             </a>
-            <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label={`LinkedIn de ${profile.name}`} className="folio hover:text-app-accent transition-colors">
+            <a href={profile.socials.linkedin} target="_blank" rel="noreferrer" aria-label={tpl(t.footer.linkedinAria, { name: profile.name })} className="folio hover:text-app-accent transition-colors">
               linkedin
             </a>
-            <a href={`mailto:${profile.socials.email}`} aria-label={`Envoyer un email à ${profile.name}`} className="folio hover:text-app-accent transition-colors">
+            <a href={`mailto:${profile.socials.email}`} aria-label={tpl(t.footer.emailAria, { name: profile.name })} className="folio hover:text-app-accent transition-colors">
               email
             </a>
           </div>
