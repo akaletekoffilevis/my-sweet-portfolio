@@ -31,6 +31,14 @@ export const SKILLS_DATA: Skill[] = [
     description: "Langage principal : POO, APIs REST, applications console, architectures microservices."
   },
   {
+    name: "Dart",
+    category: "languages",
+    level: 76,
+    experienceYears: 0.5,
+    icon: "Code2",
+    description: "Langage principal utiliser par flutter pour les applications mobiles, desktop et web multiplatforme"
+  },
+  {
     name: "SQL",
     category: "languages",
     level: 75,
@@ -85,6 +93,14 @@ export const SKILLS_DATA: Skill[] = [
     experienceYears: 1.5,
     icon: "Layers",
     description: "APIs RESTful, Minimal APIs, MVC, Entity Framework Core, JWT."
+  },
+  {
+    name: "Flutter",
+    category: "frameworks",
+    level: 72,
+    experienceYears: 0.5,
+    icon: "Layers",
+    description: "Mobile, Desktop, Web and Mutli Platform"
   },
   {
     name: "Blazor",
@@ -334,6 +350,15 @@ export const CERTS_DATA: Certification[] = [
     kind: "image",
     file: "/images/Certificat FreecodeCamp.webp",
     url: "https://www.freecodecamp.org/certification/akalete_koffi_levis/foundational-c-sharp-with-microsoft"
+  },
+  {
+    id: "flutterfirecamp",
+    issuer: "FlutterFire Camp",
+    title: "FlutterFire Summeer Camp",
+    date: "23 Octobre 2026",
+    kind: "image",
+    file: "/images/certificat-ffsc-ffc-2026-lrn-ptqatt-koffi-l-vis-akalete.png",
+    url: "https://flutterfirecamp.dev/verify/FFC-2026-LRN-PTQATT"
   },
   {
     id: "nextflutter",
